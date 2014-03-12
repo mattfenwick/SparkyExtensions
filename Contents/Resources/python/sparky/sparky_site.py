@@ -129,8 +129,14 @@ def standard_menu_entries():
     ('Spectrum',                spectrum_menu),
     ('Spectrum/Fold spectrum',  fold_menu),
     ('View',                    view_menu),
-    ('NMRFAM',                  nmrfam_menu),    
-    )
+    ('NMRFAM',                  nmrfam_menu),
+    ('Reproduciblity!',         
+       (
+        ('re', 'Reproducibility',    ('reproduce', 'doit')),
+        ('rr', 'Repro2',             ('reproduce', 'doittoit')),
+        ('rc', 'Write peak files',   ('reproduce', 'write_peak_files')),
+        ('rz', 'Resonance test',     ('reproduce', 'some_resonances')),
+        ('rg', 'Grab some data',     ('reproduce', 'grab_some_data')))))    
 
   return menus
 
