@@ -5,6 +5,11 @@ import os
 sess = None
 some_data = {}
 run = 0
+hsqc = None
+peaks = None
+resonances = None
+atom = None
+group = None
 
 
 def kwargs(**args):
@@ -41,12 +46,28 @@ def some_resonances(session):
     peaks[0].assign(1, '22', 'N')
     peaks[1].assign(0, '23', 'H')
     peaks[1].assign(1, '24', 'N')
-    peaks[2].assign(0, 'AB', 'H')
-    peaks[2].assign(1, 'CB', 'N')
+    peaks[2].assign(0, 'SS42qrs', 'HA[2]')
+    peaks[2].assign(1, 'SS42qrs', 'N')
     peaks[4].assign(0, '22', 'CA(i/1)')
     peaks[4].assign(1, '23', 'CA')
     peaks[5].assign(0, 'QQ', 'CA(i\\1)')
     peaks[5].assign(1, 'RR', 'CA')
+    print peaks[0:6]
+
+
+def write_json_file(my_object):
+    # does this correctly clean up the resources if there's a failure?
+    global run
+    try:
+        run += 1
+        home = os.path.expanduser("~")
+        dir = home + "/Sparky/JSON/"
+        name = 'file' + str(run) + ".txt"
+        myhandle = open(dir + name, 'w')
+        myhandle.write(dumpJSON_my_object)
+    except Exception, e:
+        print 'oops while writing file: ', e
+        raise
 
 
 def write_peak_files(session):
@@ -54,7 +75,8 @@ def write_peak_files(session):
     peaks = session.project.spectrum_list()[0].peak_list()
     try:
         run += 1
-        myhandle = open('file' + str(run) + '.txt', 'w')
+        home = os.path.expanduser("~")
+        myhandle = open(home + '/Sparky/JSON/file' + str(run) + '.txt', 'w')
 #        myhandle.write(str(peaks))
         myhandle.write(dumpJSON(map(peakToJSONObj, peaks)))
         resonances = []
@@ -72,28 +94,10 @@ def write_peak_files(session):
 
 
 def grab_some_data(session):
-    global some_data
-    print session
-    print session.project
-    print session.project.spectrum_list()
+    global sess, some_data, hsqc, peaks, resonances, atom, group
+    sess = session
     some_data['hsqc'] = hsqc = session.project.spectrum_list()[0]
     some_data['peaks'] = peaks = hsqc.peak_list()
-    some_data['pk3'] = pk3 = peaks[3]
-    some_data['rs3'] = rs3 = pk3.resonances()
-    pk3.assign(0, '22', 'CA(i-1)')
-    pk3.assign(1, '22', 'CA')
-    try:
-        pk3.assign(2, '22', 'CB')
-    except:
-        print 'too many dimensions!'
-    print peaks[2:6]
-
-
-def doit(session):
-  global sess
-  sess = session
-  print session
-  raise ValueError(str(session))
-
-def doittoit(session):
-  print session.__dict__
+    some_data['resonances'] = resonances = peaks[2].resonances()
+    some_data['atom'] = atom = resonances[0].atom
+    some_data['group'] = group = resonances[0].group
