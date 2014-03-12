@@ -1,0 +1,1462 @@
+%!PS-Adobe-3.0
+%%BoundingBox: 0 0 612 792
+%
+% PostScript initialization file for Sparky, version 1.08 and above.
+%
+%%ColorUsage: Color
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       Start of user-definable section                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% Flags that can be changed - use "true" or "false".
+%
+/bottomAxisScale?	true	def	% If the bottom axis is shown
+/topAxisScale?		true	def	% If the top axis is shown
+/leftAxisScale?		true	def	% If the left axis is shown
+/rightAxisScale?	true	def	% If the right axis is shown
+
+/leftAxisLabel?		true	def	% If the left axis label is shown
+/bottomAxisLabel?	true	def	% If the bottom axis label is shown
+
+/bottomTick?		true	def	% If the bottom ticks are shown
+/topTick?		true	def	% If the top ticks are shown
+/leftTick?		true	def	% If the left ticks are shown
+/rightTick?		true	def	% If the right ticks are shown
+
+/showBanner?		true	def	% If the banner is to be shown
+/shadowUnderBanner?	true	def	% Place shadow box under banner
+/planeBanner?		true	def	% In N-D spectra, shows current plane
+
+/useGray?		true	def	% On B/W printer use gray scale?
+
+
+%
+% Sizes that can be changed.
+%
+/MajorTickInset		0	def	% Amount major tick goes inside panel
+/MajorTickOutset	12	def	% Amount major tick goes outside panel
+/MajorTickThickness	4	def	% Thickness of major tick
+/MinorTickInset		0	def	% Amount minor tick goes inside panel
+/MinorTickOutset	8	def	% Amount minor tick goes outside panel
+/MinorTickThickness	1	def	% Thickness of minor tick
+/EdgeLineWidth		4	def	% Thickness of border around panels
+/LeftLabelPad		32	def	% Pad between left axis labels & label
+/BottomLabelPad		32	def	% Pad between bottom axis labels & label
+/AxisPad		8	def	% Pad between ticks and labels
+
+
+%
+% Fonts that can be changed
+%
+/AxisFont		/Helvetica	def	% Font used for X/Y axis
+/AxisFontSize		12		def	%   and its size
+/BannerFont		/Helvetica	def	% Font used for the banner
+/BannerFontSize		12 		def	%   and its size
+/LabelFont		/Courier	def	% Font used for peak labels
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       End of user-definable section                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Check whether color is available
+/has_color false def
+% the following is for Display PostScript and PostScript Level 2
+/deviceinfo where {
+	pop deviceinfo /Colors known {
+		deviceinfo /Colors get exec
+		1 ne {
+			/has_color true def
+		} if
+	} if
+} if
+% the following is for PostScript Level 1 printers
+statusdict /processcolors known {
+	statusdict /processcolors get exec
+	1 ne {
+		/has_color true def
+	} if
+} if
+
+
+%
+% Color printer check. If true, the /4color variable is set to be true.
+%
+has_color {
+	/4color true def
+	1.0 setlinewidth
+}{
+	/4color false def
+	0.25 setlinewidth
+} ifelse
+
+
+%
+% Small dictionary used by the axis label routines
+%
+/plot_dict 2 dict begin
+	/subdis 0.0 def
+	/len 0.0 def
+	currentdict
+end def
+
+%
+%
+%
+/SCALE	1 def
+/SC	{ SCALE div } def
+/EdgePad {
+	EdgeLineWidth MajorTickOutset add AxisPad add
+} def
+/setAxisFont {
+	AxisFont findfont AxisFontSize SC scalefont setfont
+} def
+/LeftMostAxisPos EdgePad neg def
+/BottomMostAxisPos EdgePad neg def
+
+
+%
+% Low level defines
+%
+/bdef { bind def } bind def
+/ldef { load def } bdef
+/xdef { exch def } bdef
+/x { 0 rlineto } bdef
+/y { 0 exch rlineto } bdef
+/I {72 mul} bdef
+/L /lineto ldef
+/r /rmoveto ldef
+/s /gsave ldef
+/T /grestore ldef
+/M /moveto ldef
+/L /lineto ldef
+/C /closepath ldef
+
+%
+% Return the min or max of two numbers
+%
+/max { 2 copy lt {exch} {} ifelse pop } def
+/min { 2 copy gt {exch} {} ifelse pop } def
+
+
+/WHITE	1 def
+/BLACK	0 def
+/CLEAR	-1 def
+/DASH	4   def
+/TF	{ 0 ne {true}{false} ifelse } def
+
+%
+% A case/switch statement.  Takes a key for the case and an array.
+% Generally the array is executable to avoid evaluating the array
+% each time case is called:
+%	obj {
+%	    key1	{proc1}
+%	    key2 key3	{proc2}
+%	    key4	{proc3}
+%	    /Default	{proc4}
+%	} case
+%
+/case where { pop } {
+  /case {			%  v { k {} k k {} .... /Default {} }  CASE  -
+    false exch {				% v bool k|{}
+	exch {					% v k|{}
+	    dup xcheck {exit} {pop true} ifelse	% v bool|{}
+	} {
+	    2 copy eq exch /Default eq or	% v bool
+	} ifelse
+    } forall					% v bool|{}
+    dup xcheck {exch pop exec} {pop pop} ifelse
+  } bind def
+} ifelse
+
+
+%
+% String justification routines
+%
+/rshow { dup stringwidth exch neg exch rmoveto show } def
+/cshow { dup stringwidth pop -.5 mul 0 rmoveto show } bdef
+/stringsize {
+	gsave
+	newpath
+	0 0 moveto				% str
+	false charpath pathbbox			% x1 y1 x2 y2
+	4 2 roll pop pop			% x2 y2
+	grestore
+} def
+/stringcenter {	% str -> cx cy
+	stringsize
+	.5 mul exch .5 mul exch			% cx cy
+} def
+/tickrshow {	% str x y -> -
+	moveto					% str
+	MajorTickOutset neg 0 rlineto s stroke T	% str
+	dup stringsize				% str w h
+	-.5 mul exch pop 0 exch			% str 0 dy
+	rmoveto rshow
+} def
+
+%
+% Set the dash pattern for either color or B&W printing
+%
+/set_dash {	% bwdash colordash
+	4color {
+		0 setdash pop
+	}{
+		pop 0 setdash
+	} ifelse
+} def
+
+
+%
+% Set the color for either color printing or black for B&W printing
+%
+/contour_color {	% color_index => -
+	4color {
+		colors exch get aload pop
+		setrgbcolor pop
+	}{
+		dashpatterns level get aload pop set_dash
+		pop 0 setgray
+	} ifelse
+} def
+
+/set_stroke {
+	levelcolor contour_color
+} bdef
+
+%
+% Set the stroke color and perform the stroke
+%
+/S {set_stroke stroke} bdef
+
+%
+% Set the color from the color index, whether RBG or B&W
+%
+/setpixel {		% color_index => -
+	4color {
+		colors exch get aload pop
+		setrgbcolor pop
+	}{
+		useGray? {
+			colors exch get aload pop
+			pop pop pop setgray
+		}{
+			WHITE eq { 1 } { 0 } ifelse setgray
+		} ifelse
+	} ifelse
+} bdef
+
+%
+% Add a rectangular path to the current path at the current point
+%
+/rect {			% w h => -
+    dup 0 exch rlineto 
+    exch 0 rlineto 
+    neg 0 exch rlineto 
+    closepath 
+} bdef
+
+%
+% Compute the rectangle that is inset by <delta> from the input
+% rectangle <x> <y> <w> <h>
+%
+/insetrect { 		% delta x y w h => x' y' w' h'
+    3 index 5 index add		% delta x y w h x'
+    3 index 6 index add		% delta x y w h x' y'
+    3 index 7 index 2 mul sub	% delta x y w h x' y' w'
+    3 index 8 index 2 mul sub	% delta x y w h x' y' w' h'
+    mark 10 5 roll cleartomark
+} bdef
+
+%
+% Add a rectangular path to the current path
+%
+/rectpath { 		% x y w h  =>  - 
+    4 2 roll moveto rect
+} def
+
+%
+% Given x y w h coordinates, create a shadow box offset down and right
+% of this box
+%
+/shadowbox {		% x y w h dx dy => -
+	%
+	% Draw dark box
+	%
+	gsave
+		neg translate
+		4 copy rectpath
+		0 setgray fill
+	grestore
+
+	%
+	% Fill white box then stroke dark border
+	%
+	rectpath
+	gsave
+		1 setgray fill
+	grestore
+	0 setgray stroke
+} def
+
+
+
+/Xshow /show ldef
+/Xs /show ldef
+
+%
+% Switch fonts
+%
+/XfR {
+	/Times-Roman findfont setfont
+} def
+/XfS {
+	/Symbol findfont setfont
+} def
+
+
+%
+% Attach a font to a variable name if the font exists. This should
+% check if the font exists before trying the bind, but the code
+% that has been "%%"ed out below fails on SPARCprinters!
+%
+/bindFont {	% variable fontname	=> -
+%%	dup FontDirectory exch known {			% var name t|f
+		[ exch findfont /setfont load ] cvx	% var proc
+		store					% -
+%%	}{
+%%		pop pop					% -
+%%	} ifelse
+} def
+
+%
+% For filled objects, if the fill is white or nil, and the border is
+% white or nil, replace the border with black
+%
+/FixFill {	% bo bg
+	0 index dup 0 lt exch		% bo bg bool bg
+	WHITE eq or {			% bo bg
+		1 index dup 0 lt exch	% bo bg bool bo
+		WHITE eq or {		% bo bg
+			exch pop
+			BLACK exch
+		} if
+	} if
+} def
+
+
+%
+% Draw the pointer in colors <bo> <bg> in the 3 point area <x1, y1>,
+% <x2, y2>, <x3, y3>
+%
+/PaintPointer {		% bo bg x1 y1 x2 y2 x3 y3 => -
+	moveto				% bo bg x1 y1 x2 y2
+	lineto				% bo bg x1 y1
+	lineto				% bo bg
+	closepath			% bo bg
+
+	FixFill				% bo' bg
+
+	%
+	% First the fill
+	%
+	dup 0 ge {
+		setpixel
+		gsave fill grestore
+	}{
+		pop
+	} ifelse
+
+	%
+	% Now stroke the edge, unless it is white or nil.
+	%
+	dup WHITE eq {
+		pop
+	}{
+		dup 0 ge {
+			setpixel
+			stroke
+		}{
+			pop
+		} ifelse
+	} ifelse
+} def
+
+%
+% Paint a grid line from <x,y> size <w,h> in color <bg>
+%
+/PG {		% bg x y w h => -
+	4 2 roll				% bg w h x y
+	moveto					% bg w h 
+	rlineto					% bg
+	stroke					% bg
+	pop					% -
+} def
+
+%
+% Place a border around the peak (this doesn't do much except handle
+% the above-plane, below-plane pointer for printing)
+%
+/BorderPeak {	% x y w h sel {-1 | 0 | 1 }  => x y w h
+	dup 0 ne {
+		6 copy exch pop			% x y w h {above|below}
+
+		0 ge {
+			4 2 roll moveto rmoveto	% x y w h sel {u/d}
+			2 index .5 mul dup .5 mul
+		}{
+			4 2 roll moveto exch pop 0 exch rmoveto
+			2 index .5 mul neg dup -.5 mul
+		} ifelse
+		2 copy rlineto
+		exch neg exch rlineto
+		closepath
+		BLACK setpixel stroke
+	} if
+	pop				% x y w h sel
+	pop				% x y w h
+} bdef
+
+%
+% Paint a Peak from <x,y> with size <w,h> in border color <bo> and
+% background color <bg>. If <bg> is -1, the peak is not printed at all.
+% For Peaks, the border color is currently ignored because the peak is
+% drawn as an "X".  The selected state <sel> is also ignored but show
+% a flag on the edge if the peak is above or below this plane.
+%
+/PP {		% bo bg x y w h sel { -1 | 0 | 1 } => -
+	BorderPeak 				% bo bg x y w h
+	5 -1 roll dup 0 lt {			% bo x y w h bg
+		pop pop pop pop pop		% bo
+	}{
+		dup WHITE eq {			% bo x y w h bg|WHITE
+			pop BLACK		% bo x y w h bg|BLACK
+		} if				% bo x y w h bg|BLACK
+		setpixel			% bo x y w h
+		4 2 roll moveto			% bo w h
+		2 copy rlineto			% bo w h
+		1 index neg 0 rmoveto		% bo w h
+		neg rlineto			% bo 
+		stroke				% bo
+	} ifelse
+} def
+
+/PaintBox {	% bo bg x y w h => x y w h
+
+	%
+	% If the fill color is positive, fill it.
+	%
+	6 -2 roll			% x y w h bo bg
+	FixFill				% x y w h bo' bg
+	exch 6 1 roll			% bo' x y w h bg
+	dup 0 ge {			% bo x y w h bg
+		setpixel
+		4 copy rectpath fill	% bo x y w h
+	}{
+		pop
+	} ifelse
+
+	%
+	% If the border color is positive, edge it.
+	%
+	5 -1 roll dup 0 ge {		% x y w h bo
+		setpixel		% x y w h
+		4 copy rectpath stroke	% x y w h
+	}{
+		pop			% x y w h
+	} ifelse
+} def
+
+/PaintBox2 {	% bo bg x y w h => x y w h
+
+	%
+	% If the fill color is positive, fill it.
+	%
+	5 -1 roll			% bo' x y w h bg
+	dup 0 ge {			% bo x y w h bg
+		setpixel
+		4 copy rectpath fill	% bo x y w h
+	}{
+		pop
+	} ifelse
+
+	%
+	% If the border color is positive, edge it.
+	%
+	5 -1 roll dup 0 ge {		% x y w h bo
+		setpixel		% x y w h
+		4 copy rectpath stroke	% x y w h
+	}{
+		pop			% x y w h
+	} ifelse
+} def
+
+
+%
+% Paint a crosspeak
+%
+/PX {	% bo bg x y w h => -
+	PaintBox			% x y w h
+	4 {pop} repeat			% -
+} def
+
+
+%
+% Resonance information
+%
+/PaintResBY {		% labelpos => matrix
+	15 SC exch moveto			% -
+	matrix currentmatrix			% CTM
+	resScale dup scale			% CTM
+} def
+/PaintResBX {		% labelpos => matrix
+	matrix currentmatrix exch		% CTM labelpos
+	15 SC					% CTM labelpos x
+	exch translate				% CTM
+	resScale dup scale			% CTM
+	0 0 moveto				% CTM
+} def
+
+/PaintResA {		% matrix shift ypos => -
+	3 -1 roll
+	setmatrix		% shift ypos
+	0 exch moveto		% shift
+	3 SC 0 rlineto
+	8 SC exch rlineto	% -
+	3 SC 0 rlineto
+	stroke
+} def
+/PaintResB null def
+
+%
+% Paint a resonance
+%
+/PaintRes {	% pos shift {labelproc} bot => -
+	PaintResB			% pos shift {labelproc} matrix
+	4 1 roll			% matrix pos shift {labelproc}
+	exec				% matrix pos shift
+	exch PaintResA			% -
+} def
+
+
+%
+% Produce a linepath with an arrow at the appropriate end.
+% Arrows are at 1 (x, facing left), 3 (y, facing down),
+% 2 (x + w, facing right), 4 (y + h, facing up).
+%
+%
+/LEX	{ LineEndSizeX } def
+/LEY	{ LineEndSizeY } def
+/ArrowX	{ h .3535 mul } def
+/ArrowY	{ w .3535 mul } def
+/w	0 def
+/h	0 def
+/LinePath {	% ends x y w h => - (builds path)
+	5 -1 roll {				% x y w h
+	    1 {	%  at left end
+		%
+		%   +- 7 ---------------+	+
+		%   | /| <LEY 			|
+		%    / 6----------------5	|
+		%   1                   |	h
+		%    \ 3----------------4	|
+		%   | \| <LEY			|
+		%   +--2 ---------------+	+
+		% x,y ^ArrowX
+		%
+		%   +----------w--------+
+
+		/h exch store			% x y w
+		/w exch store			% x y w
+
+		h .5 mul add moveto		% 1)
+		ArrowX h -.5 mul rlineto	% 2)
+		0 LEY rlineto			% 3)
+		w ArrowX sub dup 0 rlineto	% w' 4)
+		0 h LEY dup add sub rlineto	% w' 5)
+		neg 0 rlineto			% 6)
+		0 LEY rlineto			% 7)
+		closepath
+	    }
+
+	    2 {	% at right end
+		%
+		%   +----------------5--+	+
+		%        	LEY> |\ |	|
+		%   7----------------6 \	|
+		%   |                   4 	h
+		%   1----------------2 /	|
+		%        	LEY> |/ |	|
+		%   +----------------3--+	+
+		% x,y           ArrowX^
+		%
+		%   +---------w---------+
+		/h exch store			% x y w
+		/w exch store			% x y
+
+		LEY add moveto			% 1)
+		w ArrowX sub dup 0 rlineto	% w' 2)
+		0 LEY neg rlineto		% w' 3)
+		ArrowX h .5 mul rlineto		% w' 4)
+		ArrowX neg h .5 mul rlineto	% w' 5)
+		0 LEY neg rlineto		% w' 6)
+		neg 0 rlineto			% 7)
+		closepath
+	    }
+
+	    4 {
+		%         
+		%   +--5-4--+  		+
+		%      | |		|
+		%  LEX^| |^LEX		|
+		%      | |  		|
+		%   7--6-3--2		h
+		%    \     /		|
+		%   | \   / | <ArrowY	|
+		%   |  \ /  |		|
+		%   +---1---+		+
+		% x,y
+		%
+		%   +---w---+
+		%
+		/h exch store			% x y w
+		/w exch store			% x y
+
+		exch w .5 mul add exch moveto	% 1)
+		w .5 mul ArrowY rlineto		% 2)
+		LEX neg 0 rlineto		% 3)
+		0 h ArrowY sub rlineto		% 4)
+		w LEX dup add sub neg 0 rlineto	% 5)
+		0 ArrowY h sub rlineto		% 6)
+		LEX neg 0 rlineto		% 7)
+		closepath
+	    }
+
+	    5 {	% at top
+		%         
+		%   +---7---+		+
+		%   |  / \  |		|
+		%   | /   \ | <ArrowY	|
+		%    /     \		|
+		%   1--2-5--6		h
+		%    ^ | | ^ 		|
+		%   LEX| |LEX		|
+		%      | |   		|
+		%   +--3-4--+  		+
+		% x,y
+		%
+		%   +---w---+
+		%
+		/h exch store			% x y w
+		/w exch store			% x y
+
+		h ArrowY sub add moveto		% 1)
+		LEX 0 rlineto			% 2)
+		0 ArrowY h sub rlineto		% 3)
+		w LEX dup add sub 0 rlineto	% 4)
+		0 h ArrowY sub rlineto		% 5)
+		LEX 0 rlineto			% 6)
+		w -.5 mul ArrowY rlineto	% 7)
+		closepath
+	    }
+	    /Default { rectpath }
+	} case
+} bdef
+
+%
+% Paint a line
+%
+/PL {	% ends bo bg x y w h => -
+
+	%
+	% CLEAR or WHITE border WHITE background becomes 
+	% CLEAR border BLACK background
+	%
+	7 -1 roll 5 1 roll		% bo bg ends x y w h
+	LinePath 			% bo bg
+	dup WHITE eq {
+		1 index 0 lt
+		2 index WHITE eq or {
+			pop pop
+			-1 BLACK	% x y w h CLEAR BLACK
+		} if
+	} if
+
+	%
+	% If the fill color is positive, fill it.
+	%
+	dup 0 ge {			% bo bg
+		gsave			% bo bg
+		  setpixel		% bo
+		  fill			% bo
+		grestore		% bo
+	}{
+		pop			% bo
+	} ifelse			
+
+	%
+	% If the border color is positive, edge it.
+	%
+	dup 0 ge {			% bo
+		setpixel		% -
+		stroke			% -
+	}{
+		pop			% -
+	} ifelse
+} bdef
+
+/PA {	% {} {} bo bg x y w h => -
+	PaintBox2 			% {} {} x y w h
+	5 -1 roll exec			% {} x y w h
+	pop pop moveto
+	matrix currentmatrix		% {} CTM
+	exch				% CTM {}
+	exec				% CTM
+	setmatrix			% -
+} bdef
+
+
+% xlabel : labels the graph with ppm scale.
+% On stack: labels label_count ylength incr_distance
+/xlabel {
+  gsave plot_dict begin
+    /subdis exch store
+    /len exch store
+    {
+	gsave
+	    bottomAxisScale? {
+		gsave
+			0 1 index stringsize exch pop EdgePad add neg r
+
+			%
+			% Find the bottom-most axis label position, for
+			% positioning the horizontal axis label
+			%
+			currentpoint exch pop	% label y
+			dup BottomMostAxisPos lt {
+				/BottomMostAxisPos exch store
+			}{
+				pop
+			} ifelse
+
+			dup cshow
+		grestore
+	    } if
+	    topAxisScale? {
+		0 len EdgePad add r dup cshow
+	    }if
+	    pop
+	grestore
+	subdis 0 r
+    } repeat
+  end grestore
+} bdef
+
+% ylabel : labels the graph with ppm scale.
+/ylabel {
+  s
+  plot_dict begin
+	/subdis exch store
+	/len exch store
+	{
+		dup stringsize			% str w h
+		-.5 mul exch neg exch		% str dx dy
+		s 2 copy r 2 index
+		leftAxisScale? {
+			EdgePad neg 0 r		% label
+
+			%
+			% Find the left-most axis label position, for
+			% positioning the vertical axis label
+			%
+			currentpoint pop	% label x
+			dup LeftMostAxisPos lt {
+				/LeftMostAxisPos exch store
+			}{
+				pop
+			} ifelse
+			show			% -
+		}{
+			pop			% -
+		} ifelse T
+		s exch pop 0 exch r len 0 r
+		rightAxisScale? { EdgePad 0 r show } { pop } ifelse T
+		0 subdis r
+	} repeat
+  end T
+} bdef
+
+% grid : draws grid of dashed lines on plot.  The major increment has
+% a solid line rather than a dashed line.
+% On stack : incr_index num_incrs yheight incr end
+/grid
+{
+  s
+  [DASH] 0 setdash
+  0 6 1 roll 0
+  {
+    dup 2 index le		% while not at end of scale
+    {
+      6 index 6 index sub	% check if major increment
+      5 index mod 0 ne
+      {				% No so draw dashed line.
+      	dup 0 M
+      	3 index y stroke
+      }
+      {				% Yes so set to solid line
+      	[] 0 setdash
+      	dup -5 M
+      	3 index 10 add y stroke
+	[DASH] 0 setdash
+      } ifelse
+      2 index add		% increment position
+      7 -1 roll 1 add		% increment counter
+      7 1 roll
+    }
+    { exit } ifelse
+  } loop
+  7 { pop } repeat
+  T
+} bdef
+
+% tick : draws tick marks on axes.
+% On stack : [ yposition ... ] i longAt inc end
+% On stack : [ [ yposition direction ] ... ] i longAt inc end
+/tick
+{
+	s
+	10 dict begin
+	    /xend	exch def
+	    /xinc	exch def
+	    /longAtI	exch def
+	    /istart	exch def
+	    /heights	exch def
+
+	    /xpos	0 def
+	    /ipos	0 def
+	    /tickin	null def
+	    /tickout	null def
+	    /direction	1 def
+	    {
+		xpos xend ge { exit } if
+
+		ipos istart sub longAtI mod 0 eq {
+			MajorTickThickness setlinewidth
+			MajorTickInset MajorTickOutset	% long ticks
+		}{
+			MinorTickThickness setlinewidth
+			MinorTickInset MinorTickOutset	% short ticks
+		} ifelse
+		/tickout exch EdgeLineWidth add store
+		/tickin exch store
+
+		heights {
+			dup type /arraytype eq {
+				aload pop
+				/direction exch store
+			} if
+								% ypos
+			xpos exch M				% -
+			0 tickin direction mul r		% -
+			0 tickin tickout add neg direction mul y% -
+			stroke
+		} forall
+
+		/xpos xpos xinc add store	% increment position
+		/ipos ipos 1 add store		% increment counter
+	    } loop
+	end
+	T
+} bdef
+
+/xTick {		% [ yposition ... ] i longAt inc end
+	5 -1 roll
+	bottomTick? not {
+		dup length 1 sub 1 getinterval
+	} if
+	topTick? not {
+		0 1 getinterval
+	} if
+	5 1 roll
+	tick
+} def
+
+/yTick {
+	5 -1 roll
+	leftTick? not {
+		dup length 1 sub 1 getinterval
+	} if
+	rightTick? not {
+		0 1 getinterval
+	} if
+	5 1 roll
+	tick
+} def
+
+/getScale {	% sz, maxSz
+	dup 0 gt 2 index 2 index gt and {
+		div				% scale
+	}{
+		1				% scale==1
+	} ifelse
+} def
+
+/displayOneLine {	% proc []
+	aload length 1 add -1 roll load exec	% -
+} def
+
+/displayLines {		% [[(...) .. ] ... ] fontht proc => -
+    3 dict begin
+	/proc exch def
+	/height exch def
+	/y 0 def
+	{
+		newpath
+		0 y moveto			% x1  y1  x2  y2 []		
+		proc exch displayOneLine	% x y
+		/y y height sub 2 sub store
+	} forall
+   end
+} def
+
+%
+% Return the box that fits around all the input strings
+%
+/getBoundingBox {	% [[(...)] ...] fontht proc => x1 y1 x2 y2
+    9 dict begin
+	/bbox_x1 0 def
+	/bbox_y1 0 def
+	/bbox_x2 0 def
+	/bbox_y2 0 def
+
+	%
+	% Determine the largest limits of these positions and the positions
+	% stored in the dictionary elements (of getBoundingBox) of bbox_x1 ...
+	% bbox_y2.
+	%
+	/combineBBox {		% x1 y1 x2 y2 => -
+		bbox_y2 max /bbox_y2 exch store		% x1 y1 x2
+		bbox_x2 max /bbox_x2 exch store		% x1 y1
+		bbox_y1 min /bbox_y1 exch store		% x1
+		bbox_x1 min /bbox_x1 exch store		% -
+	} def
+
+
+	%
+	% Xshow produces a bounding box which is the union of the input
+	% bounding box and the bounding box of this <string>. We iterate
+	% through the <string> because of charpath limits imposed by
+	% some PostScript interpreters. Otherwise we could have used:
+	%	{ false charpath pathbbox combineBBox }
+	%
+	/Xshow {	% string => -
+	    3 dict begin
+		dup /str exch def
+		length 1 sub 0 1 3 -1 roll {
+			str exch 1 getinterval
+			false charpath
+			currentpoint /y exch def /x exch def
+			pathbbox combineBBox
+			newpath x y moveto
+		} for
+	    end
+	} def
+	/proc exch def
+	/height exch def
+	/y 0 def
+
+	%
+	% Iterate over the string arrays, computing the bounding box
+	%
+	gsave
+	    {
+		newpath
+		0 y moveto			% []		
+		proc exch displayOneLine	% -
+		pathbbox combineBBox		% -
+		/y y height sub 2 sub store	% -
+	    } forall
+	grestore
+
+	%
+	% And return the bounding box
+	%
+	bbox_x1 bbox_y1 bbox_x2 bbox_y2
+    end
+} def
+
+/CurrFontSize AxisFontSize def
+/FontSize { CurrFontSize SC } def
+
+/showOmega {
+	currentfont
+	/Symbol findfont CurrFontSize SC 1.25 mul scalefont setfont
+	(w) Xshow
+	setfont
+} def
+
+/showUnits {	% (units)
+	(  \() Xshow					% u
+	Xshow						% -
+	(\)) Xshow					% -
+} def
+
+/showAxisAtom {	% (atom) (axis) => -
+	showOmega
+	subscript Xshow unsubscript
+	( - ) Xshow					% u a
+	showAtom					% u
+} def
+
+/showAxis {	% (units) (atoms) (axis) => -
+	showAxisAtom
+	showUnits
+} def
+
+/doPlaneLine {		% (units) (atom) (axis) (offset)
+	3 1 roll
+	showAxisAtom
+	( :  ) Xshow
+	Xshow
+	showUnits
+} def
+
+/doBannerLine {
+	Xshow
+} def
+
+/setBannerFont { BannerFont findfont BannerFontSize scalefont setfont } def
+/planeBannerFont { BannerFont findfont BannerFontSize SC scalefont } def
+
+/banner {	% [() ...] => -
+  showBanner? {
+    gsave
+    7 dict begin
+	/oCurrFontSize CurrFontSize def
+	/CurrFontSize BannerFontSize store
+
+	setBannerFont
+	dup BannerFontSize /doBannerLine getBoundingBox	% [] x1 y1 x2 y2
+
+	%
+	%
+	/TRy exch BANNERWIDTHFUDGE add def
+	/TRx exch BANNERWIDTHFUDGE add def
+	/BLy exch BANNERWIDTHFUDGE sub def
+	/BLx exch BANNERWIDTHFUDGE sub def		% []
+	/xsize TRx BLx sub def
+	/ysize TRy BLy sub def
+
+
+	% Center the box
+	%
+	xsize -2 div 0 translate			% move to left edge
+
+	%
+	% Put down a shadow box
+	%
+	shadowUnderBanner? {
+		BLx BLy xsize ysize 2 2 shadowbox
+	} if
+
+	BannerFontSize /doBannerLine displayLines
+
+	/CurrFontSize oCurrFontSize store
+    end
+    grestore
+  }{
+	pop
+  } ifelse
+
+} bdef
+
+%
+% Place a small box that shows the plane of this view. Make sure the
+% box is completely visible, sizing it down for really skinny views.
+%
+%
+% The location of the box is within 5% of the left/top corner. The size
+% of the box is large enough to fit the text, but the box is never larger
+% than 90 of the width.
+%
+/BANNERWIDTHFUDGE	8 def
+/planebanner {		% [ [ (units) (atom) (axis) (offset) ] ... ] => -
+    planeBanner? not {
+	pop
+    }{
+	gsave
+	7 dict begin
+		%
+		% Set the "current font size" to the banner size. This
+		% is used globally by the routines that make the omegas
+		% and sub- and super-scripts.
+		%
+		/oCurrFontSize CurrFontSize def
+		/CurrFontSize BannerFontSize store
+
+		planeBannerFont setfont
+		dup BannerFontSize SC /doPlaneLine
+		getBoundingBox				 % [] x1 y1 x2 y2
+
+		/TRy exch BANNERWIDTHFUDGE add def
+		/TRx exch BANNERWIDTHFUDGE add def
+		/BLy exch BANNERWIDTHFUDGE sub def
+		/BLx exch BANNERWIDTHFUDGE sub def	% []
+		/xsize TRx BLx sub def
+		/ysize TRy BLy sub def
+
+
+		% Move to a few units from the top left corner
+		%
+		WIDTH .05 mul 30 min HEIGHT translate
+
+		% Limit the width/height to 90% of the view
+		%
+		xsize WIDTH  .90 mul div 1 max
+		ysize HEIGHT .90 mul div 1 max
+		max 1 exch div dup
+		scale
+
+		% Once scaled, move down to the bottom-left corner
+		%
+		0 ysize neg translate
+
+
+		% Put a box around the region
+		%
+		BLx BLy xsize ysize 2 SC 2 SC shadowbox		% []
+
+
+		% Display the lines from the bottom up.
+		%
+		0 0 moveto
+		BannerFontSize SC /doPlaneLine displayLines
+
+		%
+		% Restore the old "current font size"
+		%
+		/CurrFontSize oCurrFontSize store
+	end
+	grestore
+    } ifelse
+} bdef
+
+
+/subscript {
+	FontSize .05 mul FontSize -.3 mul r
+	.8 .8 scale
+} def
+
+/unsubscript {
+	1.25 1.25 scale
+	0 FontSize .3 mul r
+} def
+
+/superscript {
+	0 FontSize .4 mul r
+	.8 .8 scale
+} def
+
+/unsuperscript {
+	1.25 1.25 scale
+	0 FontSize -.4 mul r
+} def
+
+/isdigit {		% char => bool
+	dup 48 ge exch 57 le and
+} def
+
+%
+% Display the atom name with a superscripted atom weight
+%
+/showAtom {		% (atom) => -
+	%
+	% If (atom) starts with a digit, collect all digits and display them
+	% with a superscript, then display the rest of the thing normally.
+	%
+	dup length 0 gt {
+	    dup 0 get isdigit {
+		1				% (atom) digits
+		{
+			2 copy get		% (atom) digits dig
+			isdigit not {exit} if	% (atom) digits
+			1 add
+		} loop
+
+		% On stack are the string and the number of characters
+		% that are digits
+		%				% (atom) digits
+		1 index 0 2 index getinterval	% (atom) digits (substr)
+		superscript Xshow unsuperscript	% (atom) digits
+
+		% And get the remaining part of the string
+		%
+		1 index length			% (atom) digits length
+		1 index sub			% (atom) digits lengthLeft
+		getinterval			% (substr)
+	    } if
+	} if
+	Xshow
+} def
+
+%
+% Put the label (axis legend) along the X axis
+%
+/xaxislabel {		% (units) (atom) (axis) => -
+      bottomAxisLabel? {
+	xslice_pos M					% u a x
+	WIDTH 2 div					% u a x midx
+	BottomMostAxisPos BottomLabelPad sub r		% u a x
+
+	%
+	% Do the bounding box to find the true ascender (y2) and
+	% width (x2 - x1) and center using this width.
+	%
+	[ [ 4 index 4 index 4 index ] ]			% u a x [ [u a x] ]
+		0 /showAxis getBoundingBox		% u a x x1 y1 x2 y2
+
+	%
+	% Move down the amount of the ascender
+	%
+	0 exch neg r					% u a x x1 y1 x2
+	exch pop					% u a x x1 x2
+
+	%
+	% Move left half the width
+	%
+	sub 2 div 0 r					% u a x
+	showAxis 					% -
+      }{
+	pop pop pop
+      } ifelse
+
+} bdef
+
+%
+% Put the label (axis legend) along the X axis
+%
+/yaxislabel {		% (units) (atom) (axis) => -
+  leftAxisLabel? {
+    gsave
+	90 rotate
+	HEIGHT 2 div
+	LeftLabelPad LeftMostAxisPos sub M
+
+	%
+	% Do the bounding box to find the true descender (y1) and
+	% width (x2 - x1) and center using this width.
+	%
+	[ [ 4 index 4 index 4 index ] ]			% u a x [ [u a x] ]
+		0 /showAxis getBoundingBox		% u a x x1 y1 x2 y2
+
+	%
+	% Move up the amount of the descender
+	%
+	pop exch					% u a x x1 x2 y1
+	0 exch neg r					% u a x x1 x2
+
+	%
+	% Move left half the width
+	%
+	sub 2 div 0 r					% u a x
+	showAxis 					% -
+    grestore
+  }{
+    pop pop pop
+  } ifelse
+
+} bdef
+
+
+%
+% Stroke an "x y w h" box with linewidth "lw". The inside of the box is
+% exactly "x y w h" and the thick border falls along the outside edge.
+%
+/strokeThickBox {		% x y w h lw => -
+	6 dict begin
+		dup /lw exch def
+		2 div /lwBy2 exch def
+		/h exch def
+		/w exch def
+		/y exch def
+		/x exch def
+
+		currentlinewidth		% clw
+		lw setlinewidth
+
+		x lwBy2 sub			% x'
+		y lwBy2 sub			% x' y'
+		w lw add			% x' y' w'
+		h lw add			% x' y' w' h'
+		rectpath stroke
+
+		setlinewidth
+	end
+} def
+
+%
+% Draw an edge around the data area, the slice boxes and resonance boxes.
+%
+/edgeview {
+	newpath
+	0 setgray
+
+	%
+	% Edge the data area
+	%
+	0 0 WIDTH HEIGHT EdgeLineWidth strokeThickBox
+
+	%
+	% Edge the slice areas
+	%
+	userdict /SLICE known {
+		xslice_init
+		0 0 WIDTH SLICE EdgeLineWidth strokeThickBox
+		xslice_done
+
+		yslice_init
+		0 0 HEIGHT SLICE EdgeLineWidth strokeThickBox
+		yslice_done
+	} if
+
+	%
+	% Edge the resonance areas
+	%
+	userdict /RESONANCE known {
+		xres_init
+		0 0 RESONANCE WIDTH EdgeLineWidth strokeThickBox
+		xres_done
+
+		yres_init
+		0 0 RESONANCE HEIGHT EdgeLineWidth strokeThickBox
+		yres_done
+	} if
+} bdef
+
+%
+% Print a set of full width half max between the
+%
+/showhalfmax {		% [ [str xmin xmax yp] ... ] width => -
+	/wid exch def
+	/toright true def
+	/limit 0 def
+	{
+		aload pop				% str xmin xmax yp
+		dup 3 1 roll				% str xmin yp xmax yp
+
+		%
+		% See if can still be on the right
+		%
+		toright {
+			1 index limit max 15 add	% starting pos
+			5 index stringwidth pop add	% ending pos
+			wid ge {			% too big?
+				/toright false store	% do on left
+				/limit wid store
+			} if
+		} if
+
+		%
+		% str xmin yp xmax yp
+		%
+		toright {
+			4 2 roll
+			moveto 2 copy lineto		% str x yp
+
+			pop limit max			% str x'
+			SLICE .15 mul 2 copy lineto	% str x' y
+			exch 10 add exch		% str x' y
+			2 copy lineto stroke		% str x' y
+			exch 5 add exch
+			2 copy moveto
+			pop 1 index stringwidth pop add	% str x''
+			/limit exch store		% str
+			0 -20 rmoveto
+			show
+		}{
+			moveto 2 copy lineto		% str tox yp
+
+			pop limit min			% str x'
+			SLICE .30 mul 2 copy lineto	% str x' y
+			exch 10 sub exch
+			2 copy lineto stroke		% str x' y'
+			exch 5 sub exch
+			2 copy moveto
+			pop 1 index stringwidth pop sub	% str x''
+			/limit exch store		% str
+			0 -20 rmoveto
+			rshow
+		} ifelse
+	} forall
+} bdef
+
+/slice_pad { 24 } def
+
+/xres_pos {
+	0 0
+	userdict /RESONANCE known {
+		RESONANCE slice_pad add sub
+	} if
+} def
+/xslice_pos {
+	xres_pos
+	userdict /SLICE known {
+		SLICE slice_pad add sub
+	} if
+} def
+/xslice_y {
+	xslice_pos exch pop
+} def
+
+/xslice_init {
+	gsave
+	xslice_pos translate
+} def
+/xslice_done {
+	grestore
+} def
+/xres_init {
+	/PaintResB { PaintResBX } store
+	gsave
+	xres_pos translate
+	-90 rotate
+	RESONANCE neg 0 translate
+} def
+/xres_done {
+	grestore
+} def
+
+/yres_pos {
+	WIDTH
+	userdict /RESONANCE known {
+		RESONANCE slice_pad add add
+	} if
+	0
+} def
+/yslice_pos {
+	yres_pos
+	userdict /SLICE known {
+		exch SLICE slice_pad add add exch
+	} if
+} def
+/yslice_x {
+	yslice_pos pop
+} def
+/yslice_init {
+	gsave
+	yslice_pos translate
+	90 rotate
+} def
+/yslice_done {
+	grestore
+} def
+/yres_init {
+	/PaintResB { PaintResBY } store
+	gsave
+	yres_pos translate
+	RESONANCE neg 0 translate
+} def
+/yres_done {
+	grestore
+} def

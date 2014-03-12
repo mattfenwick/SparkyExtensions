@@ -1,0 +1,750 @@
+!
+! Tk option database for Sparky
+!
+Sparky*foreground:			black
+Sparky*background:			#CA94AA469193
+
+!
+! Fonts
+!
+! normalFont:		for labels, buttons, menus, axis scales, res panels ...
+! fixedWidthFont:	for lists where columns should line up
+! scalableFont:		for contour plot assignment labels
+!
+Sparky.normalFont:	-family lucida -size 12
+Sparky.fixedWidthFont:	-family courier -size 12
+Sparky.scalableFont:	-family courier
+
+!
+! Main window
+!
+Sparky.geometry:		+30+80
+Sparky*text.height:		15
+Sparky*text.width:		60
+Sparky*text.wrap:		word
+Sparky.statusLine.anchor:	nw
+
+!
+! Menus
+!
+Sparky*fileMenuButton.text:		File
+Sparky*viewMenuButton.text:		View
+Sparky*peakMenuButton.text:		Peak
+Sparky*windowsMenuButton.text:		Windows
+Sparky*extensionMenuButton.text:	Extensions
+Sparky*helpMenuButton.text:		Help
+
+Sparky*cmdMenu*openLabel:		Open...
+Sparky*cmdMenu*saveLabel:		Save
+Sparky*cmdMenu*saveAsLabel:		Save As...
+Sparky*cmdMenu*projHeadingLabel:	Project
+Sparky*cmdMenu*projOpenLabel:		Open...
+Sparky*cmdMenu*projSaveLabel:		Save
+Sparky*cmdMenu*projSaveAsLabel:		Save As...
+Sparky*cmdMenu*projCloseLabel:		Close
+Sparky*cmdMenu*printLabel:		Print...
+Sparky*cmdMenu*preferencesLabel:	Preferences...
+Sparky*cmdMenu*iconifyLabel:		Iconify
+Sparky*cmdMenu*quitLabel:		Quit
+
+Sparky*cmdMenu*toolsCascadeLabel:	Tools
+Sparky*cmdMenu*assignLabel:		Assign...
+Sparky*cmdMenu*acopymodeLabel:		Copy mode...
+Sparky*cmdMenu*assignguessLabel:	Assignment Guessing...
+Sparky*cmdMenu*assigntableLabel:	Assignment Table...
+Sparky*cmdMenu*contourLabel:		Contour Levels...
+Sparky*cmdMenu*midasLabel:		Midas...
+Sparky*cmdMenu*newlistLabel:		New Peak List...
+Sparky*cmdMenu*noteLabel:		Note...
+Sparky*cmdMenu*ornamentLabel:		Ornament...
+Sparky*cmdMenu*overlayLabel:		Overlay Views...
+Sparky*cmdMenu*peaklistLabel:		Peak List...
+Sparky*cmdMenu*peakpickLabel:		Picking...
+Sparky*cmdMenu*crosshairLabel:		Crosshairs...
+Sparky*cmdMenu*predefinedLabel:		Predefined Resonances...
+Sparky*cmdMenu*projectviewsLabel:	View List...
+Sparky*cmdMenu*reslistLabel:		Resonance List...
+Sparky*cmdMenu*renameresonLabel:	Rename Resonances...
+Sparky*cmdMenu*spectrumLabel:		Spectrum...
+Sparky*cmdMenu*synchronizeLabel:	Synchronize...
+
+Sparky*cmdMenu*axesCascadeLabel:	Axes
+Sparky*cmdMenu*ppmLabel:		Show ppm units
+Sparky*cmdMenu*hzLabel:			Show Hertz units
+Sparky*cmdMenu*dataLabel:		Show index units
+Sparky*cmdMenu*atomsLabel:		Show nucleus types
+Sparky*cmdMenu*rollLabel:		Roll axes
+Sparky*cmdMenu*transposeLabel:		Transpose axes
+Sparky*cmdMenu*originLabel:		Set ppm origin
+Sparky*cmdMenu*shiftaxesLabel:		Shift ppm axes...
+
+Sparky*cmdMenu*crosshairsCascadeLabel:	Crosshairs
+Sparky*cmdMenu*xhairLabel:		Crosshair
+Sparky*cmdMenu*transxhairLabel:		Transpose crosshair
+Sparky*cmdMenu*otherxhairLabel:		Other view crosshair
+
+Sparky*cmdMenu*regionCascadeLabel:	Regions
+Sparky*cmdMenu*gotoCascadeLabel:	Go To
+Sparky*cmdMenu*centerviewLabel:		Center view on peak
+Sparky*cmdMenu*gotoLabel:		Go to region X
+Sparky*cmdMenu*regionLabel:		Name regions...
+
+Sparky*cmdMenu*resonanceCascadeLabel:	Resonances
+Sparky*cmdMenu*viewCascadeLabel:	Views
+Sparky*cmdMenu*edgePanelsCascadeLabel:	Edge Panels
+Sparky*cmdMenu*resonanceLabel:		Resonances
+Sparky*cmdMenu*resfilterLabel:		Resonance filtering
+Sparky*cmdMenu*sliceLabel:		Slices
+Sparky*cmdMenu*slicescaleLabel:		Auto scale slices
+Sparky*cmdMenu*slicesubtractLabel:	Slice subtract fit
+Sparky*cmdMenu*peakinfoLabel:		Peak Info
+Sparky*cmdMenu*contourscaleLabel:	Contour Scale
+Sparky*cmdMenu*axisscaleLabel:		Axis Scales
+Sparky*cmdMenu*scrollbarsLabel:		Scrollbars
+
+Sparky*cmdMenu*selectCascadeLabel:	Select
+Sparky*cmdMenu*selectallLabel:		Select all peaks
+Sparky*cmdMenu*selectfassignLabel:	Select fully assigned
+Sparky*cmdMenu*selectpassignLabel:	Select partially assigned
+Sparky*cmdMenu*selectuassignLabel:	Select unassigned
+Sparky*cmdMenu*selectcolorLabel:	Select peaks by color
+Sparky*cmdMenu*selectinvertLabel:	Invert peak selection
+Sparky*cmdMenu*selectaliasedLabel:	Select aliased peaks
+Sparky*cmdMenu*selectintraLabel:	Select intra-residue
+Sparky*cmdMenu*selectseqLabel:		Select sequential
+Sparky*cmdMenu*selectmediumLabel:	Select medium range
+Sparky*cmdMenu*selectlongLabel:		Select long range peaks
+
+Sparky*cmdMenu*showCascadeLabel:	Show
+Sparky*cmdMenu*showallLabel:		All ornaments
+Sparky*cmdMenu*showpeakLabel:		Peaks
+Sparky*cmdMenu*showpeakgpLabel:		Peak groups
+Sparky*cmdMenu*showgridLabel:		Grid
+Sparky*cmdMenu*showlabelLabel:		Labels
+Sparky*cmdMenu*showlineLabel:		Lines
+
+Sparky*cmdMenu*dupviewLabel:		Duplicate
+Sparky*cmdMenu*hideviewLabel:		Hide view
+Sparky*cmdMenu*deleteviewLabel:		Delete view
+Sparky*cmdMenu*refreshLabel:		Redraw view
+Sparky*cmdMenu*renumberLabel:		Renumber view
+Sparky*cmdMenu*viewLabel:		View options...
+Sparky*cmdMenu*viewdepthLabel:		Visible depth...
+Sparky*cmdMenu*pointerModesLabel:	Pointer modes...
+
+
+Sparky*cmdMenu*subtractfitLabel:	Subtract fit peaks
+Sparky*cmdMenu*orthoLabel:		Orthogonal views
+Sparky*cmdMenu*unoverlapLabel:		Unoverlap labels
+Sparky*cmdMenu*rightlabelsLabel:	Right offset labels
+
+Sparky*cmdMenu*zoomCascadeLabel:	Zoom
+Sparky*cmdMenu*zoomfullLabel:		Full view
+Sparky*cmdMenu*zoominLabel:		In
+Sparky*cmdMenu*zoomoutLabel:		Out
+Sparky*cmdMenu*zoomdownLabel:		Down plane
+Sparky*cmdMenu*zoomupLabel:		Up plane
+Sparky*cmdMenu*zoomprevLabel:		Previous
+Sparky*cmdMenu*zoomnextLabel:		Next
+Sparky*cmdMenu*zoomrememberLabel:	Remember
+
+Sparky*cmdMenu*aliasCascadeLabel:	Alias
+Sparky*cmdMenu*aliasaddw1Label:		Add w1 sweepwidth
+Sparky*cmdMenu*aliasaddw2Label:		Add w2 sweepwidth
+Sparky*cmdMenu*aliasaddw3Label:		Add w3 sweepwidth
+Sparky*cmdMenu*aliasaddw4Label:		Add w4 sweepwidth
+Sparky*cmdMenu*aliassubw1Label:		Subtract w1 sweepwidth
+Sparky*cmdMenu*aliassubw2Label:		Subtract w2 sweepwidth
+Sparky*cmdMenu*aliassubw3Label:		Subtract w3 sweepwidth
+Sparky*cmdMenu*aliassubw4Label:		Subtract w4 sweepwidth
+Sparky*cmdMenu*aliasdownw1Label:	Reflect w1 downfield
+Sparky*cmdMenu*aliasdownw2Label:	Reflect w2 downfield
+Sparky*cmdMenu*aliasdownw3Label:	Reflect w3 downfield
+Sparky*cmdMenu*aliasdownw4Label:	Reflect w4 downfield
+Sparky*cmdMenu*aliasupw1Label:		Reflect w1 upfield
+Sparky*cmdMenu*aliasupw2Label:		Reflect w2 upfield
+Sparky*cmdMenu*aliasupw3Label:		Reflect w3 upfield
+Sparky*cmdMenu*aliasupw4Label:		Reflect w4 upfield
+Sparky*cmdMenu*unaliasLabel:		Unalias selected peaks
+
+Sparky*cmdMenu*assignmentCascadeLabel:	Assignments
+Sparky*cmdMenu*assigncopyLabel:		Assignment copy
+Sparky*cmdMenu*assigndeleteLabel:	Delete assignment
+Sparky*cmdMenu*assignpasteLabel:	Assignment paste
+Sparky*cmdMenu*assignpastelabelLabel:	Paste & Label
+Sparky*cmdMenu*xdiagassigncopyLabel:	Crossdiagonal assignment copy
+Sparky*cmdMenu*assignLabel:		Assign...
+Sparky*cmdMenu*labelpeaksLabel:		Label selected peaks
+Sparky*cmdMenu*unlabelpeaksLabel:	Unlabel selected peaks
+
+Sparky*cmdMenu*deleteresLabel:		Delete unused resonances
+Sparky*cmdMenu*resonancew1Label:	w1 resonance peaks
+Sparky*cmdMenu*resonancew2Label:	w2 resonance peaks
+Sparky*cmdMenu*resonancew3Label:	w3 resonance peaks
+Sparky*cmdMenu*resonancew4Label:	w4 resonance peaks
+Sparky*cmdMenu*resassignLabel:		Resonance assignments...
+
+Sparky*cmdMenu*integrateCascadeLabel:	Integrate
+Sparky*cmdMenu*integrateLabel:		Integrate...
+Sparky*cmdMenu*boxLabel:		Sum over box method
+Sparky*cmdMenu*ellipseLabel:		Sum over ellipse method
+Sparky*cmdMenu*gaussianLabel:		Gaussian fit method
+Sparky*cmdMenu*lorentzianLabel:		Lorentzian fit method
+Sparky*cmdMenu*integpeakLabel:		Integrate selected peaks
+Sparky*cmdMenu*unintegrateLabel:	Unintegrate peak
+
+Sparky*cmdMenu*editCascadeLabel:	Edit
+Sparky*cmdMenu*copyCascadeLabel:	Copy
+Sparky*cmdMenu*ocopyLabel:		Ornament copy
+Sparky*cmdMenu*opasteLabel:		Ornament paste
+Sparky*cmdMenu*xocopyLabel:		Crossdiagonal ornament copy
+
+Sparky*cmdMenu*peakCascadeLabel:	Peak
+Sparky*cmdMenu*centerLabel:		Center peak
+Sparky*cmdMenu*colorLabel:		Color ornaments
+Sparky*cmdMenu*linewidthLabel:		Estimate linewidth
+Sparky*cmdMenu*groupLabel:		Group peaks
+Sparky*cmdMenu*heightLabel:		Update heights
+Sparky*cmdMenu*labelpeakLabel:		Label peak
+Sparky*cmdMenu*listselectedLabel:	List Selected Peaks
+Sparky*cmdMenu*lockLabel:		Lock peak
+Sparky*cmdMenu*osizeLabel:		Ornament sizes
+Sparky*cmdMenu*unlockLabel:		Unlock peak
+Sparky*cmdMenu*undoLabel:		Undo
+
+Sparky*cmdMenu*moreCascadeLabel:	More
+Sparky*cmdMenu*extensionsCascadeLabel:	Extensions
+
+Sparky*cmdMenu*popupHeadingLabel:	View Menu
+
+Sparky*helpMenu.manualLabel:		Show Manual
+Sparky*helpMenu.introLabel:		Introduction
+Sparky*helpMenu.filesLabel:		Files
+Sparky*helpMenu.spectraLabel:		Spectrum Views
+Sparky*helpMenu.peaksLabel:		Peaks and Assignments
+Sparky*helpMenu.extensionsLabel:	Extensions in Python
+
+!
+! Help URLs
+!
+Sparky.manualUrl:			overview.html
+Sparky.introUrl:			intro.html
+Sparky.filesUrl:			files.html
+Sparky.spectraUrl:			views.html
+Sparky.peaksUrl:			peaks.html
+Sparky.extensionsUrl:			extensions.html
+Sparky.assignDialog.controls.help.url:	peaks.html#Assignments
+Sparky.assignCopyDialog.controls.help.url:	peaks.html#AssignmentCopy
+Sparky.contourDialog.controls.help.url:	views.html#ContourLevels
+Sparky.guessDialog.controls.help.url:	peaks.html#AssignmentGuessing
+Sparky.integrationDialog.controls.help.url:	peaks.html#Integration
+Sparky.labelDialog.controls.help.url:	peaks.html#PeakLabels
+Sparky.midasDialog.controls.help.url:	peaks.html#Midas
+Sparky.noteDialog.controls.help.url:	peaks.html#PeakNote
+Sparky.ornamentDialog.controls.help.url:	peaks.html#Ornaments
+Sparky.overlayDialog.controls.help.url:	views.html#ContourOverlay
+Sparky.PeakListDialog.controls.help.url:	peaks.html#PeakList
+Sparky.peakListOptionsDialog.controls.help.url:	peaks.html#PeakList
+Sparky.pickDialog.controls.help.url:	peaks.html#PeakPick
+Sparky.predefinedResonanceDialog.controls.help.url:	\
+peaks.html#PredefinedResonances
+Sparky.printDialog.controls.help.url:	views.html#PrintView
+Sparky.regionDialog.controls.help.url:	views.html#RegionDialog
+Sparky.renameDialog.controls.help.url:	peaks.html#RenameResonances
+Sparky.resonanceListDialog.controls.help.url:	peaks.html#ResonanceList
+Sparky.resonanceTableDialog.controls.help.url:	peaks.html#ResonanceTable
+Sparky.spectrumDialog.controls.help.url:	views.html#SpectrumSettings
+Sparky.syncDialog.controls.help.url:	views.html#ViewSync
+Sparky.viewListDialog.controls.help.url:	views.html#ViewList
+Sparky.viewDialog.controls.help.url:	views.html#ViewSettings
+Sparky.viewDepthDialog.controls.help.url:	views.html#VisibleDepth
+
+!
+! View window configuration.
+!
+Sparky*View.drawing.drawingBackground:	black
+Sparky*View.contourScale.drawingBackground:	black
+Sparky*View.xScrollbar.takeFocus:		0
+Sparky*View.yScrollbar.takeFocus:		0
+Sparky*View.ZScrollbar.value.text.width:	6
+Sparky*View.ZScrollbar.scrollbar.takeFocus:	0
+Sparky*View.xScale.height:		40
+Sparky*View.yScale.width:		60
+Sparky*View.xResPanel.height:		100
+Sparky*View.yResPanel.width:		100
+Sparky*View.xSlicePanel.height:		100
+Sparky*View.ySlicePanel.width:		100
+Sparky*View.contourScale.width:		20
+Sparky*View.peakPanel.text.text:	Peak position / height / linewidth
+Sparky*View.peakPanel.text.anchor:	nw
+Sparky*View.peakPanel.text.height:	1
+
+!
+! General dialog properties
+!
+Sparky*font:			normalFont
+Sparky*Listbox.font:		fixedWidthFont
+Sparky*listHeading.font:	fixedWidthFont
+Sparky*controls.ok.text:	Ok
+Sparky*controls.apply.text:	Apply
+Sparky*controls.update.text:	Update
+Sparky*controls.save.text:	Save...
+Sparky*controls.load.text:	Load...
+Sparky*controls.close.text:	Close
+Sparky*controls.help.text:	Help
+
+!
+! View/Spectrum/Molecule/Condition/Resonance selection
+!
+Sparky*viewMenu.label.text:		View: 
+Sparky*spectrumMenu.label.text:		Spectrum: 
+Sparky*resField.resEdit.title.text:	Resonance: 
+Sparky*resField.resEdit.text.width:	15
+Sparky*resField.resMolCond.title.text:	Molecule / Condition: 
+Sparky*resField.resMolCond.text.width:	15
+
+!
+! Pointer Mode dialog
+!
+Sparky.mode.title:			Pointer Mode
+Sparky.mode.geometry:			+30+580
+Sparky.mode.buttons.Radiobutton.font:	fixedWidthFont
+Sparky.mode.buttons.Radiobutton.anchor:		w
+Sparky.mode.buttons.Radiobutton.highlightThickness:	0
+Sparky.mode.buttons.select.text:	select              F1
+Sparky.mode.buttons.center.text:	center              F2
+Sparky.mode.buttons.addGridBoth.text:	add grid both       F3
+Sparky.mode.buttons.addGridHorz.text:	add grid horz       F4
+Sparky.mode.buttons.addGridVert.text:	add grid vert       F5
+Sparky.mode.buttons.addLabel.text:	add label           F6
+Sparky.mode.buttons.addLine.text:	add line            F7
+Sparky.mode.buttons.findAddPeak.text:	find/add peak       F8
+Sparky.mode.buttons.integrate.text:	integrate          F10
+Sparky.mode.buttons.zoom.text:		zoom               F11
+Sparky.mode.buttons.duplicateZoom.text: duplicate & zoom   F12
+Sparky.mode.buttons.assignCopy.text:	assignment copy  sh-F1
+Sparky.mode.buttons.assignGuess.text:	assignment guess sh-F2
+
+!
+! Label dialog
+!
+Sparky.labelDialog.title:		Label
+Sparky.labelDialog*type.label.text:	Type: 
+Sparky.labelDialog*label.title.text:	Label: 
+Sparky.labelDialog*label.text.width:	20
+
+!
+! View settings dialog
+!
+Sparky.viewDialog.aspect.title.text:		Aspect (ppm): 
+Sparky.viewDialog.aspect.text.width:		6
+Sparky.viewDialog.assignFormat.title.text:	Assignment format: 
+Sparky.viewDialog.assignFormat.text.width:	12
+Sparky.viewDialog.depth.text:			Set visible depth (vz) ...
+Sparky.viewDialog*units.label.text:		Axis units:
+Sparky.viewDialog.switches.ornaments.text:	Ornaments (os)
+Sparky.viewDialog.switches.labels.text:		Labels (ls)
+Sparky.viewDialog.switches.peaks.text:		Peaks (ps)
+Sparky.viewDialog.switches.peakGroups.text:	Peak Groups (xs)
+Sparky.viewDialog.switches.grids.text:		Grids (gs)
+Sparky.viewDialog.switches.lines.text:		Lines (is)
+Sparky.viewDialog.switches.atomNames.text:	Axis Atom Names (xa)
+Sparky.viewDialog.switches.crosshair.text:	Crosshair (hh)
+Sparky.viewDialog.switches.transposeCrosshair.text: Transpose Crosshair (ht)
+Sparky.viewDialog.switches.crosshairOther.text: Crosshair from other views (ho)
+Sparky.viewDialog.switches.scales.text:		Axis Scales (vs)
+Sparky.viewDialog.switches.scrollbars.text:	Scrollbars (vb)
+Sparky.viewDialog.switches.resonancePanels.text: Resonance Panels (vR)
+Sparky.viewDialog.switches.resFilter.text:	Filter resonance panels (rf)
+Sparky.viewDialog.switches.slicePanels.text:	Slice Panels (vS)
+Sparky.viewDialog.switches.scaleSlices.text:	Auto scale slices (sa)
+Sparky.viewDialog.switches.sliceSubtract.text:	Subtract peaks in slices (sf)
+Sparky.viewDialog.switches.peakInfo.text:	Peak Info Panel (vp)
+Sparky.viewDialog.switches.contourScale.text:	Contour Scale (vC)
+Sparky.viewDialog.switches.subtractPeaks.text:	Subtract fit peaks (vf)
+
+!
+! Peak List dialog
+!
+Sparky.PeakListDialog*list.height:		8
+Sparky.PeakListDialog.search.title.text:	Search for: 
+Sparky.PeakListDialog.search.text.width:	10
+Sparky.PeakListDialog.search.result.anchor:	w
+Sparky.PeakListDialog.controls.options.text:	Options...
+
+!
+! Peak List Options dialog
+!
+Sparky.peakListOptionsDialog.switches.assignmentName.text: Assignment
+Sparky.peakListOptionsDialog.switches.userName.text:	User label
+Sparky.peakListOptionsDialog.switches.frequency.text:	Frequency (ppm)
+Sparky.peakListOptionsDialog.switches.frequencyHz.text:	Frequency (Hz)
+Sparky.peakListOptionsDialog.switches.resonanceDev.text: Resonance deviation
+Sparky.peakListOptionsDialog.switches.volume.text:	Volume
+Sparky.peakListOptionsDialog.switches.volumeError.text:	Volume error
+Sparky.peakListOptionsDialog.switches.transVolume.text:	Transpose volume
+Sparky.peakListOptionsDialog.switches.fitResidual.text:	Fit residual
+Sparky.peakListOptionsDialog.switches.fitHeight.text:	Fit height
+Sparky.peakListOptionsDialog.switches.dataHeight.text:	Data height
+Sparky.peakListOptionsDialog.switches.noise.text:	Signal / Noise
+Sparky.peakListOptionsDialog.switches.linewidth.text:	Linewidth
+Sparky.peakListOptionsDialog.switches.resFreq.text:	Freq of resonance axis
+Sparky.peakListOptionsDialog.switches.resDev.text:	Dev of resonance axis
+Sparky.peakListOptionsDialog.switches.spectrumName.text: Spectrum Name
+Sparky.peakListOptionsDialog.switches.assignmentDistance.text:	Assignment distance
+Sparky.peakListOptionsDialog.switches.mardigras.text:	Mardigras format
+Sparky.peakListOptionsDialog.switches.diana.text:	Dyana format
+Sparky.peakListOptionsDialog.switches.note.text:	Note
+Sparky.peakListOptionsDialog.sortBy.label.text:		Sort by: 
+Sparky.peakListOptionsDialog.sortAxis.title.text:	Sort axis: 
+Sparky.peakListOptionsDialog.sortPairX.text:	Pair crossdiagonal peaks?
+Sparky.peakListOptionsDialog.sortAxis.text.width:		3
+Sparky.peakListOptionsDialog.assignFormat.title.text:	Assignment Format: 
+Sparky.peakListOptionsDialog.assignFormat.text.width:	11
+Sparky.peakListOptionsDialog*noSortLabel:		None
+Sparky.peakListOptionsDialog*assignmentNameSortLabel:	Assignment
+Sparky.peakListOptionsDialog*userNameSortLabel:		User label
+Sparky.peakListOptionsDialog*frequencySortLabel:	Frequency
+Sparky.peakListOptionsDialog*resonanceNameSortLabel:	Resonance name
+Sparky.peakListOptionsDialog*volumeSortLabel:		Volume
+Sparky.peakListOptionsDialog*assignmentDistanceSortLabel:	Assignment distance
+
+!
+! Resonance List dialog
+!
+Sparky.resonanceListDialog*list.height:		8
+Sparky.resonanceListDialog.condition.label.text:	Molecule / Condition: 
+
+!
+! Contour dialog
+!
+Sparky.contourDialog.title:		Contour Levels
+Sparky.contourDialog.levels.Entry.width:	10
+Sparky.contourDialog.levels.r0c1.text:	Lowest
+Sparky.contourDialog.levels.r0c2.text:	Levels
+Sparky.contourDialog.levels.r0c3.text:	Factor
+Sparky.contourDialog.levels.r0c4.text:	Color
+Sparky.contourDialog.levels.r1c0.text:	Positive 
+Sparky.contourDialog.levels.r2c0.text:	Negative 
+
+!
+! Region dialog
+!
+Sparky.regionDialog.name.title.text:	Name 
+Sparky.regionDialog.name.text.width:	18
+Sparky.regionDialog.accel.title.text:	Accelerator 
+Sparky.regionDialog.accel.text.width:	5
+Sparky.regionDialog.ranges.Entry.width:	10
+Sparky.regionDialog.ranges.r0c1.text:	Upfield
+Sparky.regionDialog.ranges.r0c2.text:	Downfield
+Sparky.regionDialog.curWor.current.text:	Current
+Sparky.regionDialog.curWor.world.text:	World
+Sparky.regionDialog*listHeading.text:	Named Regions
+Sparky.regionDialog.list.list.height:	8
+Sparky.regionDialog.addDel.add.text:	Add
+Sparky.regionDialog.addDel.delete.text:	Delete
+Sparky.regionDialog.controls.applyMode.text:	Apply Mode
+Sparky.regionDialog.controls.goto.text:	Goto
+
+!
+! Assignment dialog
+!
+Sparky.assignDialog.axes.Entry.width:	5
+Sparky.assignDialog.axes.r0c0.text:	Axis
+Sparky.assignDialog.axes.r0c1.text:	Group
+Sparky.assignDialog.axes.r0c2.text:	Atom
+Sparky.assignDialog.axes.r0c3.text:	Resonance
+Sparky.assignDialog.axes.r0c4.text:	Peak  
+Sparky.assignDialog.resList.listHeading.text:	Resonances
+Sparky.assignDialog.resList.list.height:	8
+Sparky.assignDialog.resPeaks.text:		Resonance Peaks ... 
+Sparky.assignDialog.guess.guessOpt.text:	Guessing ... 
+Sparky.assignDialog.guess.guesses.text:		Guesses
+Sparky.assignDialog.guess.guesses.borderwidth:	2
+Sparky.assignDialog.guess.guesses.relief:	raised
+
+!
+! Assignment copy dialog
+!
+Sparky.assignCopyDialog.pmHeading.text:		Assignment Copy Pointer Mode
+Sparky.assignCopyDialog.copyFrom.label.text:	Copy from spectrum: 
+
+!
+! Assignment guessing options dialog
+!
+Sparky.resonanceTableDialog.title:	Assignment Table
+Sparky.resonanceTableDialog.condition.label.text:	Molecule / Condition: 
+Sparky.resonanceTableDialog.switches.chemShifts.text:	Show chemical shifts?
+Sparky.resonanceTableDialog.switches.standardDev.text:	Show standard deviations?
+Sparky.resonanceTableDialog.switches.counts.text:	Show assignment counts?
+Sparky.resonanceTableDialog.switches.predefined.text:	Show predefined resonances?
+
+Sparky.resonanceTableDialog.text.Text.font:		fixedWidthFont
+Sparky.resonanceTableDialog.text.values.height:	20
+Sparky.resonanceTableDialog.text.values.width:		80
+Sparky.resonanceTableDialog.text.xheading.height:	1
+Sparky.resonanceTableDialog.text.yheading.width:	6
+Sparky.resonanceTableDialog.text.Text.wrap:		none
+
+!
+! Assignment guessing options dialog
+!
+Sparky.guessDialog.settings.Entry.width:	10
+Sparky.guessDialog.settings.r0c1.text:		Group
+Sparky.guessDialog.settings.r0c2.text:		Atom
+Sparky.guessDialog.settings.r0c3.text:		Range (ppm)
+Sparky.guessDialog.useFilter.text:		Use Assignment Filter? 
+Sparky.guessDialog.filterFile.title.text:	Assignment Filter File: 
+Sparky.guessDialog.settings*menu.noneLabel:	None
+Sparky.guessDialog.settings*menu.anyLabel:	Any
+Sparky.guessDialog.settings*menu.iLabel:	i
+Sparky.guessDialog.settings*menu.i-1Label:	i-1
+Sparky.guessDialog.settings*menu.i|i-1Label:	i or i-1
+
+
+!
+! Print dialog
+!
+Sparky.printDialog.table.r0c2.text:	Downfield
+Sparky.printDialog.table.r0c3.text:	Upfield
+Sparky.printDialog.table.r0c4.text:	Pages
+Sparky.printDialog.table.r0c5.text:	ppm / cm
+Sparky.printDialog.table.r0c6.text:	Label spacing (ppm)
+Sparky.printDialog.table.Entry.width:	10
+Sparky.printDialog.settings.peakGroups.text:	Peak Groups
+Sparky.printDialog.settings.blackLabels.text:	Black Labels
+Sparky.printDialog.settings.landscape.text:	Landscape
+Sparky.printDialog.settings.banner.text:	Banner
+Sparky.printDialog.settings.grids.text:		Grids
+Sparky.printDialog.settings.peaks.text:		Peaks
+Sparky.printDialog.printCommand.title.text:	Print Command 
+Sparky.printDialog.printCommand.text.width:	25
+Sparky.printDialog.filename.title.text:		Filename 
+Sparky.printDialog.filename.text.width:		30
+Sparky.printDialog.bannerTitle.title.text:	Banner title 
+Sparky.printDialog.bannerTitle.text.width:	25
+Sparky.printDialog.controls.print.text:		Print
+Sparky.printDialog.controls.preview.text:	Preview
+
+!
+! Ornament Properties dialog
+!
+Sparky.ornamentDialog.title:		Ornament Properties
+Sparky.ornamentDialog.selected.anchor:		w
+Sparky.ornamentDialog.peakProps.r0c0.text:	
+Sparky.ornamentDialog.peakProps.r1c0.text:	Position 
+Sparky.ornamentDialog.peakProps.r2c0.text:	Linewidth
+Sparky.ornamentDialog.peakProps.r3c0.text:	Volume
+Sparky.ornamentDialog.peakProps.r4c0.text:	Volume error %
+Sparky.ornamentDialog.peakProps.Entry.width:	8
+Sparky.ornamentDialog.lock.text:		Lock position
+Sparky.ornamentDialog.properties.color.text:	Color ...
+Sparky.ornamentDialog.properties.note.text:	Note ...
+Sparky.ornamentDialog.properties.sizes.text:	Sizes ...
+Sparky.ornamentDialog.properties.planes.text:	Visibility ...
+
+!
+! Ornament Properties dialog
+!
+Sparky.ornamentSizeDialog.heading.text:	Ornament sizes in w1 ppm units
+Sparky.ornamentSizeDialog.labelSize.title.text:	Label size: 
+Sparky.ornamentSizeDialog.labelSize.text.width:		10
+Sparky.ornamentSizeDialog.peakSize.title.text:	Peak size: 
+Sparky.ornamentSizeDialog.peakSize.text.width:		10
+Sparky.ornamentSizeDialog.peakGroupSize.title.text: Peak group size: 
+Sparky.ornamentSizeDialog.peakGroupSize.text.width:	10
+Sparky.ornamentSizeDialog.lineSize.title.text:	Line thickness: 
+Sparky.ornamentSizeDialog.lineSize.text.width:		10
+
+!
+! View depth dialog
+!
+Sparky.viewDepthDialog.heading.text:		Extra Visible Planes
+Sparky.viewDepthDialog.depths.Entry.width:	4
+
+!
+! Ornament color dialog
+!
+Sparky.colorDialog.title:			Ornament Color
+Sparky.colorDialog.colors.Radiobutton.anchor:		w
+Sparky.colorDialog.colors.Radiobutton.indicatorOn:	0
+Sparky.colorDialog.colors.Radiobutton.selectColor:		
+Sparky.colorDialog.colors.Radiobutton.highlightThickness:	0
+
+!
+! Ornament note dialog
+!
+Sparky.noteDialog.title:		Ornament Note
+Sparky.noteDialog.note.title.text:	Note 
+Sparky.noteDialog.note.text.width:		25
+
+!
+! Peak picking dialog
+!
+Sparky.pickDialog.linewidthtitle.text:	Minimum linewidth (hz)
+Sparky.pickDialog.linewidth.Entry.width:	10
+Sparky.pickDialog.dropfactor.title.text: Minimum drop off factor: 
+Sparky.pickDialog.dropfactor.text.width: 10
+
+!
+! Integration methods dialog
+!
+Sparky.integrationDialog.method.label.text:	Integration method: 
+Sparky.integrationDialog.switches.allowMotion.text: \
+Allow peak motion?
+Sparky.integrationDialog.switches.adjustLinewidths.text: \
+Adjust linewidths?
+Sparky.integrationDialog.switches.baselineFit.text: \
+Fit baseline?
+Sparky.integrationDialog.switches.subtractPeaks.text: \
+Subtract off fit peaks?
+Sparky.integrationDialog.switches.contouredData.text: \
+Use data above lowest contour?
+Sparky.integrationDialog.switches.rectangleData.text: \
+Use data within rectangle?
+Sparky.integrationDialog.switches.contourGroup.text: \
+Group peaks in contour boundary?
+Sparky.integrationDialog.switches.distanceGroup.text: \
+Group close peaks?
+Sparky.integrationDialog.ranges.Entry.width:	6
+Sparky.integrationDialog.ranges.r1c0.text:	Max motion (ppm)
+Sparky.integrationDialog.ranges.r2c0.text:	Linewidth min (Hz)
+Sparky.integrationDialog.ranges.r3c0.text:	Linewidth max (Hz)
+Sparky.integrationDialog.ranges.r4c0.text:	Grouping range (Hz)
+Sparky.integrationDialog.ranges.r1c0.anchor:	w
+Sparky.integrationDialog.ranges.r2c0.anchor:	w
+Sparky.integrationDialog.ranges.r3c0.anchor:	w
+Sparky.integrationDialog.ranges.r4c0.anchor:	w
+
+Sparky.integrationDialog.maxStep.title.text:	Maximum minimization steps 
+Sparky.integrationDialog.maxStep.text.width:	6
+Sparky.integrationDialog.tolerance.title.text:	Minimization tolerance (%) 
+Sparky.integrationDialog.tolerance.text.width:	6
+
+!
+! Spectrum dialog
+!
+Sparky.spectrumDialog.rename.title.text:	Rename: 
+Sparky.spectrumDialog.rename.text.width:	25
+Sparky.spectrumDialog.molecule.text.width:	25
+Sparky.spectrumDialog.condition.text.width:	25
+Sparky.spectrumDialog.noise.title.text:		Estimated noise: 
+Sparky.spectrumDialog.noise.text.width:		10
+Sparky.spectrumDialog*noisebutton.text:		Recompute
+Sparky.spectrumDialog*noisecount.title.text:	noise as median of 
+Sparky.spectrumDialog*noisecount.text.width:	6
+Sparky.spectrumDialog.recomplabel.text:	randomly sampled absolute data heights.
+Sparky.spectrumDialog.shifts.Entry.width:	10
+
+!
+! Synchronize views dialog
+!
+Sparky.syncDialog.title:		Synchronize views
+Sparky.syncDialog.viewTable.r0c1.text:	w1  
+Sparky.syncDialog.viewTable.r0c2.text:	w2  
+Sparky.syncDialog.viewTable.r0c3.text:	w3  
+Sparky.syncDialog.viewTable.r0c4.text:	w4  
+Sparky.syncDialog.viewTable.Label.anchor:	e
+Sparky.syncDialog.viewTable.Checkbutton.indicatorOn:	0
+Sparky.syncDialog.controls.synchronize.text:	Synchronize
+Sparky.syncDialog.controls.unsynchronize.text:	Unsynchronize
+
+!
+! Database dialog
+!
+Sparky.databaseDialog.title:			Database Entries
+
+!
+! Project views dialog
+!
+Sparky.viewListDialog.title:			View List
+Sparky.viewListDialog*listHeading.text: .            View       Molecule  Condition     Nuclei     Data Size     Peaks  Assignments
+Sparky.viewListDialog.controls.show.text:		Show
+Sparky.viewListDialog.controls.hide.text:		Hide
+
+!
+! Predefined resonances dialog
+!
+Sparky.predefinedResonanceDialog.title:	Predefined Resonances
+Sparky.predefinedResonanceDialog.fromMolCond.label.text: \
+From Molecule / Condition: 
+Sparky.predefinedResonanceDialog.toMolCond.label.text: \
+To Molecule / Condition: 
+Sparky.predefinedResonanceDialog.controls.copy.text: Copy
+
+!
+! Preferences dialog
+!
+Sparky.preferenceDialog.title:		Preferences
+Sparky.preferenceDialog.switches.savePrompt.text: \
+Prompt when overwriting save files?
+Sparky.preferenceDialog.switches.resizeViews.text: \
+Resize view window when adding resonance panels?
+Sparky.preferenceDialog.switches.contourGraying.text: \
+Gray out spectrum when redrawing contour lines?
+Sparky.preferenceDialog.note.wrapLength:	15c
+Sparky.preferenceDialog.note.justify:		left
+Sparky.preferenceDialog.autoBackup.title.text: \
+Automatically backup files (period in minutes): 
+Sparky.preferenceDialog.autoBackup.text.width:	5
+Sparky.preferenceDialog.keyTimeout.title.text: \
+Maximum time between accelerator keys (sec): 
+Sparky.preferenceDialog.keyTimeout.text.width:	5
+Sparky.preferenceDialog.cacheSize.title.text: \
+NMR data cache size (Mbytes): 
+Sparky.preferenceDialog.cacheSize.text.width:	5
+
+!
+! Rename resonances dialog
+!
+Sparky.renameDialog.title:		Rename Resonances
+Sparky.renameDialog.molecules.text.width:	15
+Sparky.renameDialog.conditions.text.width:	15
+Sparky.renameDialog.gaTable.r0c1.text:	Group
+Sparky.renameDialog.gaTable.r0c2.text:	Atom
+Sparky.renameDialog.gaTable.r1c0.text:	From: 
+Sparky.renameDialog.gaTable.r2c0.text:	To: 
+Sparky.renameDialog.gaTable.Entry.width:	8
+Sparky.renameDialog.controls.rename.text:	Rename
+Sparky.renameDialog.controls.merge.text:	Merge
+Sparky.renameDialog.controls.swap.text:		Swap
+
+!
+! Change data location dialog
+!
+Sparky.dataLocationDialog.title:	Change Data Path
+Sparky.dataLocationDialog.heading.anchor:	w
+Sparky.dataLocationDialog.heading.justify:	left
+Sparky.dataLocationDialog.file.text.width:	60
+Sparky.dataLocationDialog.file.title.text:		New data path: 
+Sparky.dataLocationDialog.controls.browse.text:	Browse...
+Sparky.dataLocationDialog.controls.cancel.text:	Cancel Load
+
+!
+! View overlay dialog
+!
+Sparky.overlayDialog.title:	View Overlays
+Sparky.overlayDialog*listHeading.text: From View              Onto View
+Sparky.overlayDialog.fromView.label.text:	From View: 
+Sparky.overlayDialog.ontoView.label.text:	Onto View: 
+Sparky.overlayDialog.controls.add:		Add
+Sparky.overlayDialog.controls.remove:		Remove
+
+!
+! Midas molecular display dialog
+!
+Sparky.midasDialog.colors.label.text:	Line color: 
+Sparky.midasDialog.switches.allAssignments.text: Show all assignments?
+Sparky.midasDialog.pdbFile.title.text:	PDB file: 
+Sparky.midasDialog.pdbFile.text.width:	40
+Sparky.midasDialog.controls.file.text:	PDB File
+
+!
+! Choice dialog (implements queries, warnings, wait messages
+! Query dialog
+! Working dialog
+! Warning dialog
+!
+Sparky.queryDialog.title:		Question
+Sparky.workingDialog.title:		Working ...
+Sparky.warningDialog.title:		Warning

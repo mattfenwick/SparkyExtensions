@@ -1,0 +1,5 @@
+#!/usr/local/src/sparky/platforms/mac10.4/python-2.5.1/bin/python
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()

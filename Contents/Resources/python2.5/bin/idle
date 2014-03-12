@@ -1,0 +1,5 @@
+#!/usr/local/src/sparky/platforms/mac10.4/python-2.5.1/bin/python
+
+from idlelib.PyShell import main
+if __name__ == '__main__':
+    main()

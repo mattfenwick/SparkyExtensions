@@ -1,0 +1,98 @@
+#!/bin/csh -f
+#
+# Set environment variables and start Sparky.
+#
+
+# -----------------------------------------------------------------------------
+# Figure out Sparky installation directory from $0.
+#
+set sparky_exe = "$0"
+while (-l "$sparky_exe")
+  set ls_sparky_exe = `ls -l "$sparky_exe"`
+  set sparky_exe = `echo "$ls_sparky_exe" | sed 's/.* -> //'`
+end
+set sparky_bin = `dirname "$sparky_exe"`
+set sparky_bin = `cd "$sparky_bin"; pwd`
+set sparky_inst = `dirname "$sparky_bin"`
+
+# -----------------------------------------------------------------------------
+# Sparky uses the SPARKY_INSTALL environment variable to find its
+# application resource file and print prolog file.
+#
+setenv SPARKY_INSTALL		"$sparky_inst"
+
+# -----------------------------------------------------------------------------
+# If Python is available start Sparky as a Python extension.
+# Otherwise the standalone version of Sparky is started.
+#
+set PYTHON = "$SPARKY_INSTALL/python2.5/bin/python2.5"
+if (! -e "$PYTHON") then
+  set PYTHON = python2.5
+endif
+
+# -----------------------------------------------------------------------------
+# Where to find Tcl/Tk shared libraries and resources.
+#
+setenv TCLTK_LIB		"$SPARKY_INSTALL/lib"
+setenv LD_LIBRARY_PATH		"$TCLTK_LIB"
+setenv LD_LIBRARYN32_PATH	"$TCLTK_LIB"
+setenv DYLD_LIBRARY_PATH	"$TCLTK_LIB"
+setenv TK_LIBRARY		"$TCLTK_LIB/tk8.4"
+setenv TCL_LIBRARY		"$TCLTK_LIB/tcl8.4"
+
+# -----------------------------------------------------------------------------
+# Other programs Sparky can use.
+#
+set OSTYPE = `uname`
+if ($OSTYPE == Darwin) then
+  setenv SHOW_URL_COMMAND	'open "%s"'
+else
+  setenv SHOW_URL_COMMAND	'firefox -remote "openURL(%s)" || firefox %s'
+endif
+setenv POSTSCRIPT_PREVIEWER	"/usr/bin/X11/showps -"
+setenv MIDAS_COMMAND		/usr/local/midas/bin/midas
+
+# -----------------------------------------------------------------------------
+# If Python runs, start Sparky as a Python extension.
+#
+"$PYTHON" -c pass >& /dev/null
+if ($status == 0) then
+
+  # ---------------------------------------------------------------------------
+  # Add path to Chimera molecular graphics program libraries.
+  #
+  if (! "$?CHIMERA") then
+    if ($OSTYPE == Darwin) then
+      setenv CHIMERA /Applications/Chimera.app/Contents/Resources
+    else
+      setenv CHIMERA /usr/local/chimera
+    endif
+  endif
+  if (-d "$CHIMERA") then
+    setenv LD_LIBRARY_PATH	"${LD_LIBRARY_PATH}:$CHIMERA/lib"
+    setenv LD_LIBRARYN32_PATH	"${LD_LIBRARYN32_PATH}:$CHIMERA/lib"
+    setenv DYLD_LIBRARY_PATH	"${DYLD_LIBRARY_PATH}:$CHIMERA/lib"
+    setenv TIX_LIBRARY		"$CHIMERA/lib/tix8.2"	# Chimera needs Tix.
+    setenv TCLLIBPATH		"$CHIMERA/lib"		# For Tcl to find Tix.
+  endif
+
+  # ---------------------------------------------------------------------------
+  # Add the Sparky package and Tkinter to the Python path
+  #
+  set SPARKY_PYTHONPATH = "$SPARKY_INSTALL/python:$SPARKY_INSTALL/python/lib-tk"
+  if ($?PYTHONPATH) then
+    setenv PYTHONPATH "${SPARKY_PYTHONPATH}:$PYTHONPATH"
+  else
+    setenv PYTHONPATH "$SPARKY_PYTHONPATH"
+  endif
+
+  "$PYTHON" -c "import sparky; sparky.start_session()" $*
+
+else
+
+  # ---------------------------------------------------------------------------
+  # Start Sparky without Python
+  #
+  "$SPARKY_INSTALL/bin/sparky-no-python" $*
+
+endif

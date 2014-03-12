@@ -1,0 +1,34 @@
+#!/bin/sh
+
+SPARKY_APP=`dirname "$0"`/../..
+SPARKY="$SPARKY_APP/Contents/Resources"
+
+if [ ! "$DISPLAY" ]
+then
+	DISPLAY=:0
+	export DISPLAY
+fi
+
+#
+# Try connecting to X server.  Show a warning dialog on failure.
+#
+XTEST=$SPARKY_APP/Contents/MacOS/xtest
+if test -x "$XTEST" && ! "$XTEST"
+then
+	exec osascript -e 'display dialog "Could not connect to the X server.\r \rYou must start the X windowing system before starting Sparky.  The Apple X server is found in the /Applications/Utilities folder, called X11.  It is available from\r\rhttp://www.apple.com/macosx/x11" buttons {"Ok"} with icon 2'
+fi
+
+# Increase stack limit.  Default is 512Kb
+ulimit -s 4096
+
+#
+# Mac OS makes the first command-line argument -psn_xxx where xxx is the
+# process serial number when Sparky is started by clicking an icon.
+# Don't pass this argument to Sparky.
+#
+if test "${1:0:4}" == "-psn"
+then
+	exec "$SPARKY/bin/sparky" "${@:2}"
+else
+	exec "$SPARKY/bin/sparky" "${@:1}"
+fi
