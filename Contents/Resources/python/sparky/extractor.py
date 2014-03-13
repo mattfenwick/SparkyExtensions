@@ -6,6 +6,12 @@ def kwargs(**args):
 
 
 def peak(pk):
+    # samity check
+    if pk.assignment != '?-?':
+        a, b = pk.assignment, '-'.join([r.name for r in pk.resonances()])
+        if a != b:
+            print "oops -- assignment doesn't match resonances -- (%s, %s)" % (a, b)
+    # here's the real deal
     return kwargs(type='peak', 
                   frequency=pk.frequency, 
                   volume=pk.volume,
@@ -43,11 +49,30 @@ def group(grp):
                   id=grp.sparky_id)
 
 
+def molecule(mol):
+    return kwargs(type='molecule',
+                  name=mol.name,
+                  atoms=map(atom, mol.atom_list()),
+                  groups=map(group, mol.group_list()),
+                  id=mol.sparky_id)
+
+
+def spectrum(spc):
+    return kwargs(type='spectrum',
+                  name=spc.name,
+                  dims=spc.dimension,
+                  sw=spc.sweep_width,
+                  peaks=map(extract, spc.peak_list()),
+                  id=spc.sparky_id)
+
+
 dispatch = {
-        sparky.Atom: atom,
-        sparky.Peak: peak,
-        sparky.Resonance: resonance,
-        sparky.Group: group
+        sparky.Atom      : atom      ,
+        sparky.Peak      : peak      ,
+        sparky.Resonance : resonance ,
+        sparky.Group     : group     ,
+        sparky.Molecule  : molecule  ,
+        sparky.Spectrum  : spectrum
     }
 
 
@@ -65,3 +90,18 @@ def extract(my_object):
         if isinstance(my_object, my_type):
             return f(my_object)
     raise TypeError('unable to extract Sparky value with keys ' + str(dir(my_object)))
+
+
+def traverse(my_object, pred, f):
+    def traverse_help(obj, context, result):
+        if pred(context):
+            result.append((context, f(obj)))
+        if isinstance(obj, dict):
+            for (key, val) in obj.iteritems():
+                traverse_help(val, context + (key,), result)
+        elif isinstance(obj, list):
+            for (ix, val) in enumerate(obj): # in python2.5, can't use `start` keyword argument
+                traverse_help(val, context + (str(ix),), result)
+    out = []
+    traverse_help(my_object, (), out)
+    return out
