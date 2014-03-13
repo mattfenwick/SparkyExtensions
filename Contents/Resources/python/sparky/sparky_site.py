@@ -132,10 +132,11 @@ def standard_menu_entries():
     ('NMRFAM',                  nmrfam_menu),
     ('Reproduciblity!',         
        (
-        ('rd', 'Dump some data'  ,   ('reproduce', 'write_dump_file')),
-        ('rc', 'Write peak files',   ('reproduce', 'write_peak_files')),
-        ('rz', 'Resonance test',     ('reproduce', 'some_resonances')),
-        ('rg', 'Grab some data',     ('reproduce', 'grab_some_data')))))
+        ('rd', 'Dump some data'  ,  ('reproduce', 'write_dump_file' )),
+        ('rg', 'Dump data to git',  ('reproduce', 'git_dump'        )),
+        ('rc', 'Write peak files',  ('reproduce', 'write_peak_files')),
+        ('rz', 'Resonance test'  ,  ('reproduce', 'some_resonances' )),
+        ('ry', 'Grab some data'  ,  ('reproduce', 'grab_some_data'  )))))
 
   return menus
 

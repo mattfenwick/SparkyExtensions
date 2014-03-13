@@ -1,6 +1,7 @@
 import simplejson as json
 import os
 from .extractor import extract, traverse
+import gitdumper
 
 
 sess = None
@@ -103,3 +104,7 @@ def grab_some_data(session):
     some_data['resonances'] = resonances = peaks[2].resonances()
     some_data['atom'] = atom = resonances[0].atom
     some_data['group'] = group = resonances[0].group
+
+
+def git_dump(session):
+    gitdumper.dump(dumpJSON(map(extract, session.project.spectrum_list())))
