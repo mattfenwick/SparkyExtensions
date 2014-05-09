@@ -6,7 +6,7 @@ def kwargs(**args):
 
 
 def peak(pk):
-    # samity check
+    # sanity check
     if pk.assignment != '?-?':
         a, b = pk.assignment, '-'.join([r.name for r in pk.resonances()])
         if a != b:

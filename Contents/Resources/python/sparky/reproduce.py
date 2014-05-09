@@ -1,7 +1,7 @@
 import simplejson as json
 import os
-from .extractor import extract, traverse
-import gitdumper
+from .r_extractor import extract, traverse
+import r_gitdumper as gitdumper
 
 
 sess = None

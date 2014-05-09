@@ -71,12 +71,12 @@
 #      view_list() = list of <View>
 #      molecule_list() = list of <Molecule>
 #      condition_list() = list of <Condition>
-#         create_dataless_spectrum(name, size, block_size,
-#                                  spectrometer_freq_mhz, spectrum_width_hz,
-#                                  origin_ppm, axis_labels) = <Spectrum>
-#         save_value(key, value)                # key = string w/o spaces
-#         saved_value(key)                      # value = string w/o newlines
-#         close(ask) = 0 or 1
+#      create_dataless_spectrum(name, size, block_size,
+#                               spectrometer_freq_mhz, spectrum_width_hz,
+#                               origin_ppm, axis_labels) = <Spectrum>
+#      save_value(key, value)                # key = string w/o spaces
+#      saved_value(key)                      # value = string w/o newlines
+#      close(ask) = 0 or 1
 #    
 # -----------------------------------------------------------------------------
 #
@@ -94,28 +94,28 @@
 #      noise = 22178.21                      # data height noise
 #      condition = <Condition>
 #      molecule = <Molecule>
-#      data_path = '/data/bigdisk/noesy150'    # nmr data
+#      data_path = '/data/bigdisk/noesy150'  # nmr data
 #      save_path = '/home/smith/Sparky/Save/noesy150.save'
-#         pick_minimum_linewidth = (.04, .04)   # for peak picking with mouse
-#         pick_minimum_drop_factor = .5
-#         session = <Session>
+#      pick_minimum_linewidth = (.04, .04)   # for peak picking with mouse
+#      pick_minimum_drop_factor = .5
+#      session = <Session>
 #
 #      peak_list()
 #      selected_peaks()
 #      label_list()
 #      line_list()
 #      grid_list()
-#        data_height((2.87, 4.334)) = 321833.23
+#      data_height((2.87, 4.334)) = 321833.23
 #      find_peak(<Resonance list>) = <Peak>     # can be None
 #      find_peak('G18H8-T17H6') = <Peak>        # can be None
-#         pick_peaks(((4.3, 2.1), (5.3, 8.4)),  # region
-#                    (-100000, 100000),         # height thresholds
-#                    (.04, .04),                # minimum linewidths
-#                    .5)                        # minimum drop off
+#      pick_peaks(((4.3, 2.1), (5.3, 8.4)),  # region
+#                 (-100000, 100000),         # height thresholds
+#                 (.04, .04),                # minimum linewidths
+#                 .5)                        # minimum drop off
 #           = List of <Peak>
-#         place_peak((4.123, 8.321)) = <peak>
-#         save_value(key, value)                # key = string w/o spaces
-#         saved_value(key)                      # value = string w/o newlines
+#      place_peak((4.123, 8.321)) = <peak>
+#      save_value(key, value)                # key = string w/o spaces
+#      saved_value(key)                      # value = string w/o newlines
 #    
 # -----------------------------------------------------------------------------
 #
@@ -123,7 +123,7 @@
 #
 #      assignment = 'C6H5-C5H1'        # '?-?' for unassigned
 #      is_assigned = 1                 # all axes assigned
-#         position = (4.35, 5.12)      # in ppm
+#      position = (4.35, 5.12)         # in ppm
 #      alias = (0, 0)                  # in ppm
 #      frequency = (4.35, 5.12)        # frequency = position + alias
 #      spectrum = <Spectrum>
@@ -162,7 +162,7 @@
 #      frequency = 3.279               # in ppm
 #      deviation = .0143               # one standard deviation (ppm)
 #      condition = <Condition>
-#         peak_count = 3
+#      peak_count = 3
 #
 #      peak_list()
 #    
@@ -201,7 +201,7 @@
 #    class Molecule:
 #    
 #      name = '24mer'
-#         session = <Session>
+#      session = <Session>
 #    
 #      atom_list()
 #      atom(group_name, atom_name)     # atom object, or None
@@ -253,37 +253,37 @@
 #      frame = '.strips.view'                   # path of Tk window
 #      center = (3.32, 121.3, 7.12)             # ppm, settable
 #      pixel_size = (.02, .1, .01)              # ppm, settable
-#         region = ((3.22, 120.3, 6.12),
-#                   (3.42, 122.3, 8.12))
-#         visible_depth = (.04, .2, .04)        # z-axis depth for peak display
-#         axis_order = (2, 0, 1)                # (x, y, z)
-#         positive_levels = <Contour_Levels>
-#         negative_levels = <Contour_Levels>
-#         scale_units = 'ppm'                   # ppm, hz, index
-#         show_ornaments = 1
-#         show_peaks = 1
-#         show_peakgroups = 1
-#         show_labels = 1
-#         show_lines = 1
-#         show_grids = 1
-#         subtract_fit_peaks = 0
-#         show_scales = 1
-#         show_nucleus_names = 0
-#         show_scrollbars = 1
-#         show_resonance_panels = 0
-#         filter_resonances = 0
-#         show_slices = 0
-#         slice_auto_scale = 0
-#         slice_subtract_peaks = 0
-#         show_peak_info = 0
-#         show_contour_scale = 0
-#         show_crosshair = 0
-#         show_crosshair_from_other_views = 0
-#         show_transpose_crosshair = 0
-#         pointer_position = (4.12, 122.2, 6.97) # None if pointer not in view
+#      region = ((3.22, 120.3, 6.12),
+#                (3.42, 122.3, 8.12))
+#      visible_depth = (.04, .2, .04)           # z-axis depth for peak display
+#      axis_order = (2, 0, 1)                   # (x, y, z)
+#      positive_levels = <Contour_Levels>
+#      negative_levels = <Contour_Levels>
+#      scale_units = 'ppm'                      # ppm, hz, index
+#      show_ornaments = 1
+#      show_peaks = 1
+#      show_peakgroups = 1
+#      show_labels = 1
+#      show_lines = 1
+#      show_grids = 1
+#      subtract_fit_peaks = 0
+#      show_scales = 1
+#      show_nucleus_names = 0
+#      show_scrollbars = 1
+#      show_resonance_panels = 0
+#      filter_resonances = 0
+#      show_slices = 0
+#      slice_auto_scale = 0
+#      slice_subtract_peaks = 0
+#      show_peak_info = 0
+#      show_contour_scale = 0
+#      show_crosshair = 0
+#      show_crosshair_from_other_views = 0
+#      show_transpose_crosshair = 0
+#      pointer_position = (4.12, 122.2, 6.97) # None if pointer not in view
 #
-#         destroy()                              # destroys window
-#         set_crosshair_position((4.12, 122.2, 6.97))
+#      destroy()                              # destroys window
+#      set_crosshair_position((4.12, 122.2, 6.97))
 #
 # -----------------------------------------------------------------------------
 #
