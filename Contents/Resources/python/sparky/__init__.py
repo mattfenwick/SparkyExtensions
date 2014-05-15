@@ -79,8 +79,8 @@ def object_pretty_print():
   show_attributes(Line, 'start', 'end', 'selected', 'color')
   show_attributes(Grid, 'position', 'axis', 'selected', 'color')
   show_attributes(Molecule, 'name')
-  show_attributes(Group, 'name', 'number', 'symbol', 'molecule')
-  show_attributes(Atom, 'name', 'group', 'molecule')
+  show_attributes(Group, 'name', 'number', 'symbol') #, 'molecule')
+  show_attributes(Atom, 'name', 'group')#, 'molecule')
   show_attributes(Condition, 'name', 'molecule')
   show_attributes(View, 'name', 'spectrum', 'is_shown', 'center', 'pixel_size')
 
