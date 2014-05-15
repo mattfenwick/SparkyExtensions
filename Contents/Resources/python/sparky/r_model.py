@@ -32,6 +32,7 @@ def groups():
     return molecule().group_list()
 
 def resonances():
+    # TODO should probably go through all conditions
     return project().condition_list()[0].resonance_list()
 
 def rs():
@@ -54,8 +55,8 @@ def parse_group(name):
     match = grp.match(name)
     if match is None:
         raise ValueError('invalid group name -- ' + name)
-    gid, next, res = match.groups()
-    return (gid, next, res)
+    gid, next_, res = match.groups()
+    return (gid, next_, res)
 
 def parse_resonance(name):
     match = res.match(name)
