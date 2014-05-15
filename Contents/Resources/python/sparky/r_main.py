@@ -37,9 +37,6 @@ class GitRepo(object):
             print 'failure making Sparky/git repository snapshot', e
             raise
 
-g = GitRepo()
-
-
 
 import tkutil
 import sputil
@@ -47,57 +44,43 @@ import sputil
 
 class Snapshot_dialog(tkutil.Dialog):
 
-  def __init__(self, session):
+    def __init__(self, session):
+        self.g = GitRepo()
+        
+        self.session = session
+        self.title = 'Snapshot'
+        
+        tkutil.Dialog.__init__(self, session.tk, self.title)
+        
+        br = tkutil.button_row(self.top, ('Make snapshot', self.make_snapshot))
+        br.frame.pack(side = 'top', anchor = 'w')
+        # TODO would like to get an enumerated list of these from somewhere
+        e = tkutil.entry_field(self.top, 'Deductive reason used:', '<enter reason>', 50)
+        e.frame.pack(side = 'top', anchor = 'w')
+        self.message = e.variable
 
-    self.session = session
-    self.title = 'Snapshot'
+        br = tkutil.button_row(self.top, ('Set group', self.set_group))
+        br.frame.pack(side = 'top', anchor = 'w')
+        # TODO would like to get an enumerated list of these from somewhere
+        e = tkutil.entry_field(self.top, 'Group name:', '', 20)
+        e.frame.pack(side = 'top', anchor = 'w')
+        self.group = e.variable
 
-    tkutil.Dialog.__init__(self, session.tk, self.title)
+#        br = tkutil.button_row(self.top, ('Make snapshot', self.make_snapshot))
+#        br.frame.pack(side = 'top', anchor = 'w')
+#        # TODO would like to get an enumerated list of these from somewhere
+#        e = tkutil.entry_field(self.top, 'Deductive reason used:', '<enter reason>', 50)
+#        e.frame.pack(side = 'top', anchor = 'w')
+#        self.message = e.variable
 
-    br = tkutil.button_row(self.top,
-                           ('Make snapshot', self.make_snapshot))
-    br.frame.pack(side = 'top', anchor = 'w')
+
+    def make_snapshot(self):
+        self.g.dump(self.message.get())
     
-    # TODO would like to get an enumerated list of these from somewhere
-    e = tkutil.entry_field(self.top, 'Deductive reason used:', '<enter reason>', 50)
-    e.frame.pack(side = 'top', anchor = 'w')
-    self.message = e.variable
-
-
-  def make_snapshot(self):
-      g.dump(self.message.get())
+    def set_group(self):
+        model.set_group(self.group.get())
 
 
 def show_snapshot_dialog(session):
     d = sputil.the_dialog(Snapshot_dialog, session)
     d.show_window(1)
-
-
-
-##### API
-
-def set_group(name):
-    pass
-
-def set_next_ss(prev, next_):
-    pass
-
-def set_residue(ss, residue):
-    pass
-
-def set_atomtype(group, resid, atomtype):
-    # do I have to reset, for each peak dimension assigned to this resonance, the name?
-    pass
-
-def set_noise():
-    # all peak dimensions must be unassigned
-    # change peak color
-    # change label
-    pass
-
-def set_artifact():
-    # see `set_noise`
-    pass
-
-def set_signal():
-    pass
