@@ -42,6 +42,7 @@ class GitRepo(object):
 
 import tkutil
 import sputil
+import r_peaktypes as peaktypes
 
 
 class Snapshot_dialog(tkutil.Dialog):
@@ -102,6 +103,17 @@ class Snapshot_dialog(tkutil.Dialog):
 
         br6 = tkutil.button_row(self.top, ('Set selected peaks to artifact', self.set_artifact))
         br6.frame.pack(side = 'top', anchor = 'w')
+        
+        self.peaktype_spectrum = m1 = tkutil.option_menu(self.top, 'Select peaktype spectrum', peaktypes.spectra.keys())
+        m1.frame.pack(side='top', anchor='w')
+        m1.add_callback(self.set_peaktype_spectrum)
+        
+        self.peaktype = m2 = tkutil.option_menu(self.top, 'Assign peaktype', [])
+        m2.frame.pack(side='top', anchor='w')
+        m2.add_callback(self.assign_peaktype)
+#        m1.add_callback(self.assign_peaktype)
+
+
 
 
     def make_snapshot(self):
@@ -131,6 +143,14 @@ class Snapshot_dialog(tkutil.Dialog):
     def set_seq_ss(self):
         model.set_seq_ss(self.seq_ss_prev.get(), 
                          self.seq_ss_next.get())
+
+    def set_peaktype_spectrum(self, spectrum):
+        self.peaktype.remove_all_entries()
+        for pt in peaktypes.spectra[spectrum]:
+            self.peaktype.add_entry(','.join(pt))
+    
+    def assign_peaktype(self, peaktype):
+        model.assign_peaktype(peaktype.split(','))
 
 
 

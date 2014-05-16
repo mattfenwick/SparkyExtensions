@@ -110,8 +110,8 @@ def _add_into_cluster(cls, val):
 def _selected_peaks():
     return session().selected_peaks()
 
-def set_group(name):
-    pks = _selected_peaks()
+def set_group(name, my_peaks=None):
+    pks = _selected_peaks() if my_peaks is None else my_peaks
     groups, _ = resonance_map()
     if groups.has_key(name):
         r_ids = sorted([(res.frequency, int(ix)) for (ix, res) in groups[name].items()], key=lambda x: x[1])
@@ -130,12 +130,12 @@ def set_group(name):
     print n, 'assignments made'
 
 
-def set_new_group():
+def set_new_group(pks=None):
     groups, _ = resonance_map()
     n = len(groups) + 1
     while groups.has_key(str(n)):
         n = n + 1
-    set_group(str(n))
+    set_group(str(n), pks)
 
 
 def set_seq_ss(prev, next_):
@@ -181,6 +181,18 @@ def set_atomtype(ssname, resid, atomtype):
                         unparse_resonance(rid, atomtype))
 
 
+def assign_peaktype(atomtypes):
+    pks = _selected_peaks()
+    for pk in pks:
+        if len(pk.resonances()) != len(atomtypes):
+            raise ValueError('peaktype does not match peak dimensionality')
+        for (ix, res_dim) in enumerate(pk.resonances()):
+            rid, _ = parse_resonance(res_dim.atom.name)
+            pk.assign(ix, 
+                      res_dim.group.name,
+                      unparse_resonance(rid, atomtypes[ix]))
+
+
 def set_noise():
     pks = _selected_peaks()
     for pk in pks:
@@ -212,3 +224,9 @@ def select_signal_peaks(specname):
                 if pk.note not in ['artifact', 'noise']:
                     pk.selected = 1
             break
+
+
+def create_group_for_peak():
+    for pk in _selected_peaks():
+        set_new_group([pk])
+    # for each selected peak, create a new group
