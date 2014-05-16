@@ -203,3 +203,12 @@ def set_artifact():
 
 def set_signal():
     raise ValueError('unimplemented')
+
+
+def select_signal_peaks(specname):
+    for sp in project().spectrum_list():
+        if sp.name == specname:
+            for pk in sp.peak_list():
+                if pk.note not in ['artifact', 'noise']:
+                    pk.selected = 1
+            break
