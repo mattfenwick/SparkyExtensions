@@ -138,24 +138,47 @@ def set_new_group():
     set_group(str(n))
 
 
-def set_next_ss(prev, next_):
-    raise ValueError('unimplemented')
+def set_seq_ss(prev, next_):
+    groups, _ = resonance_map()
+    if not groups.has_key(prev):
+        raise ValueError('invalid group name: %s' % prev)
+    for res in groups[prev].values(): # we don't actually need this resonance for anything but finding the peaks it's assigned to
+        for peak in res.peak_list():
+            for (i, res_dim) in enumerate(peak.resonances()):
+                gid, _, residue = parse_group(res_dim.group.name)
+                peak.assign(i,
+                            unparse_group(gid, next_, residue),
+                            res_dim.atom.name)
 
 
 def set_residue(ssname, residue):
     groups, _ = resonance_map()
     if not groups.has_key(ssname):
         raise ValueError('invalid group name: %s' % ssname)
-    # for every resonance in this group
-    # for every peak in the resonance's peak_list
-    # for every peak dimension that's assigned to this group ???
-    # do something?
-    raise ValueError('unimplemented')
+    for res in groups[ssname].values(): # we don't actually need this resonance for anything but finding the peaks it's assigned to
+        for peak in res.peak_list():
+            for (i, res_dim) in enumerate(peak.resonances()):
+                gid, next_, _ = parse_group(res_dim.group.name)
+                peak.assign(i,
+                            unparse_group(gid, next_, residue),
+                            res_dim.atom.name)
 
 
-def set_atomtype(group, resid, atomtype):
-    # do I have to reset, for each peak dimension assigned to this resonance, the name?
-    raise ValueError('unimplemented')
+def set_atomtype(ssname, resid, atomtype):
+    groups, _ = resonance_map()
+    if not groups.has_key(ssname):
+        raise ValueError('invalid group name: %s' % ssname)
+    if not groups[ssname].has_key(resid):
+        raise ValueError('invalid resonance %s in group %s' % (resid, ssname))
+    res = groups[ssname][resid] # we don't actually need this resonance for anything but finding the peaks it's assigned to
+    for peak in res.peak_list():
+        for (i, res_dim) in enumerate(peak.resonances()):
+            rid, _ = parse_resonance(res_dim.atom.name)
+            if rid != resid:
+                continue
+            peak.assign(i,
+                        res_dim.group.name,
+                        unparse_resonance(rid, atomtype))
 
 
 def set_noise():
