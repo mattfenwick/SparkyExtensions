@@ -113,6 +113,12 @@ class Snapshot_dialog(tkutil.Dialog):
         m2.add_callback(self.assign_peaktype)
 #        m1.add_callback(self.assign_peaktype)
 
+        br7 = tkutil.button_row(self.top, ('Select signal peaks', self.select_signal_peaks))
+        br7.frame.pack(side = 'top', anchor = 'w')
+        e7 = tkutil.entry_field(self.top, 'Spectrum name:', '', 20)
+        e7.frame.pack(side = 'top', anchor = 'w')
+        self.select_signal_peaks_name = e7.variable
+
 
 
 
@@ -151,6 +157,10 @@ class Snapshot_dialog(tkutil.Dialog):
     
     def assign_peaktype(self, peaktype):
         model.assign_peaktype(peaktype.split(','))
+
+    def select_signal_peaks(self):
+        name = self.select_signal_peaks_name.get()
+        model.select_signal_peaks(name)
 
 
 

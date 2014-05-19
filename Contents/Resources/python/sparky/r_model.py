@@ -112,6 +112,9 @@ def _selected_peaks():
 
 def set_group(name, my_peaks=None):
     pks = _selected_peaks() if my_peaks is None else my_peaks
+    for my_pk in pks:
+        if my_pk.note in ['noise', 'artifact']:
+            raise ValueError('cannot assign group of noise or artifact peak')
     groups, _ = resonance_map()
     if groups.has_key(name):
         r_ids = sorted([(res.frequency, int(ix)) for (ix, res) in groups[name].items()], key=lambda x: x[1])
@@ -186,6 +189,9 @@ def assign_peaktype(atomtypes):
     for pk in pks:
         if len(pk.resonances()) != len(atomtypes):
             raise ValueError('peaktype does not match peak dimensionality')
+        if pk.note in ['artifact', 'noise']:
+            raise ValueError('cannot assign peaktype of noise or artifact')
+    for pk in pks:
         for (ix, res_dim) in enumerate(pk.resonances()):
             rid, _ = parse_resonance(res_dim.atom.name)
             pk.assign(ix, 
@@ -218,12 +224,15 @@ def set_signal():
 
 
 def select_signal_peaks(specname):
+    count = 0
     for sp in project().spectrum_list():
         if sp.name == specname:
             for pk in sp.peak_list():
                 if pk.note not in ['artifact', 'noise']:
                     pk.selected = 1
-            break
+            count += 1
+    if count == 0:
+        raise ValueError('no spectrum named %s' % specname)
 
 
 def create_group_for_peak():
