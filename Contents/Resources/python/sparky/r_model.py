@@ -13,6 +13,9 @@ def session():
 def project():
     return session().project
 
+def spectra():
+    return project().spectrum_list()
+
 def molecule():
     return project().molecule_list()[0]    
 
@@ -93,6 +96,13 @@ def resonance_map():
 def group_map():
     return dict((g.name, g) for g in groups())
 
+def spectrum_map():
+    specs = {}
+    for sp in spectra():
+        if specs.has_key(sp.name):
+            raise ValueError('unable to construct spectrum map: duplicate name %s' % sp.name)
+        specs[sp.name] = sp
+    return specs
 
 #### assignment utilities
 
@@ -127,8 +137,8 @@ def set_group(name, my_peaks=None):
             n += 1
             my_id = _add_into_cluster(r_ids, pk.frequency[i])
             pk.assign(i, 
-                      unparse_group(name, '?', '?'), 
-                      unparse_resonance(str(my_id), '?'))
+                      unparse_group(name, '?', '?'), # TODO this is a problem -- shouldn't reset the group information
+                      unparse_resonance(str(my_id), '?')) # TODO shouldn't reset the atomtype
         pk.show_assignment_label()
     print n, 'assignments made'
 
@@ -220,7 +230,12 @@ def set_artifact():
 
 
 def set_signal():
-    raise ValueError('unimplemented')
+    pks = _selected_peaks()
+    for pk in pks:
+        if not pk.note in ['artifact', 'noise']:
+            raise ValueError('peak is neither artifact nor noise')
+        pk.note = ''
+        pk.color = 'white'
 
 
 def select_signal_peaks(specname):
@@ -233,6 +248,44 @@ def select_signal_peaks(specname):
             count += 1
     if count == 0:
         raise ValueError('no spectrum named %s' % specname)
+
+
+def _signal_peaks(spectrum):
+    return [pk for pk in spectrum.peak_list() if pk.note not in ['artifact', 'noise']]
+
+def _close(freq1, freq2, tolerance):
+    return abs(freq1 - freq2) <= tolerance
+
+def group_peaks_into_gss(dims, spec_from, spec_to):
+    specs = spectrum_map()
+    fr, to = specs[spec_from], specs[spec_to]
+    pks_fr, pks_to = map(_signal_peaks, (fr, to))
+    matches = {}
+    for pf in pks_fr:
+        if not pf.selected:
+            continue
+        group_names = set([])
+        for r in pf.resonances():
+            grp, _, _ = parse_group(r.group.name)
+            group_names.add(grp)
+        if len(group_names) != 1:
+            raise ValueError('unable to use peak from GSS grouping: does not have unique group name (%s)' % str(group_names))
+        name = list(group_names)[0]
+        for pt in pks_to:
+            is_match = True
+            for (df, dt, tolerance) in dims:
+                if not _close(pf.frequency[df], pt.frequency[dt], tolerance):
+                    is_match = False
+                    break
+            if is_match:
+                if not matches.has_key(pt):
+                    matches[pt] = []
+                matches[pt].append(name)
+    for (pt, names) in matches.items():
+        if len(names) == 1:
+            set_group(names[0], [pt])
+        else:
+            print 'unable to assign peak at %s to GSS: ambiguous with groups %s' % (str(pt.frequency), str(names))
 
 
 def create_group_for_peak():

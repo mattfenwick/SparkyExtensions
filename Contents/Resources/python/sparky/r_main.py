@@ -43,6 +43,7 @@ class GitRepo(object):
 import tkutil
 import sputil
 import r_peaktypes as peaktypes
+import simplejson as json
 
 
 class Snapshot_dialog(tkutil.Dialog):
@@ -108,6 +109,11 @@ class Snapshot_dialog(tkutil.Dialog):
         m1.frame.pack(side='top', anchor='w')
         m1.add_callback(self.set_peaktype_spectrum)
         
+        self.peaktype_dim_order = m3 = tkutil.option_menu(self.top, 'Peaktype dimension order', [])
+        self.dim_order = ','.join(map(str, peaktypes.orders[1][0]))
+        m3.frame.pack(side='top', anchor='w')
+        m3.add_callback(self.set_peaktype_dim_order)
+        
         self.peaktype = m2 = tkutil.option_menu(self.top, 'Assign peaktype', [])
         m2.frame.pack(side='top', anchor='w')
         m2.add_callback(self.assign_peaktype)
@@ -118,6 +124,12 @@ class Snapshot_dialog(tkutil.Dialog):
         e7 = tkutil.entry_field(self.top, 'Spectrum name:', '', 20)
         e7.frame.pack(side = 'top', anchor = 'w')
         self.select_signal_peaks_name = e7.variable
+
+        br8 = tkutil.button_row(self.top, ('Automatically group peaks into GSS', self.group_peaks_into_gss))
+        br8.frame.pack(side = 'top', anchor = 'w')
+        e8 = tkutil.entry_field(self.top, 'Parameters:', '[[[0, 1, 0.2], [1, 2, 0.05]], "hsqc-ci2", "hncocacb"]', 40)
+        e8.frame.pack(side = 'top', anchor = 'w')
+        self.group_peaks_parameters = e8.variable
 
 
 
@@ -154,13 +166,26 @@ class Snapshot_dialog(tkutil.Dialog):
         self.peaktype.remove_all_entries()
         for pt in peaktypes.spectra[spectrum]:
             self.peaktype.add_entry(','.join(pt))
+        self.peaktype_dim_order.remove_all_entries()
+        for o in peaktypes.orders[len(pt) - 1]:
+            self.peaktype_dim_order.add_entry(','.join(map(str, o)))
+    
+    def set_peaktype_dim_order(self, order):
+        self.dim_order = order.split(',')
     
     def assign_peaktype(self, peaktype):
-        model.assign_peaktype(peaktype.split(','))
+        pt = peaktype.split(',')
+        my_pt = [y for (_, y) in sorted(zip(self.dim_order, pt), key=lambda x: x[0])]
+        model.assign_peaktype(my_pt)
 
     def select_signal_peaks(self):
         name = self.select_signal_peaks_name.get()
         model.select_signal_peaks(name)
+
+    def group_peaks_into_gss(self):
+        # what a hack with JSON here
+        params = json.loads(self.group_peaks_parameters.get())
+        model.group_peaks_into_gss(*params)
 
 
 
