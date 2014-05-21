@@ -80,9 +80,11 @@ def groups_from_peaks():
     _, gs = _from_peaks()
     return gs
 
-def resonance_map():
+def resonance_map(rs=None):
+    if rs is None:
+        rs = resonances_from_peaks()
     gs, bad, gs_info = {}, {}, {}
-    for r in resonances_from_peaks():
+    for r in rs:
         try:
             gid, aatype, next_, residue = parse_group(r.group.name)
             rid, atomtype = parse_resonance(r.atom.name)
@@ -211,7 +213,6 @@ def set_residue(ssname, residue):
                             res_dim.atom.name)
 
 
-# TODO this seems to be wrong
 def set_atomtype(gid, rid, atomtype):
     groups, _, _ = resonance_map()
     if not groups.has_key(gid):
@@ -231,7 +232,7 @@ def set_atomtype(gid, rid, atomtype):
                         unparse_resonance(rid, atomtype))
 
 
-def assign_peaktype_old(atomtypes):
+def assign_peaktype(atomtypes):
     pks = _selected_peaks()
     for pk in pks:
         if len(pk.resonances()) != len(atomtypes):

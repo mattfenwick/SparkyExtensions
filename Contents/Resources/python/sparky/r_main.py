@@ -98,12 +98,11 @@ class Snapshot_dialog(tkutil.Dialog):
         br4.frame.pack(side='top', anchor='w')
         e4_1 = tkutil.entry_field(self.top, 'Group name:', '', 20)
         e4_1.frame.pack(side='top', anchor='w')
-        e4_2 = tkutil.entry_field(self.top, 'Resonance name:', '', 20)
-        e4_2.frame.pack(side='top', anchor='w')
+        self.set_resonance = m4 = tkutil.option_menu(self.top, 'Resonance:', [])
+        m4.frame.pack(side='top', anchor='w')
         e4_3 = tkutil.entry_field(self.top, 'Atom:', '', 20)
         e4_3.frame.pack(side='top', anchor='w')
         self.res_group_name = e4_1.variable
-        self.res_resonance_name = e4_2.variable
         self.res_atom = e4_3.variable
 
         br7 = tkutil.button_row(self.top, ('Set sequential group assignment', self.set_seq_ss))
@@ -146,9 +145,24 @@ class Snapshot_dialog(tkutil.Dialog):
         e8 = tkutil.entry_field(self.top, 'Parameters:', '[[[0, 1, 0.2], [1, 2, 0.05]], "hsqc-ci2", "hncocacb"]', 40)
         e8.frame.pack(side = 'top', anchor = 'w')
         self.group_peaks_parameters = e8.variable
+        
+        self.changed_callback = model.session().notify_me('selection changed', self.selection_changed)
 
 
 
+    def selection_changed(self):
+        rs = []
+        for pk in model._selected_peaks():
+            rs.extend(pk.resonances())
+        gs, _, gs_info = model.resonance_map(set(rs))
+        if len(gs_info) == 1:
+            k = gs_info.keys()[0]
+            self.group_name.set(k)
+            self.group_name_aatype.set(k)
+            self.res_group_name.set(k)
+            self.set_resonance.remove_all_entries()
+            for x in gs_info[k]['resonances'].keys():
+                self.set_resonance.add_entry(x)
 
     def make_snapshot(self):
         self.g.dump(self.message.get())
@@ -175,7 +189,7 @@ class Snapshot_dialog(tkutil.Dialog):
     
     def set_resonance_atomtype(self):
         model.set_atomtype(self.res_group_name.get(), 
-                           self.res_resonance_name.get(), 
+                           self.set_resonance.variable.get(), 
                            self.res_atom.get())
     
     def set_seq_ss(self):
