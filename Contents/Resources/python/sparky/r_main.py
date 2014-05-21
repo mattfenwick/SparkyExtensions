@@ -46,6 +46,15 @@ import r_peaktypes as peaktypes
 import simplejson as json
 
 
+aatypes = [
+    'Arg', 'His', 'Lys', 'Asp', 'Glu', 'Ser', 'Thr', 'Asn', 'Gln', 'Trp',
+    'Cys', 'Gly', 'Pro', 'Ala', 'Val', 'Ile', 'Leu', 'Met', 'Phe', 'Tyr',
+    'S/T',
+    'sAsn', 'sGln', 'sArg', 'sTrp',
+    'sLys', 'sAsn/Gln'
+]
+
+
 class Snapshot_dialog(tkutil.Dialog):
 
     def __init__(self, session):
@@ -77,6 +86,13 @@ class Snapshot_dialog(tkutil.Dialog):
         e3_2.frame.pack(side='top', anchor='w')
         self.group_name = e3.variable
         self.residue_name = e3_2.variable
+
+        self.aatype = m99 = tkutil.option_menu(self.top, 'Assign amino acid type', aatypes)
+        m99.frame.pack(side='top', anchor='w')
+        m99.add_callback(self.set_group_aatype)
+        e99 = tkutil.entry_field(self.top, 'Group name:', '', 20)
+        e99.frame.pack(side='top', anchor='w')
+        self.group_name_aatype = e99.variable
 
         br4 = tkutil.button_row(self.top, ('Set resonance assignment', self.set_resonance_atomtype))
         br4.frame.pack(side='top', anchor='w')
@@ -149,6 +165,10 @@ class Snapshot_dialog(tkutil.Dialog):
     
     def set_artifact(self):
         model.set_artifact()
+    
+    def set_group_aatype(self, aatype):
+        gid = self.group_name_aatype.get()
+        model.set_aatype(gid, aatype)
     
     def set_group_residue(self):
         model.set_residue(self.group_name.get(), self.residue_name.get())
