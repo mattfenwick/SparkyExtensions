@@ -36,18 +36,177 @@ how to use the extension for reproducible analysis.
 \listoftables
 \listoffigures
 
-% keywords
 
-\section{Introduction}
-
-
-\section{Architecture}
+\section{Sparky notes}
+Once the project is loaded, use the "re" shortcut to bring up the 
+reproducibility menu.
 
 
-\section{Discussion}
 
 
-\section{Conclusions}
+\section{Concepts}
+
+\subsection{GSS and resonance}
+Sparky does not natively distinguish between a GSS (generic spin system) and
+a residue, nor between a resonance and an atom.
+
+\subsection{Extraneous data}
+
+\subsection{Snapshots}
+
+\subsection{Deductive reasoning}
+
+
+\section{Peak picking and signal/noise/artifact identification}
+Use standard Sparky facilities to peak pick your NHSQC spectrum.
+
+Some of the peaks Sparky found will turn out to be noise or artifact peaks.
+\textbf{Do not delete peaks, ever, for any reason!}  Instead,
+when peaks are identified as such, select them and press the "Set selected 
+peaks to noise" or "Set selected peaks to artifact" button, as necessary.
+Peaks must not be assigned when setting them to noise or artifact.
+
+Sparky will not find all true peaks.  When these are identified, simply
+pick the peak manually.
+
+Overlapped peaks are also a problem.  They may cause too few peaks to be 
+picked, or peaks to be picked in a slightly wrong position.  If these errors
+can be rectified manually, simply add peaks and move others as necessary.
+
+Either a restricted peak pick (using NHSQC peaks) or a standard peak pick
+of the full dimensions should be used to peak pick all other N-H-rooted
+spectra (such as the HNCO, HNCACB, CCONH-Tocsy, etc.).
+
+
+\section{GSS initialization}
+It is convenient to create one GSS for each NHSQC peak that is (or may be)
+a signal peak.  \textit{This functionality is currently available through
+the Python shell.}  Use the keyboard shortcut "py" to bring up the shell.
+Then, select the NHSQC peaks which will be used as GSS roots.  
+All signal peaks can be selected using the "select signal peaks" button.
+In the shell, type in:
+\begin{verbatim}
+import sparky.r_model as mod
+mod.create_group_for_peak()
+\end{verbatim}
+
+When an NHSQC peak is used to initialize a GSS, the GSS will start off
+with two resonances: one for the H, and one for the N.
+
+
+\section{GSS construction}
+Use the "Automatically group peaks into GSS" button, setting the parameters
+appropriately.
+
+The way that GSS construction works is that for each peak in the "from"
+spectrum, all peaks in the "to" spectrum within the tolerances will be
+assigned to the same GSS as the "from" peak.  Peaks in the "to" spectrum that
+match 0 "from" peaks will not be assigned to any GSS; those that match more
+than 1 peak will also not be assigned, but a warning will be generated in
+the shell, allowing manual resolution.
+
+Matching requires that some subset of the spectral dimensions match.  Using
+an NHSQC and an HNCACB, the H and the N dimensions match.  The resonance
+assignments of the peak dimensions will be carried over for matching dimensions,
+and new resonances will be created for the C dimension.
+
+Only selected peaks in the "from" spectrum will be used; the "select signal 
+peaks" button is again useful for performing GSS construction across the
+entire spectrum at once.
+
+
+\section{Peak dimension to resonance assignment}
+Peak dimension to resonance assignment can fail in two cases.
+
+First, when the chemical shifts between the peak dimensions don't match
+within the tolerances, multiple resonances are created.  These can be merged
+using the built-in Sparky assignment tools by changing the assignment of one
+peak dimension to match the other.
+
+Second, in the case of overlap, a single resonance is created when there
+should actually be multiple resonances.  This can also be resolved using
+the built-in Sparky assignment tools, by simply changing the assignment of
+one peak dimention to a fresh resonance id.
+
+
+\section{Changing peak-GSS assignments}
+There are two major cases for moving a peak from one GSS to another.
+
+First, for GSS types such as Q and N sidechains, where there are multiple
+peaks in the NHSQC (because of the two protons).  Simply select the appropriate
+peaks, choose a GSS id (typically the lowest of the GSS ids of the selected
+peaks, just for convenience and consistency) and press the "set groups of
+selected peaks" button.
+
+Second, for correcting mistakes.  Select the incorrectly assigned peaks,
+type in the desired GSS id, and press the "set groups of selected peaks" button.
+
+
+\section{Resonance typing}
+The types of resonances are assigned using BMRB statistics, GSS typing, 
+peak characteristics,
+and the pulse sequences of the spectra in which they appear.  For some spectra,
+such as the NHSQC, there are relatively few choices: for backbone GSSs,
+the resonance types are always amide-H and amide-N.  However, other spectra
+have more choices: for the HNCACB, resonances in backbone GSSs in the C
+dimension can be CA, CA(i-1), CB, or CB(i-1).
+
+There are two ways to assign resonance types.  First, a peak may be assigned
+a peaktype.  A peaktype is a set of resonance types visible in a pulse sequence
+-- thus, all the resonance types of a single peak are assigned simultaneously.
+This can be done using "assign peaktype" drop-down menu.
+
+The second way is to assign resonance types individually.  This can be done 
+using the "set resonance assignment" dialog.
+
+Ambiguous resonance typings are also supported.  Common examples include
+CA/CA(i-1), HA2/HA3 (Glycine), HB2/HB3 (many amino acids), and QB (Alanine).
+
+
+\section{GSS typing}
+GSSs are assigned types based on BMRB statistics, the presence or absence of
+characteristics resonance types, and possibly also based on the assignments 
+of linked GSSs.
+
+GSS types for H-N-rooted GSSs include backbone types for each of the 20 
+standard amino acids, as well as sidechain types for Q, N, R, W, and K.
+
+GSS typing is accomplished using the "assign amino acid type" dialog.
+
+
+\section{Sequential GSS assignment}
+Sequentiall GSS assignments are identified based on overlapping compatible
+resonances between GSSs: for example, a GSS with a CA at 58.32 PPM and a CB
+at 30.27 PPM, and a second GSS with a CA(i-1) at 58.21 and a CB(i-1) at 30.41:
+these GSSs have overlapping compatible resonances and can be sequentially
+assigned.
+
+It is not necessary that resonance types are unambiguously assigned before
+doing sequential GSS assignments: if it is unclear whether a resonance is a
+CA or CA(i-1), this may be assigned simultaneously as the sequential assignment
+is made, if it is consistent with the overlap from the other GSS.
+
+Additionally, sequential GSS assignment can lead to the picking of additional
+peaks, or the resolution of GSS overlap, if such picking and/or resolution
+leads to consistent and compatible overlap with another GSS.
+
+Sequential GSS assignment is accomplished using the "set sequential group
+assignment" dialog.
+
+
+\section{GSS-residue assignment}
+GSSs are assigned to residues on the basis of GSS typing, sequential GSS
+assignments, and the primary sequence.
+
+This can be done using the "set group-residue assignment" dialog.
+
+
+\section{Gotchas}
+Since Sparky's data model does not natively understand GSSs and resonances,
+there are some limitations associated with the enhanced data model provided
+by this extension.  It is possible to assign peaks without using the 
+reproducibility menu, but if care is not taken when doing so, the peak
+assignments may be incompatible with the extension.
 
 
 % acknowledgements
