@@ -16,7 +16,8 @@
 \maketitle
 
 \begin{abstract}
-Sparky is a popular program for analysis of NMR data, including peak picking,
+Sparky \cite{sparky} 
+is a popular program for analysis of NMR data, including peak picking,
 GSS construction, and GSS assignment.  It is designed for flexibility in that
 it includes a Python interpreter and an API accessible from Python programs
 which allows interaction with and manipulation of its data model.  This makes
@@ -39,22 +40,117 @@ how to use the extension for reproducible analysis.
 
 \section{Sparky notes}
 Once the project is loaded, use the "re" shortcut to bring up the 
-reproducibility menu.
-
-
+reproducibility menu.  "js", "jc", and "jo" -- save project, close project,
+and open project -- are also very useful shortcuts.
 
 
 \section{Concepts}
+
+No automated algorithm is perfect in the NMR process.  Automated peak picking,
+GSS construction, and GSS-residue assignment needs manual validation and
+correction.  The main goal of this extension is to support these manual
+modifications in such a way that the modifications are captured in full so
+as to be recapitulable at a later time.
+
+The process of manual analysis is composed of a series of discrete steps.
+At each step, a deductive rule is applied to the data set, producing a
+modified new data set.  Thus, for each rule, knowing the context is important:
+it allows one to determine how appropriate the application of a specific rule
+is, as well as what the results should be, and to determine whether the 
+results are consistent with expectations.
 
 \subsection{GSS and resonance}
 Sparky does not natively distinguish between a GSS (generic spin system) and
 a residue, nor between a resonance and an atom.
 
+A resonance is the NMR-visible signal due to an atom (or of a group of
+atoms if they are not distinguishable in NMR experiments).  An atom generally
+resonates at the same frequency across all experiments; a resonance is used
+to capture this relationship.  Thus, two signals at the same frequency
+may be the same resonance (although it is also possible that two resonances
+coincidentally appear at the same frequency -- but this is often resolved
+through couplings to other, covalently-bound resonances).  Ignoring overlap,
+each cross-section of a peak corresponds to one resonance.
+
+A GSS is a group of covalently bound resonances, which interact through 
+scalar couplings.  In a through-bond experiment, by definition, all the
+resonances assigned to a single peak belong to the same GSS.  Multiple peaks
+are determined to be in the same GSS by the overlap of resonances (resonances
+with identical or nearly identical chemical shifts).  GSSs are eventually
+assigned to residues in the primary sequence of the protein, which determines
+the chemical shift assignments.
+
+These have been implemented in the extension, based on the CCPN model \cite{ccpn}.
+
 \subsection{Extraneous data}
+In standard analysis, false positive peaks (picked as true peaks initially,
+but later determined to be noise or artifactual) and false positive spin 
+systems (not assigned to any residue) are typically deleted and/or ignored.
+In this extension, \textbf{data is never deleted}.  Such results are kept,
+since they have valuable information content, even if they are not used for
+the immediate purpose of the analysis process (be it structure or dynamics
+determination).  These results are kept by, instead of deleting them, 
+explicitly marking them as not of interest, and placed in a different
+category.
 
 \subsection{Snapshots}
+Snapshots of intermediate states during analysis are used to enable rehashing
+of the deductive process.  In general, by capturing a snapshot of the data set
+each time a deductive rule is applied, the context of each manual modification
+is captured.
+
+An additional benefit of capturing snapshots is that they allow one to go 
+backward in time.  This can be useful for understanding what happened and
+why, but it is also useful for fixing mistakes and accidents -- and this is
+quite important, because Sparky doesn't really have the capability to undo
+changes.  So if something accidentally gets changed: 1) you might not even
+notice, and 2) you probably won't be able to restore it easily.  Capturing
+snapshots makes solving both of these problems trivial.
 
 \subsection{Deductive reasoning}
+Capturing the deductive rules applied during the process of manual assignment
+provides semantic information about what is being done and why.  This makes it
+far more meaningful to examine the sequence of snapshots of an analysis
+process and determine the context.
+
+
+\section{Prerequisites}
+\begin{itemize}
+  \item Sparky
+    (at \url{http://pine.nmrfam.wisc.edu/download_packages.html})
+  \item reproducibility extension
+    (at \url{https://github.com/mattfenwick/SparkyExtensions/tree/master/Contents/Resources/python/sparky})
+  \item git
+    (at \url{http://git-scm.com/downloads})
+\end{itemize}
+
+
+\section{Setup}
+Create an empty git repository.  Move to the directory of your choice, and
+run:
+\begin{verbatim}
+$ git init
+$ mkdir Projects/
+$ mkdir Save/
+$ mkdir Data/
+\end{verbatim} 
+to create and initialize the repository.  
+Save all spectra files in the "Data/" directory.
+When in Sparky, save the project in the "Projects/" directory.
+The Sparky .save files will automatically be written into the "Save/"
+directory.
+
+\subsection{Capturing a snapshot}
+\begin{itemize}
+  \item save the project ("js")
+  \item type in the appropriate deductive reason in the "deductive reason used"
+    text box
+  \item click the "make snapshot" button
+\end{itemize}
+This will use git to create a new snapshot.  At any time, the contents of
+the git repo can be examined using the terminal and the file browser.  Git
+supports many features for examining and manipulating history.  These may
+all be accessed from the terminal.
 
 
 \section{Peak picking and signal/noise/artifact identification}
