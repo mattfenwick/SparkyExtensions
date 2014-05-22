@@ -1,0 +1,62 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[top=30mm, bottom=30mm, left=30mm, right=30mm]{geometry}
+\usepackage{microtype} % makes things look nicer ??
+\usepackage{times} % ???
+\usepackage{graphicx} % for pictures
+\usepackage{hyperref} % for internal links
+\DeclareGraphicsExtensions{.jpg, .png}
+\usepackage[T1]{fontenc} % see http://tex.stackexchange.com/questions/664/
+
+
+
+\begin{document}
+
+\author{Matthew Fenwick}
+\title{Sparky reproducibility extension for NMR data analysis}
+\maketitle
+
+\begin{abstract}
+Sparky is a popular program for analysis of NMR data, including peak picking,
+GSS construction, and GSS assignment.  It is designed for flexibility in that
+it includes a Python interpreter and an API accessible from Python programs
+which allows interaction with and manipulation of its data model.  This makes
+it possible to write extensions which automatically perform complex
+computational tasks.
+
+I have implemented an extension which facilitates reproducible data analysis
+by extending the Sparky data model such that additional data can be easily
+collected during the analysis process.  This additional data is sufficient
+to render the process reproducible.
+
+This document discusses the concepts of the extended data model, as well as
+how to use the extension for reproducible analysis.
+\end{abstract}
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+% keywords
+
+\section{Introduction}
+
+
+\section{Architecture}
+
+
+\section{Discussion}
+
+
+\section{Conclusions}
+
+
+% acknowledgements
+
+% not sure what the difference is between `unsrt` and `ieeetr`
+% also see `natbib` for another possible alternative
+%\bibliographystyle{unsrt}
+\bibliographystyle{ieeetr} % supposed to use `natbib` and format them differently
+\bibliography{sparkyext}
+
+\end{document}
+
