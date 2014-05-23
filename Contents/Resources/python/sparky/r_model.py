@@ -90,6 +90,8 @@ def resonance_map(rs=None):
             rid, atomtype = parse_resonance(r.atom.name)
         except Exception, e:
             print e
+            if r is None:
+                continue
             if not bad.has_key(r.group.name):
                 bad[r.group.name] = {}
             bad[r.group.name][r.atom.name] = r
@@ -232,6 +234,27 @@ def set_atomtype(gid, rid, atomtype):
                         unparse_resonance(rid, atomtype))
 
 
+def merge_resonances(gid, rid1, rids):
+    groups, _, gs_info = resonance_map()
+    if not groups.has_key(gid):
+        raise ValueError('invalid group name: %s' % gid)
+    grp = groups[gid]
+    if not rid1 in grp:
+        raise ValueError('invalid resonance name: %s' % rid1)
+    atomtype = gs_info[gid]['resonances'][rid1]
+    for rid2 in rids:
+        if not rid2 in grp:
+            raise ValueError('invalid resonance name: %s' % rid2)
+        res = grp[rid2]
+        for peak in res.peak_list():
+            for (i, res_dim) in enumerate(peak.resonances()):
+                if res != res_dim:
+                    continue
+                peak.assign(i,
+                            res_dim.group.name, # should be the same as res.group.name, right?
+                            unparse_resonance(rid1, atomtype))
+
+    
 def assign_peaktype(atomtypes):
     pks = _selected_peaks()
     for pk in pks:

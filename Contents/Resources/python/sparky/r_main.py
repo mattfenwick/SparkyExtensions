@@ -47,11 +47,10 @@ import simplejson as json
 
 
 aatypes = [
-    'Arg', 'His', 'Lys', 'Asp', 'Glu', 'Ser', 'Thr', 'Asn', 'Gln', 'Trp',
-    'Cys', 'Gly', 'Pro', 'Ala', 'Val', 'Ile', 'Leu', 'Met', 'Phe', 'Tyr',
-    'S/T',
-    'sAsn', 'sGln', 'sArg', 'sTrp',
-    'sLys', 'sAsn/Gln'
+    'b', # ambiguous backbone
+    'R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'W', 
+    'C', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 
+    'S/T', 'sN', 'sQ', 'sN/Q', 'sR', 'sW', 'sK'
 ]
 
 
@@ -134,17 +133,23 @@ class Snapshot_dialog(tkutil.Dialog):
         m2.add_callback(self.assign_peaktype)
 #        m1.add_callback(self.assign_peaktype)
 
-        br7 = tkutil.button_row(self.top, ('Select signal peaks', self.select_signal_peaks))
-        br7.frame.pack(side = 'top', anchor = 'w')
-        e7 = tkutil.entry_field(self.top, 'Spectrum name:', '', 20)
-        e7.frame.pack(side = 'top', anchor = 'w')
-        self.select_signal_peaks_name = e7.variable
+        br9 = tkutil.button_row(self.top, ('Select signal peaks', self.select_signal_peaks))
+        br9.frame.pack(side = 'top', anchor = 'w')
+        e9 = tkutil.entry_field(self.top, 'Spectrum name:', '', 20)
+        e9.frame.pack(side = 'top', anchor = 'w')
+        self.select_signal_peaks_name = e9.variable
 
         br8 = tkutil.button_row(self.top, ('Automatically group peaks into GSS', self.group_peaks_into_gss))
         br8.frame.pack(side = 'top', anchor = 'w')
         e8 = tkutil.entry_field(self.top, 'Parameters:', '[[[0, 1, 0.2], [1, 2, 0.05]], "hsqc-ci2", "hncocacb"]', 40)
         e8.frame.pack(side = 'top', anchor = 'w')
         self.group_peaks_parameters = e8.variable
+
+        br10 = tkutil.button_row(self.top, ('Merge resonances', self.merge_resonances))
+        br10.frame.pack(side = 'top', anchor = 'w')
+        e10 = tkutil.entry_field(self.top, 'Group, resonance 1, resonance*:', '41,3,6,7', 30)
+        e10.frame.pack(side = 'top', anchor = 'w')
+        self.merge_resonances_var = e10.variable
         
         self.changed_callback = model.session().notify_me('selection changed', self.selection_changed)
 
@@ -220,6 +225,12 @@ class Snapshot_dialog(tkutil.Dialog):
         # what a hack with JSON here
         params = json.loads(self.group_peaks_parameters.get())
         model.group_peaks_into_gss(*params)
+    
+    def merge_resonances(self):
+        # what a hack
+        params = self.merge_resonances_var.get().split(',')
+        gid, rid1, rids = params[0], params[1], params[2:]
+        model.merge_resonances(gid, rid1, rids)
 
 
 
