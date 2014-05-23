@@ -60,7 +60,7 @@ class Snapshot_dialog(tkutil.Dialog):
         self.g = GitRepo()
         
         self.session = session
-        self.title = 'Snapshot'
+        self.title = 'Reproducibility'
         
         tkutil.Dialog.__init__(self, session.tk, self.title)
         

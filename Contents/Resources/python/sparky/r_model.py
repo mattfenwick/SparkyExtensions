@@ -156,9 +156,13 @@ def set_group(gid, my_peaks=None):
             # TODO should this iteration be skipped if peak dim is already assigned a resonance?
             n += 1
             int_rid = _add_into_cluster(r_ids, pk.frequency[i])
-            rid, my_gr = str(int_rid), gs_info[gid]['resonances']
-            if rid in my_gr:
-                atomtype = my_gr[rid]
+            rid = str(int_rid)
+            if gid in gs_info:
+                my_gr = gs_info[gid]['resonances']
+                if rid in my_gr:
+                    atomtype = my_gr[rid]
+                else:
+                    atomtype = '?'
             else:
                 atomtype = '?'
             pk.assign(i, 
