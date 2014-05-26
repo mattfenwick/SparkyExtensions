@@ -1,5 +1,5 @@
 import sparky
-from . import r_model as model
+import r_model as model
 import tkutil
 import sputil
 import r_peaktypes as peaktypes
