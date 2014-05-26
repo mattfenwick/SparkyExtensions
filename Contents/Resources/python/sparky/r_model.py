@@ -136,7 +136,10 @@ def _selected_peaks():
     return session().selected_peaks()
 
 def set_group(gid, my_peaks=None):
-    pks = _selected_peaks() if my_peaks is None else my_peaks
+    if my_peaks is None:
+        pks = _selected_peaks()
+    else:
+        pks = my_peaks
     for my_pk in pks:
         if my_pk.note in ['noise', 'artifact']:
             raise ValueError('cannot assign group of noise or artifact peak')
