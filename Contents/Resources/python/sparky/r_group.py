@@ -15,6 +15,7 @@ aatypes = [
 ]
 
 
+
 class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
 
     def __init__(self, session):
@@ -23,12 +24,6 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
         
         tkutil.Dialog.__init__(self, session.tk, self.title)
 
-        br1 = tkutil.button_row(self.top, ('Select group', self.select_group))
-        br1.frame.pack(side='top', anchor='w')
-        e1 = tkutil.entry_field(self.top, 'Group name:', '', 20)
-        e1.frame.pack(side='top', anchor='w')
-        self.group_name = e1.variable
-        
         # modify things
         #   gid
         #     aatype, next, residue
@@ -52,11 +47,12 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
         #   only assigned to a single group, make that the active group
 
         br = tkutil.button_row(self.top,
+                    ('Reset', self.reset),
                     ('Close', self.close_cb),
                     )
         br.frame.pack(side = 'top', anchor = 'w')
-
-
+        
+        self.reset()
 
 
     def click_on_listbox(self, *args):
@@ -65,36 +61,37 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
             raise ValueError('expected 1 line selected, got 0 or 2+')
         d = ds[0]
         if d['type'] == 'group':
-            show_group_editor(self.session, d['gid'], d['aatype'], d['next'], d['residue'])
+            show_group_editor(self.session, d['gid'], d['aatype'], d['next'], d['residue'], self)
         elif d['type'] == 'resonance':
-            show_resonance_editor(self.session, **d['args'])
+            show_resonance_editor(self.session, d['gid'], d['rid'], d['atomtype'], self)
+        elif d['type'] == 'blank line':
+            pass
+        else:
+            raise ValueError('unexpected line data type -- %s' % str(d['type']))
         print args, dir(args[0]), self.group_data.listbox.curselection(), self.group_data.selected_line_data()
     
     def reset(self):
+        pos = self.group_data.listbox.yview()
         self.group_data.clear()
         gs, _, gs_info = model.resonance_map()
-        for gid in sorted(gs_info.keys()):
+        for gid in sorted(gs_info.keys(), key=lambda x: int(x)):
             g = gs_info[gid]
-            text = 'Group %s, residue %s, next GSS %s, aatype %s' % (gid, g['residue'], g['next'], g['aatype'])
+            text = 'Group %s, residue %s, next GSS %s, GSS type %s' % (gid, g['residue'], g['next'], g['aatype'])
             self.group_data.append(text, {'type': 'group', 'gid': gid, 'residue': g['residue'], 'aatype': g['aatype'], 'next': g['next']})
             for rid in sorted(g['resonances']):
                 line = 'Group %s: resonance %s:  atomtype %s, shift %s' % (gid, rid, g['resonances'][rid], gs[gid][rid].frequency)
-                self.group_data.append(line, {'type': 'resonance', 'rid': rid, 'atomtype': g['resonances'][rid]})
+                self.group_data.append(line, {'type': 'resonance', 'gid': gid, 'rid': rid, 'atomtype': g['resonances'][rid]})
+            self.group_data.append('', {'type': 'blank line'})
+        self.group_data.listbox.yview_moveto(pos[0])
 
-    def selection_changed(self):
-        rs = []
-        for pk in model._selected_peaks():
-            rs.extend(pk.resonances())
-        gs, _, gs_info = model.resonance_map(set(rs))
-        if len(gs_info) == 1:
-            k = gs_info.keys()[0]
-            # do some stuff ... populate widgets
 
 
 class Group_editor(tkutil.Dialog):
     
-    def __init__(self, session, gid=None):
+    def __init__(self, session, gid=None, group_editor=None):
         self.gid = gid
+        self.group_editor = group_editor
+        
         tkutil.Dialog.__init__(self, session.tk, 'Group editor -- ???')
         
         e1 = tkutil.entry_field(self.top, 'GSS type:', '', 20)
@@ -110,12 +107,12 @@ class Group_editor(tkutil.Dialog):
         self.residue = e3.variable
     
         br = tkutil.button_row(self.top,
-                    ('Update', self.update),
+                    ('Apply', self.update),
                     ('Close', self.close_cb),
                     )
         br.frame.pack(side = 'top', anchor = 'w')
     
-    def setup(self, gid, aatype, next_, residue):
+    def setup(self, gid, aatype, next_, residue, group_editor):
         """
         work-around -- should be passed in to constructor, but the thing
         which instantiates this class doesn't pass any args
@@ -125,6 +122,7 @@ class Group_editor(tkutil.Dialog):
         self.aatype.set(aatype)
         self.next_.set(next_)
         self.residue.set(residue)
+        self.group_editor = group_editor
 
     def set_group_aatype(self):
         model.set_aatype(self.gid, self.aatype.get())
@@ -140,28 +138,44 @@ class Group_editor(tkutil.Dialog):
         self.set_group_aatype()
         self.set_group_residue()
         self.set_seq_ss()
+        self.group_editor.reset()
 
 
 
 class Resonance_editor(tkutil.Dialog):
     
-    def __init__(self, session, rid):
+    def __init__(self, session, gid=None, rid=None, group_editor=None):
+        self.gid = gid
+        self.rid = rid
+        self.group_editor = group_editor
+        
         tkutil.Dialog.__init__(self, session.tk, 'Resonance editor --- ???')
         
         e1 = tkutil.entry_field(self.top, 'Atom type:', '', 20)
         e1.frame.pack(side='top', anchor='w')
-        self.aatype = e1.variable
+        self.atomtype = e1.variable
     
-        e2 = tkutil.entry_field(self.top, 'next GSS:', '', 20)
-        e2.frame.pack(side='top', anchor='w')
-        self.next_ = e2.variable
-            
+        br = tkutil.button_row(self.top,
+                    ('Apply', self.update),
+                    ('Close', self.close_cb),
+                    )
+        br.frame.pack(side = 'top', anchor = 'w')
+    
+    def setup(self, gid, rid, atomtype, group_editor):
+        self.gid = gid
+        self.rid = rid
+        self.atomtype.set(atomtype)
+        self.group_editor = group_editor
+    
     def set_resonance_atomtype(self):
-        model.set_atomtype(self.res_group_name.get(), 
-                           self.set_resonance.variable.get(), 
-                           self.res_atom.get())
+        model.set_atomtype(self.gid, self.rid, self.atomtype.get())
+    
+    def update(self):
+        self.set_resonance_atomtype()
+        self.group_editor.reset()
     
     def merge_resonances(self):
+        # TODO this is currently non-functional (5/26)
         # what a hack
         params = self.merge_resonances_var.get().split(',')
         gid, rid1, rids = params[0], params[1], params[2:]
@@ -169,9 +183,14 @@ class Resonance_editor(tkutil.Dialog):
 
 
 
-def show_group_editor(session, gid, aa, n, r):
+def show_group_editor(session, gid, aa, n, r, grp_editor):
     d = sputil.the_dialog(Group_editor, session)
-    d.setup(gid, aa, n, r)
+    d.setup(gid, aa, n, r, grp_editor)
+    d.show_window(1)
+
+def show_resonance_editor(session, gid, rid, atomtype, grp_editor):
+    d = sputil.the_dialog(Resonance_editor, session)
+    d.setup(gid, rid, atomtype, grp_editor)
     d.show_window(1)
 
 def show_group_dialog(session):
