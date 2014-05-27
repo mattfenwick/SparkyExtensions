@@ -1,0 +1,452 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 3.2//EN">
+
+<html>
+
+<head>
+<link rev="made" href="mailto:sparky@cgl.ucsf.edu">
+<title>Installing Sparky</title>
+</head>
+
+<body>
+
+<h1>
+Installing Sparky
+</h1>
+
+<p>
+last revised February 18, 2004
+</p>
+
+<ul>
+<li><a href="#InstallWin32">Installing for Windows</a>
+<li><a href="#NotesWin32">Notes for Windows</a>
+<li><a href="#InstallUnix">Installing for Linux or Unix</a>
+<li><a href="#LinuxNotes">Notes for Linux</a>
+<li><a href="#SGINotes">Notes for SGI</a>
+<li><a href="#InstallMac">Installing for Mac OS X</a>
+<li><a href="#MacNotes">Notes for Mac OS X</a>
+<li><a href="#Python">Using Sparky with Python</a>
+<li><a href="#Files">Description of Files</a>
+<li><a href="#Compile">Compiling Sparky</a>
+<li><a href="#Acknowledge">Acknowledgement</a>
+<li><a href="#Copyright">Copyright, License, and Disclaimer</a>
+</ul>
+
+<p>
+Sparky is a graphical program for doing NMR assignment and integration.
+It runs under Microsoft Windows, Linux, Mac OS X, and SGI, Sun, and HP/Tru64
+flavors of Unix.  The latest version is available at
+
+<a href="http://www.cgl.ucsf.edu/home/sparky">http://www.cgl.ucsf.edu/home/sparky</a>
+
+and is free for both academic and commercial users.  To help us obtain
+grant money for further Sparky development we request that you register
+on the Sparky web site if you have used the program more than ten times.
+This helps show that Sparky is valuable to the NMR community.
+</p>
+
+<a name="InstallWin32">
+<h2>
+Installing for Windows
+</h2>
+</a>
+
+<p>
+The standard installation directory is c:\Program Files\sparky, but
+it can be installed in any directory you like.
+Unzip the sparky-win32.zip in "c:\Program Files".  Get the shareware program
+<a href="http://www.cgl.ucsf.edu/home/sparky/winzip95.exe">WinZip 6.2</a>
+from the Sparky web site if you do not have an unzip utility.
+</p>
+
+<p>
+You can start Sparky by clicking on the "sparky" icon in folder
+c:\Program Files\sparky\bin.  You can create a shortcut to sparky
+by selecting the icon and then choosing "Create Shortcut" under the
+folder File menu.  Then you can move this shortcut icon to the
+desktop or some other more convenient place.
+</p>
+
+<a name="NotesWin32">
+<h2>
+Notes for Windows
+</h2>
+</a>
+
+<p>
+The Windows version is compiled using Windows XP.  I do not know which
+earlier versions of Windows (95/98/NT/2000/ME) it will run on.
+</p>
+
+<p>
+On some Windows 95 and Windows 98 systems starting Sparky fails
+with the error message
+"Out of environment space" and complaints about not being able
+to find the Tcl/Tk libraries.  This happens because Windows limits
+the total number of environment variables.  The Sparky start up
+script needs to set a few variables to specify where Sparky is installed
+and where the Tcl/Tk libraries are.  Because the limit has been
+reached Windows does not allow the variables to be set and startup
+fails.  The solution is to right click on the sparky.bat icon in
+the c:\Program Files\sparky\bin directory, select "Properties" and
+under the "Memory" tab adjust the parameter called "initial environment".
+It is by default set to "auto" and you should choose some number
+instead.  I don't know how big the number has to be -- just experiment
+or choose the biggest value in the pull down menu of choices.
+Then Sparky will start without problems.  This solution was reported
+to me by a Sparky user.  I have not been able to test it because I
+have only Windows NT available and it does not exhibit this problem.
+</p>
+
+<a name="InstallUnix">
+<h2>
+Installing for Linux or Unix
+</h2>
+</a>
+
+<p>
+You may wish to examine platform specific installation notes for
+<a href="#LinuxNotes">Linux</a>
+or
+<a href="#SGINotes">SGI</a>.
+</p>
+
+<p>
+The standard installation directory is /usr/local/sparky,
+but you can install it in any directory you like.
+Unpack the sparky-xxx.tar.gz file as follows.
+</p>
+
+<pre>
+	% cd /usr/local
+	% tar zxf /tmp/sparky-xxx.tar.gz
+</pre>
+
+<p>
+Some versions of tar do not recognize the "z" option to uncompress.
+In that case use:
+</p>
+
+<pre>
+	% gunzip -c /tmp/sparky-xxx.tar.gz | tar xf -
+</pre>
+
+<p>
+You can start Sparky by running /usr/local/sparky/bin/sparky.
+You may want to add /usr/local/sparky/bin to your executable
+search path in your shell startup file (for example in .cshrc).
+</p>
+
+<a name="LinuxNotes">
+<h2>
+Notes for Linux
+</h2>
+</a>
+
+<p>
+The Linux version requires C version 6 runtime library.
+You can see whether you have this by looking for /lib/libc.so.6 on
+your system.  Linux distributions from about 1998 until 2004 (time of
+this writing) are based on libc6.  I don't distribute a version that
+runs with older libc5 libraries because I don't have a Linux machine
+with older libraries to compile on.
+</p>
+
+<a name="SGINotes">
+<h2>
+Notes for SGI
+</h2>
+</a>
+
+<p>
+The IRIX 6.5 version contains n32 binaries.  It will not run on
+earlier versions of SGIs IRIX operating system (eg 5.3).
+</p>
+
+<a name="InstallMac">
+<h2>
+Installing for Mac OS X
+</h2>
+</a>
+
+<p>
+Unpack the sparky-mac10.2.dmg file by double clicking on it.
+You can move the Sparky application to any folder you like.
+You need to start an X server before running Sparky.
+</p>
+
+<a name="MacNotes">
+<h2>
+Notes for Mac OS X
+</h2>
+</a>
+
+<p>
+The Mac version of Sparky requires that you run an X server.
+Apple includes an X server with Mac OS 10.3 but it is an optional
+installation.  It is also available on Apple's
+<a href="http://www.apple.com/macosx/features/x11/">web site</a>.
+It is installed in /Applications/Utilities/X11.
+
+On Mac OS 10.2 you can use the
+<a href="http://www.xfree86.org">XFree86</a>
+X server. An installer for the Mac is available from the
+<a href="http://sourceforge.net/projects/xonx">XonX</a>
+project.
+</p>
+
+<p>
+If you wish to start Sparky from the command-line instead of clicking on
+the icon use the executable
+</p>
+
+<pre>
+	Sparky.app/Contents/Resources/bin/sparky
+</pre>
+
+<p>
+The manual is found in
+</p>
+
+<pre>
+	Sparky.app/Contents/Resources/manual/index.html
+</pre>
+
+<p>
+<b>Bouncing Dock icon</b>.
+The Sparky icon will continue to bounce in the Dock for about a minute
+after Sparky has been started. One way to avoid this visual annoyance
+is to turn off bouncing icons by switching off "Animate opening
+applications" in Dock preferences (under the Apple menu). This
+behaviour results from Sparky being an X windows application instead
+of a native Aqua application.
+</p>
+
+<p>
+<b>Delete key on Mac</b>.
+The delete key on some Macs produces a backspace character
+when using an X windows program.  But if you hold the Fn key when pressing
+Delete you will get a real delete character.  So Fn-Delete should delete
+selected Sparky peaks.
+</p>
+
+<p>
+<b>Clicking to activate windows</b>.
+Two X windows preference settings help avoid extra mouse clicks when
+using Sparky dialogs. When you move the mouse from one Sparky window
+to another you can automatically have the new window activated without
+requiring a mouse click. Set this "focus follows mouse" preference by
+typing the following command in a Mac Terminal window.
+</p>
+
+<pre>
+	  % defaults write com.apple.x11 wm_ffm -bool true
+</pre>
+
+<p>
+The default behaviour of the Quartz window manager from the Apple X
+server 1.0 release is to require you to click on each window before
+you can type to it or press buttons. The wm_ffm setting only effects X
+applications, not Aqua applications, so it only has an effect when an
+X window currently is active and you move the mouse to another X
+window.
+</p>
+
+<p>
+When you are using a native Mac application (not X windows) and
+then click on a menu within the Sparky window the mouse click
+does not bring up the menu. It just activates the Sparky window
+and another mouse click is needed to show the menu. To make this
+work with a single mouse click use the Mac X server
+wm_click_through preference by typing the following command in a
+Mac Terminal window.
+</p>
+
+<pre>
+	  % defaults write com.apple.x11 wm_click_through -bool true
+</pre>
+
+<p>
+Normally Mac OS swallows window activating mouse events. This
+preference causes a window activating mouse click on an X window
+to also be processed by the application.
+</p>
+
+<p>
+You have to restart the X server after changing the wm_ffm or
+wm_click_through preference. These preferences are saved in your
+~/Library/Preferences directory so they will apply in all future
+sessions. Change "true" to "false" in the above commands to return to
+the default preference settings.
+</p>
+
+<a name="Python">
+<h2>
+Using Sparky with Python
+</h2>
+</a>
+
+<p>
+Many advanced Sparky features are written in the Python programming
+language. They are described in the
+<a href="extensions.html">Extensions</a>
+section of the manual, and appear under the Sparky Extensions menu.
+Python is included with Sparky 3.110 (Feb 2004) and later.
+</p>
+
+<a name="Files">
+<h2>
+Description of Files
+</h2>
+</a>
+
+<p>
+The Windows, Linux, and unix distributions include the following
+files in a directory called sparky.  On Mac OS X these same files
+appear in Sparky.app/Contents/Resources.
+</p>
+
+<pre>
+
+  README		- reminder of where web site and manual are
+  LICENSE		- contains copyright, license and disclaimer
+
+  manual
+    index.html		- start of HTML manual
+    intro.html		- introduction to basic commands
+    install.html	- this file
+    changelog.html	- list of changes version by version
+    *.html		- other sections of manual
+    manual.html		- manual in a single file
+    manual-postscript	- Postscript version of manual
+
+  example		- sample data
+
+  bin
+    sparky		- a script that starts Sparky
+    sparky-no-python	- the executable for running without Python
+    pipe2ucsf		- conversion from NMRPipe format to Sparky format
+    ucsfdata		- prints UCSF NMR data header, extracts data matrix
+    vnmr2ucsf		- conversion from Varian VNMR format to Sparky format
+    bruk2ucsf		- conversion from Bruker format to Sparky format
+    peaks2ucsf		- creates simulated specta from list of Gaussians
+    matrix2ucsf		- make a UCSF format spectrum from a data array
+
+  lib	
+    Sparky		- the Tk resource file, fonts sizes, ...
+    print-prolog.ps	- Postscript used for printing spectrum windows
+    libtcl8.3.so	- Tcl shared library
+    libtk8.3.so		- Tk shareed library
+    tcl8.3		- Tcl library scripts
+    tk8.3		- Tk library scripts
+
+  python
+    README		- description of Python interface to Sparky
+    sparky/*.py		- code for Sparky extensions
+    sparky/spy.so	- the C++ Sparky library
+    lib-tk		- Tkinter Python code
+
+  python2.3		- Python 2.3 distribution
+    
+</pre>
+
+<a name="Compile">
+<h2>
+Compiling Sparky if no binary distribution is available
+</h2>
+</a>
+
+<p>
+If a binary distribution is not available for your hardware and operating
+system you can compile Sparky from source code.  If you are an experienced
+programmer this might work.  Otherwise you've gotta be brave, foolish and
+lucky to get it to work.  You will need a Tcl/Tk 8.4.5
+(free from <a href="http://www.tcl.tk">http://www.tcl.tk</a>),
+a C++ compiler, and a make program.  Sparky can be extended by users with
+the Python language (version 2.3).  If you want to use this you must
+have Python (free from
+<a href="http://www.python.org">http://www.python.org</a>).
+</p>
+
+<p>
+Unpack the Sparky source distribution and look at the readme-code.html
+file.  It describes the script bin/make-sparky
+that invokes "make" with the proper arguments for the different platforms
+I compile on.  The script chooses different sets of compiler options based
+on the host name.  You can add an entry for the machine you will compile
+on.
+</p>
+
+<p>
+An alternative, harder method is to edit Makefile and c++/Makefile directly.
+Set the paths to the source directory and the installation directory.
+If you have Python set the lib and include paths.  Shared object libraries
+for Tcl/Tk are required.  If you don't want to use the GNU C++ compiler g++
+change the definition of CC.  Add any flags needed by your compiler to
+the CFLAGS variable.  If you want to install in a directory other than
+/usr/local/sparky edit the path in the sparky startup script "sparky".
+Now run "make" (or without Python "make nopython") and if everything
+compiles "make install" (or without Python "make install-nopython").
+</p>
+
+<a name="Acknowledge">
+<h2>
+Acknowledgement
+</h2>
+</a>
+
+<p>
+Sparky was developed by Donald Kneller 1989-95 working with Tack Kuntz
+at the
+<a href="http://www.ucsf.edu">University of California, San Francisco</a>.
+Development is continuing at UCSF in the
+<a href="http://www.cgl.ucsf.edu">Computer Graphics Laboratory</a>,
+headed by Tom Ferrin, and with the assistance of
+<a href="http://picasso.ucsf.edu">Tom James' NMR group</a>.
+My name is Tom Goddard.  I've done the programming 1996-2001.
+</p>
+
+<p>
+We have not written a paper describing Sparky.  If you publish work that
+made use of Sparky you can cite it as:
+</p>
+
+<pre>
+	T. D. Goddard and D. G. Kneller, SPARKY 3,
+	University of California, San Francisco
+</pre>
+
+<a name="Copyright">
+<h2>
+Copyright, License, and Disclaimer
+</h2>
+</a>
+
+<p>
+The following copyright, license and disclaimer applies to the
+distributed Sparky source code, documentation and binaries.
+</p>
+
+<p>
+Copyright (c) 1989-2004, University of California Regents
+</p>
+
+<p>
+Permission is hereby granted, free of charge, to use and copy
+the Sparky code, documentation and binaries.  All copies must
+include this copyright, license and disclaimer.
+</p>
+
+<p>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+</p>
+
+</body>
+</html>

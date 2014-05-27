@@ -1,0 +1,539 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+<link rev="made" href="mailto:sparky@cgl.ucsf.edu">
+<TITLE>
+Sparky Manual
+</TITLE>
+</HEAD>
+
+<BODY>
+
+<h1>
+Change Log
+</h1>
+
+<p>
+Enhancements and bug fixes introduced in each Sparky version are listed below.
+</p>
+
+<h2>
+Version 3.113<br>
+October 13, 2006
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Windows menu
+<td>Fixed problem where spectrum views from strip plots appeared in the
+Sparky Windows menu.  The menu entries were never removed even if strips
+were closed and selecting one would cause a crash.
+
+<tr>
+<td>Fonts too small
+<td>Some extension dialogs containing lists using fixed-width fonts used
+incredibly small default fonts (3 or 4 points) on Linux.  Changed code to
+always use 12 point font.
+
+<tr>
+<td>pipe2ucsf
+<td>Fixed pipe2ucsf segmentation fault that happened when converting
+projected spectra when axis 3 (or 4) was not projected.
+
+<tr>
+<td>Atom names
+<td>Incorporated changes to atom name translation file atomnames.py
+submitted by Eiso AB.
+
+</table>
+
+<h2>
+Version 3.112<br>
+Feb 8, 2006
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Windows crash
+<td>Fixed problem where assigning dozens of new resonances in the presence
+of hundreds of already assigned resonances caused crash on Windows and high
+CPU use on Linux.  Caused by resonance menu memory leak.
+
+<tr>
+<td>Python 2.4
+<td>Updated from Python 2.3.3 to Python 2.4.2.
+
+<tr>
+<td>Tcl/Tk 8.4
+<td>Updated from Tcl/Tk 8.4.5 to Tcl/Tk 8.4.12.
+
+<tr>
+<td>relaxation fit
+<td>Fixed bug where deleted fit line caused incorrect display of fit curves.
+A fit curve for the wrong peak would be shown.
+
+<tr>
+<td>Chimera view
+<td>Fixed exception that is raised when trying to display assignment lines for
+an unassigned 3D peak.
+
+<tr>
+<td>Chimera view
+<td>
+Added code so that selecting assigned peak in 3D spectrum tries to draw line
+in Chimera between 1H atoms.  Formerly, only peaks selected in 2D spectra
+were drawn.
+
+<tr>
+<td>Peak table
+<td>Fixed bug that made peak table list lines contain curly brackets,
+and table saving fail.
+
+<tr>
+<td>Autoassign
+<td>
+Added new start line pattern for reading chemical shifts from AutoAssign.
+Needed because of slightly changed header line (extra space at end) in
+latest AutoAssign (April 27, 2005).
+
+</table>
+
+<h2>
+Version 3.111<br>
+March 22, 2005
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Windows start-up
+<td>Fixed problem on Windows where Sparky did not start if spaces were in
+the installation path.
+
+</table>
+
+<h2>
+Version 3.110<br>
+Feb 25, 2004
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Mac application
+<td>Packaged Mac version as a Mac application with an icon that can be
+placed on desktop or in dock.  Still requires X windows.
+
+<tr>
+<td>Install location
+<td>Made Sparky install at any location without having to edit startup script.
+
+<tr>
+<td>Help buttons
+<td>Changed method for showing manual pages in web browser when Help buttons
+pressed.  Now tries to use default browser on Windows and Mac, Mozilla on
+Linux and Netscape on other machines.  Can be changed using SHOW_URL_COMMAND
+environment variable in startup script on unix systems.
+
+<tr>
+<td>Python 2.3
+<td>Updated from Python 2.1 to Python 2.3.3.  Including Python with Sparky
+distributions now instead of requiring separate download.
+
+<tr>
+<td>Tcl/Tk 8.4
+<td>Updated from Tcl/Tk 8.3.4 to 8.4.5.
+
+<tr>
+<td>relaxation fit
+<td>Added option for relaxation fitting to use peak volumes instead of heights.
+
+<tr>
+<td>Ormament sizes
+<td>Added spectrum menu to ornament sizes dialog.  It now acts on the
+chosen spectrum instead of the spectrum having selected ornaments.
+
+<tr>
+<td>Peak height
+<td>Fixed several extensions that did not work correctly with peak groups
+because they could not get peak height.
+
+<tr>
+<td>Spin graph assigner
+<td>Fixed bug where proposed assignments involving peak groups caused a
+Python exception.  Made pattern axes menus in setup dialog only show
+choices that are consistent with spectrum nucleus types.
+
+<tr>
+<td>example extension
+<td>Updated example Python extension in manual so it works again.
+
+</table>
+
+<h2>
+Version 3.109<br>
+Feb 21, 2003
+</h2>
+
+<table border=1>
+
+<tr>
+<td>relaxation fit
+<td>Allowed use of shifted peak markers in each spectrum in relaxation fitting.
+
+<tr>
+<td>large spectra
+<td>Put in support for reading spectrum files larger than 2 gigabytes
+on some platforms.
+
+</table>
+
+<h2>
+Version 3.108<br>
+July 31, 2002
+</h2>
+
+<table border=1>
+
+<tr>
+<td>pointer modes
+<td>Added abilitiy to set pointer mode in Python and get notifications
+that pointer mode changed.
+
+<tr>
+<td>ANSI C++
+<td>Made code comply better with ANSI C++ standard.
+
+</table>
+
+<h2>
+Version 3.106<br>
+February 19, 2002
+</h2>
+
+<table border=1>
+
+<tr>
+<td>pipe2ucsf
+<td>Fixed bug where pipe2ucsf produced peak positions off by 1 data point
+from NMRDraw.
+
+<tr>
+<td>ucsfdata
+<td>Added specific error messages when command-line arguments are bad.
+
+</table>
+
+<h2>
+Version 3.105<br>
+January 21, 2002
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Removed license verification<td>Took out code checks trial licenses.
+
+<tr>
+<td>Code documentation
+<td>Improved compilation instructions and included readme-code.html
+describing the source code for developers.
+
+</table>
+
+<h2>
+Version 3.104<br>
+December 18, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Python 2.1
+<td>Switched from Python 1.5.2 to Python 2.1.1.  Also upgraded from
+Tcl/Tk 8.0.5 to Tcl/Tk 8.3.4.
+
+<tr>
+<td>Mac OS X version
+<td>Compiled Sparky on Mac OS 10.1 with X server.
+
+<tr>
+<td>Chimera interface
+<td>Updated Sparky interface to molecular graphics program Chimera to
+work with latest Chimera.
+
+</table>
+
+<h2>
+Version 3.103<br>
+November 12, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Spaces in path bug
+<td>Fixed bug where spaces in path to NMR data or Sparky session files
+caused loading data to fail.
+
+<tr>
+<td>Peak assignment labels
+<td>Added commands to add (lb) or remove (lB) assignment labels from
+selected peaks.
+
+</table>
+
+<h2>
+Version 3.102<br>
+October 9, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Spectrum rename
+<td>Can change spectrum and view names used in menus with the
+spectrum settings dialog (st).
+
+<tr>
+<td>Renumber view command
+<td>Change a spectrum view name to use the lowest available
+suffix number with the renumber view command rv.  If only one view of
+a spectrum exists then it will have no suffix number.  This
+allows you to get rid of the pesky "/1" in "noesy_100ms/1" if you only
+have one view.
+
+<tr>
+<td>Printing 4D spectra
+<td>Fixed a bug that produced illegal Postscript when printing a 4D spectrum.
+
+</table>
+
+<h2>
+Version 3.101<br>
+August 28, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Spectrum region RMSD
+<td>Added command (rm) to show mean and rmsd values for a spectrum
+region selected with the mouse.
+
+<tr>
+<td>Python region selection notice
+<td>Added region selection notice to Python interface.
+Provides callback when user drags a box in a spectrum with the mouse.
+
+<tr>
+<td>Crash when quitting
+<td>Fixed a bug that caused core dump when quitting.
+Happened when a Python extension registered a callback
+with the C++ Sparky module.
+
+</table>
+
+<h2>
+Version 3.100<br>
+June 14, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>AutoAssign interface
+<td>Added "write peak lists" and "read shifts" buttons so Sparky interface
+can be used while running AutoAssign manually with its native interface.
+
+<tr>
+<td>Spectrum overlays
+<td>Fixed bug in spectrum overlay dialog where pressing remove button always
+removed first overlay in list instead of the selected overlay.
+
+<tr>
+<td>Spectrum overlays
+<td>Allowed choosing multiple overlays in spectrum overlay dialog for removing
+more than one overlay at a time.
+
+<tr>
+<td>Peak delete bug
+<td>Fixed bug where selecting a peak, pressing mouse button on it, hitting
+delete, and then lifting mouse button caused Sparky to crash.
+
+</table>
+
+
+<h2>
+Version 3.99<br>
+June 6, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Strip plots
+<td>Made strip plot vertical scrollbar allow scrolling to cover strip with
+largest ppm range.
+
+<tr>
+<td>Warning dialogs
+<td>Made destroying warning dialog invoke a default choice.
+
+<tr>
+<td>Peak volume
+<td>Added initialization in Peak constructor for mFitResidual.
+
+<tr>
+<td>Python peak volume
+<td>Made peak volume, volume_method, and fit_height python attributes settable.
+
+</table>
+
+<h2>
+Version 3.98<br>
+Feb 15, 2001
+</h2>
+
+<table border=1>
+
+<tr>
+<td>pipe2ucsf
+<td>Fixed file is smaller than expected error message to show correct file
+and expected sizes.
+
+<tr>
+<td>Duplicate save files
+<td>Fixed bug that occured if project contained save file twice.
+  Spectrum would be unloaded leaving view creation parameters pointing
+  to deleted spectrum.
+
+<tr>
+<td>Reposition sequence
+<td>Made move button move partially assigned peaks.
+
+<tr>
+<td>Contour redraw bug
+<td>Added code to work around a gcc 2.95.2 PC linux compiler bug that
+  caused the same tile to be continuously redrawn.
+  Added comments about 80 bit Intel x86 FPU problems.
+
+<tr>
+<td>Slices
+<td>Made slice not update if pointer just moves along current slice.
+  Made slices update when z-plane changes.
+
+<tr>
+<td>Memory bug
+<td>Fixed bug where spectrum data memory cache immediately freed large
+  spectrum blocks right after they are allocated.  Locked element being
+  added to cache so it can not be freed in the add_to_cache() call.
+
+</table>
+
+<h2>
+Version 3.97<br>
+Dec 12, 2000
+</h2>
+
+<table border=1>
+
+<tr>
+<td>Sweep width
+<td>Added interface to specify sweepwidths in spectrum settings dialog (st).
+  Made peak alias commands use new spectrum sweepwidth parameter.
+  Made resonance panel aliasing use new spectrum sweep_width parameter.
+  Added sweep_width attribute to Python Spectrum class which can differ from
+  spectrum width.  Updated Python extensions to use sweep_width for aliasing.
+
+<tr>
+<td>Undo bug
+<td>Fixed bug undoing peak delete after spectrum has been closed.
+
+<tr>
+<td>Assignment graph
+<td>Made selecting atom with no expected peaks not produce an error.
+
+<tr>
+<td>HCPeaks
+<td>Added assignments to new peaks and checked for already existing assigned
+  peak.
+
+<tr>
+<td>Spingraph assigner
+<td>Fixed HNCACO expected peaks to include both i and i-1 CO.
+
+<tr>
+<td>matrix2ucsf
+<td>Added program matrix2ucsf to convert an array of floats to a UCSF format
+  spectrum file.
+
+<tr>
+<td>Z plane step
+<td>Added zu, zd commands to move downfield or upfield one plane.
+
+<tr>
+<td>AutoAssign on Windows
+<td>Noted in manual that AutoAssign interface does not work under Windows.
+  Unable to use fork() to start AutoAssign server and client.
+
+<tr>
+<td>Strip plots
+<td>Cleaned up add selected peak strips code.
+
+<tr>
+<td>Memory allocation fix
+<td>Made new request for 0 bytes return non-zero pointer.
+
+<tr>
+<td>Chimera molecule view
+<td>Fixed bug where selection handler was registered many times.
+  Fixed undefined references to chimera.
+
+<tr>
+<td>Read peak list
+<td>Recognize lower case atom names (h, c, n) in splitting group from atom.
+  Changed split_group_atom() in sputil.py to allow lower case atom names.
+
+<tr>
+<td>sputil.py warn()
+<td>Eliminated unused and broken warn() routine.
+
+</table>
+
+<h2>
+Version 3.95<br>
+July 14, 2000
+</h2>
+
+<p>
+Changes before this release not recorded.
+</p>
+
+<h2>
+Dates for some earlier releases
+</h2>
+
+<table border=1>
+<tr><th>Version<th>Date
+<tr><td>3.91<td>May 1 2000
+<tr><td>3.87<td>Mar 3 2000
+<tr><td>3.85<td>Feb 29 2000
+<tr><td>3.76<td>Nov 15 1999
+<tr><td>3.74<td>Oct 21 1999
+<tr><td>3.72<td>Oct 14 1999
+<tr><td>3.66<td>Mar 4 1999
+<tr><td>3.64<td>Jan 26 1999
+<tr><td>3.62<td>Nov 17 1998
+<tr><td>3.58<td>Sep 14 1998
+<tr><td>3.37<td>Nov 18 1997
+<tr><td>3.21<td>Jun 24 1997
+<tr><td>3.3<td>Mar 3 1997
+</table>
+
+</BODY>
+
+</HTML>

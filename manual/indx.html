@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+<link rev="made" href="mailto:sparky@cgl.ucsf.edu">
+<TITLE>
+Sparky Manual
+</TITLE>
+</HEAD>
+
+<BODY>
+
+<h1>
+Command Index
+</h1>
+
+<h2>
+Input
+</h2>
+
+<ul>
+<li><a href="files.html#NMRData">Processed NMR data</a>
+ <ul>
+ <li><a href="files.html#ConvertNMRPipe">NMRPipe</a>
+ <li><a href="files.html#FelixData">Felix</a>
+ <li><a href="files.html#ConvertVarian">Varian VNMR</a>
+ <li><a href="files.html#ConvertBruker">Bruker XWinNMR and UXNMR</a>
+ </ul>
+<li><a href="files.html#UCSFFormat">UCSF NMR format</a>
+<li><a href="files.html#SparkyFiles">Sparky spectrum annotation (aka "save") files</a>
+<li><a href="files.html#SparkyFiles">Sparky project files</a>
+</ul>
+
+<h2>
+Output
+</h2>
+
+<ul>
+<li><a href="peaks.html#PeakList">Peak lists</a>
+<li><a href="peaks.html#ResonanceList">Chemical shift list</a>
+<li><a href="peaks.html#ResonanceTable">Chemical shift table</a>
+</ul>
+
+<h2>
+File commands
+</h2>
+
+ <table>
+ <tr><td><a href="files.html#OpenSave">file open...</a><td>fo
+     <td>open UCSF NMR data, a Felix matrix, or a Sparky spectrum file
+ <tr><td><a href="files.html#OpenSave">file save</a><td>fs
+     <td>save a Sparky spectrum annotation file
+ <tr><td><a href="files.html#OpenSave">file save as...</a><td>fa
+     <td>save spectrum with a new name
+ <tr><td><a href="files.html#OpenSave">project open...</a><td>jo
+     <td>open several spectra at once
+ <tr><td><a href="files.html#OpenSave">project save</a><td>js<td>save all spectra
+ <tr><td><a href="files.html#OpenSave">project save as...</a><td>ja
+     <td>save project with a new name
+ <tr><td>preferences...<td>pf<td>miscellaneous settings
+ <tr><td>quit<td>qt
+ </table>
+
+<h2>
+View commands
+</h2>
+
+ <table>
+ <tr><td><a href="views.html#AxisScales">axes in Hertz</a><td>xh
+     <td>display view scale axes in Hz
+ <tr><td><a href="views.html#AxisScales">axes in ppm</a><td>xp
+     <td>display view scale axes in parts per million
+ <tr><td><a href="views.html#AxisScales">axes show index</a><td>xd
+     <td>show data index values on view scales
+ <tr><td><a href="views.html#AxisScales">axis nucleus types</a><td>xa
+     <td>show nucleus type (1H, 13C, 15N) on axes
+ <tr><td><a href="views.html#TransposingAxes">axis roll</a><td>xr
+     <td>exchange axes keeping center point of fixed
+ <tr><td><a href="views.html#TransposingAxes">axis transpose</a><td>xx
+     <td>zoom to cross-diagonal region of spectrum
+ <tr><td><a href="views.html#ViewCentering">center view on peak</a><td>vc
+     <td>center a view on the selected peak
+ <tr><td><a href="views.html#OrthogonalViews">orthogonal views</a><td>ov
+     <td>show 3 orthogonal views of a 3-D spectrum
+ <tr><td><a href="views.html#RegionDialog">region goto</a><td>rg
+     <td>zoom to a named region
+ <tr><td><a href="views.html#RegionDialog">region tool...</a><td>rt
+     <td>name regions of a spectrum
+ <tr><td><a href="views.html#RenumberView">renumber view</a><td>rv
+     <td>renumber view name to use lowest available suffix number
+ <tr><td>show axis scales<td>vs
+     <td>show scales (ppm, hz, or index units) along view axes
+ <tr><td><a href="views.html#OrnamentDisplay">show grids</a><td>gs
+     <td>toggle display of grids
+ <tr><td><a href="views.html#OrnamentDisplay">show labels</a><td>ls
+     <td>toggle display of labels
+ <tr><td><a href="views.html#OrnamentDisplay">show lines</a><td>is
+     <td>toggle display of lines
+ <tr><td><a href="views.html#OrnamentDisplay">show ornaments</a><td>os
+     <td>toggle display of all ornaments
+ <tr><td><a href="views.html#OrnamentDisplay">show peaks</a><td>ps
+     <td>toggle display of peaks
+ <tr><td><a href="views.html#OrnamentDisplay">show peak groups</a><td>xs
+     <td>toggle display of peak groups
+ <tr><td><a href="views.html#PeakInfo">show peak info</a><td>vp
+     <td>show peak position / height / linewidth in status bar
+ <tr><td><a href="views.html#ResonancePanels">show resonances</a><td>vR
+     <td>show resonances along edge of spectrum
+ <tr><td>show scrollbars<td>vb
+     <td>show scrollbars for view windows
+ <tr><td><a href="views.html#SlicePanels">show slices</a><td>vS
+     <td>show 1-D data cross-sections along edge of spectrum
+ <tr><td>view duplicate<td>vd<td>make another view window
+ <tr><td><a href="views.html#HidingViews">view hide</a><td>vh<td>undisplay a view
+ <tr><td>view redraw<td>vr<td>redraw the view (in case it gets messed up)
+ <tr><td><a href="views.html#ViewSettings">view settings...</a><td>vt
+     <td>set crosshairs, aspect ratio, slices, ...
+ <tr><td><a href="views.html#MovingAround">zoom full</a><td>zf
+     <td>show entire spectrum
+ <tr><td><a href="views.html#MovingAround">zoom in</a><td>zi
+     <td>zoom in by a factor of 2
+ <tr><td><a href="views.html#MovingAround">zoom out</a><td>zo
+     <td>zoom out by a factor of 2
+ <tr><td><a href="views.html#MovingAround">zoom down</a><td>zd
+     <td>move down a plane in a 3D spectra
+ <tr><td><a href="views.html#MovingAround">zoom up</a><td>zu
+     <td>move up a plane in a 3D spectra
+ <tr><td><a href="views.html#MovingAround">zoom previous</a><td>zp
+     <td>zoom to the previously shown region
+ <tr><td><a href="views.html#MovingAround">zoom next</a><td>zn
+     <td>reverse of zoom previous (zp) command
+ </table>
+
+<h2>
+Peak commands
+</h2>
+
+ <table>
+ <tr><td><a href="peaks.html#AliasedPeaks">add sweepwidth</a><td>a1 a2 a3 a4
+     <td>adjust peak w1,w2,w3,w4 frequency one sweepwidth downfield
+ <tr><td><a href="peaks.html#AliasedPeaks">subtract sweepwidth</a><td>A1 A2 A3 A4
+     <td>adjust peak w1,w2,w3,w4 frequency one sweepwidth upfield
+ <tr><td><a href="peaks.html#AliasedPeaks">reflect upfield</a><td>u1 u2 u3 u4
+     <td>reflect peak w1,w2,w3,w4 frequency about upfield boundary
+ <tr><td><a href="peaks.html#AliasedPeaks">reflect upfield</a><td>d1 d2 d3 d4
+     <td>reflect peak w1,w2,w3,w4 frequency about downfield boundary
+ <tr><td><a href="peaks.html#AssignmentCopy">assignment copy</a><td>ac
+     <td>remember peak assignments for assignment paste
+ <tr><td><a href="peaks.html#AssignmentDelete">assignment delete</a><td>aD
+     <td>delete the assignments of selected peaks
+ <tr><td><a href="peaks.html#AssignmentCopy">assignment paste</a><td>aP
+     <td>paste assignments onto peaks in this spectrum
+ <tr><td><a href="peaks.html#AssignmentCopy">assignment paste &amp; label</a><td>ap
+     <td>copy assignments and show labels
+ <tr><td><a href="peaks.html#AssignmentCopy">crossdiagonal assignment copy</a><td>aX
+     <td>copy assignments from crossdiagonal peaks
+ <tr><td><a href="peaks.html#AssignmentDialog">assignment tool...</a><td>at
+     <td>make assignments
+ <tr><td><a href="peaks.html#PredefinedResonances">delete unused resonances</a><td>dr
+     <td>delete resonances not used in any peak assignments
+ <tr><td><a href="peaks.html#Integration">integration tool...</a><td>it
+     <td>select integration method
+ <tr><td><a href="peaks.html#Integration">sum over box method</a><td>ib
+     <td>switch to box integration method
+ <tr><td><a href="peaks.html#Integration">sum over ellipse method</a><td>ie
+     <td>switch to ellipse integration method
+ <tr><td><a href="peaks.html#Integration">Gaussian fit method</a><td>ig
+     <td>switch to Gaussian fit integration
+ <tr><td><a href="peaks.html#Integration">Lorentzian fit method</a><td>il
+     <td>switch to Lorentzian fit integration
+ <tr><td><a href="peaks.html#Integration">integrate selected peaks</a><td>pi
+ <tr><td><a href="peaks.html#AssignmentCopy">ornament copy</a><td>oc
+     <td>record ornaments for future paste operation
+ <tr><td><a href="peaks.html#AssignmentCopy">ornament paste</a><td>op
+     <td>paste ornaments into this spectrum
+ <tr><td><a href="peaks.html#AssignmentCopy">crossdiagonal ornament copy</a><td>oX
+     <td>copy ornaments across diagonal of 2D homonuclear spectrum
+ <tr><td><a href="peaks.html#PeakCentering">center peaks</a><td>pc
+     <td>center selected peaks at local maxima or minima.
+ <tr><td><a href="peaks.html#EstimateLinewidth">estimate linewidths</a><td>pe
+     <td>get linewidth of selected peaks as width at half max
+ <tr><td><a href="peaks.html#PeakGroup">group peaks</a><td>pg
+     <td>create a peak group from selected peaks
+ <tr><td>update heights<td>ph<td>reread peak heights from NMR data file
+ <tr><td><a href="peaks.html#PeakLabels">label peak</a><td>pl
+     <td>put a label on a peak using a dialog
+ <tr><td><a href="peaks.html#PeakLabels">label peaks</a><td>lb
+     <td>put assignment labels on selected peaks
+ <tr><td><a href="peaks.html#PeakLabels">unlabel peaks</a><td>lB
+     <td>Remove labels from selected peaks
+ <tr><td><a href="peaks.html#PeakLabels">unoverlap labels</a><td>lu
+     <td>move labels so they don't overlap each other
+ <tr><td><a href="peaks.html#PeakLabels">right offset labels</a><td>lr
+     <td>move labels so they are to the right of peak markers
+ <tr><td><a href="peaks.html#Ornaments">lock peaks</a><td>pk
+     <td>prevent peaks from moving when integrated
+ <tr><td><a href="peaks.html#PeakSelect">select all peaks</a><td>pa
+     <td>select all peaks in a spectrum
+ <tr><td><a href="peaks.html#PeakSelect">select fully assigned</a><td>pF
+     <td>select fully assigned peaks
+ <tr><td><a href="peaks.html#PeakSelect">select partially assigned</a><td>pP
+     <td>select partially assigned peaks
+ <tr><td><a href="peaks.html#PeakSelect">select unassigned</a><td>pN
+     <td>select unassigned peaks
+ <tr><td><a href="peaks.html#PeakSelect">select by color</a><td>pC
+     <td>select peaks by color
+ <tr><td><a href="peaks.html#PeakSelect">invert peak selection</a><td>pI
+     <td>invert peak selection
+ <tr><td><a href="peaks.html#PeakSelect">select aliased</a><td>pA
+     <td>select aliased peaks
+ <tr><td><a href="peaks.html#PeakSelect">select intra-residue</a><td>pR
+     <td>select i to i assigned peaks
+ <tr><td><a href="peaks.html#PeakSelect">select sequential</a><td>pS
+     <td>select i to i+1 assigned peaks
+ <tr><td><a href="peaks.html#PeakSelect">select medium range</a><td>pM
+     <td>select i to i+2, i+3 or i+4 assigned peaks
+ <tr><td><a href="peaks.html#PeakSelect">select long range</a><td>pL
+     <td>select i to i+5, i+6, ... assigned peaks
+ <tr><td><a href="peaks.html#Unintegrate">unintegrate peaks</a><td>pU
+     <td>forget that a peak has been integrated
+ <tr><td><a href="peaks.html#Ornaments">unlock peaks</a><td>pu
+     <td>allow selected peaks to move when integrated
+ <tr><td>undo<td>eu
+     <td>undo last peak move, deletion, or integration
+ <tr><td><a href="peaks.html#ResonancePeaks">w1 resonance peaks</a><td>r1
+     <td>list assigned peaks with selected peak w1 resonance
+ <tr><td><a href="peaks.html#ResonancePeaks">w2 resonance peaks</a><td>r2
+     <td>show assigments with selected peak w2 resonance
+ <tr><td><a href="peaks.html#ResonancePeaks">w3 resonance peaks</a><td>r3
+     <td>show assigments with selected peak w3 resonance
+ </table>
+
+<h2>
+Dialogs
+</h2>
+
+ <table>
+ <tr><td><a href="peaks.html#AssignmentDialog">assignment...</a><td>at
+     <td>make assignments
+ <tr><td><a href="peaks.html#AssignmentCopy">assignment copy...</a><td>co
+     <td>thresholds for copying assignments
+ <tr><td><a href="peaks.html#ResonanceTable">assignment table...</a><td>tb
+     <td>table of chemical shifts
+ <tr><td><a href="views.html#ContourLevels">contour levels...</a><td>ct
+     <td>set contour levels and colors
+ <tr><td><a href="peaks.html#Integration">integration...</a><td>it
+     <td>set integration method
+ <tr><td><a href="peaks.html#Midas">midas...</a><td>mi
+     <td>display assignments on a structure using Midas
+ <tr><td><a href="peaks.html#Ornaments">ornament...</a><td>ot
+     <td>change ornament colors and sizes
+ <tr><td><a href="peaks.html#PeakNote">note...</a><td>nt<td>add notes to peaks
+ <tr><td><a href="views.html#ContourOverlay">overlay views...</a><td>ol
+     <td>overlay contours of one spectrum on another
+ <tr><td><a href="peaks.html#PeakList">peak list...</a><td>lt
+     <td>show a list of peaks for a spectrum
+ <tr><td><a href="peaks.html#PeakPick">peak picking...</a><td>kt
+     <td>set thresholds for find peak pointer mode
+ <tr><td>pointer modes...<td>pm<td>show buttons to select pointer mode
+ <tr><td><a href="peaks.html#PredefinedResonances">predefined resonances...</a><td>pd
+     <td>copy resonances from another spectrum
+ <tr><td>preferences...<td>pf<td>set global Sparky options
+ <tr><td><a href="views.html#PrintView">print view...</a><td>pt
+     <td>print spectrum views to a Postscript printer
+ <tr><td><a href="views.html#ViewList">project view list...</a><td>pv
+     <td>list of views, sizes, peak counts, ...
+ <tr><td><a href="extensions.html#Python">python...</a><td>py
+     <td>Python shell for running your own programs
+ <tr><td><a href="views.html#RegionDialog">region...</a><td>rt
+     <td>name regions and apply operations to regions
+ <tr><td><a href="peaks.html#RenameResonances">rename resonances...</a><td>rr
+     <td>rename atoms and groups
+ <tr><td><a href="peaks.html#ResonanceList">resonance list...</a><td>rl
+     <td>list group/atom chemical shifts, standard deviations
+ <tr><td>spectrum...<td>st
+     <td>set <a href="views.html#MolCond">molecule and condition</a>,
+         and <a href="views.html#AxisShift">axis shifts</a>
+ <tr><td><a href="views.html#ViewSync">synchronize views...</a><td>yt
+     <td>make views scroll in parallel
+ <tr><td><a href="views.html#ViewSettings">view...</a><td>vt
+     <td>options controlling what is displayed in a view
+ </table>
+
+<h2>
+Pointer Modes
+</h2>
+
+ <table>
+ <tr><td>select<td>F1
+     <td>click or drag to select or move peaks, labels, lines, ...
+ <tr><td>center<td>F2<td>clicking centers view on point
+ <tr><td>add grid both<td>F3<td>place vertical and horizontal grid lines
+ <tr><td>add grid horz<td>F4<td>add a line extending across whole spectrum
+ <tr><td>add grid vert<td>F5<td>add a line extending across whole spectrum
+ <tr><td><a href="peaks.html#PeakLabels">add label</a><td>F6
+     <td>add a text label to a peak
+ <tr><td>add line<td>F7<td>add a horizontal or vertical line between end points
+ <tr><td><a href="peaks.html#PeakPick">find / add peak</a><td>F8
+     <td>click to place a peak or drag to find peaks
+ <tr><td><a href="peaks.html#Integration">integrate</a><td>F10
+     <td>click or drag to integrate peaks
+ <tr><td>zoom<td>F11<td>drag to select a new region to show
+ <tr><td>duplicate and zoom<td>F12<td>drag to zoom and duplicate a view
+ <tr><td><a href="peaks.html#AssignmentCopy">assignment copy</a>
+     <td>sh-F1<td>copy assignments from an already assigned spectrum
+ <tr><td><a href="peaks.html#AssignmentGuessing">assignment guess</a><td>sh-F2
+     <td>make assignment if there is a unique guess
+ </table>
+
+</BODY>
+
+</HTML>

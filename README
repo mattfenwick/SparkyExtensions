@@ -1,0 +1,29 @@
+The Sparky distribution containing this README file has a directory
+called "manual".  Instructions for installing Sparky are in:
+
+	manual/install.html
+
+For an introduction to Sparky see:
+
+	manual/index.html
+
+For changes in recent Sparky versions see:
+
+	manual/changelog.html
+
+You can view the manual or get a copy of it or get the latest version
+of Sparky from the web site:
+
+	http://www.cgl.ucsf.edu/home/sparky
+
+We have not written a paper describing Sparky.  If you publish work that
+makes use of Sparky you can cite it as:
+
+	T. D. Goddard and D. G. Kneller, SPARKY 3,
+	University of California, San Francisco
+
+If you cannot find answers to your questions, send email to
+
+	sparky@cgl.ucsf.edu
+
+The Sparky copyright, license and disclaimer is in the LICENSE file.

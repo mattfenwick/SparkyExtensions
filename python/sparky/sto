@@ -1,0 +1,4 @@
+    self.sl = tkutil.file_field(self.top,   'Sequence file: ', 'seqlist')
+    self.sl.frame.pack(side = 'top', anchor = 'e')
+    self.sequence_list_path = self.sl
+

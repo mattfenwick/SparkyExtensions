@@ -1,0 +1,2867 @@
+<sparky save file>
+<version 3.23>
+<user>
+set mode 10
+set saveprompt 0
+set saveinterval 1200
+set autoLabelGroup 0
+set labelFont Times-Roman
+set resizeViews 0
+set autoScaleSlices 1
+set guessableResonances 0
+default label 2.000000 2 0 0 white
+default line 0.400000 0 2 0 white
+default peak 1.200000 0 1 0 black
+default grid 0.400000 0 2 0 white
+default peakgroup 0.800000 0 6 0 blue
+default print options 2 26 1.000000 1.000000
+<end user>
+<spectrum>
+molecule TAT
+condition ph7
+name example100
+pathname ../data/example100.ucsf
+contourCacheSize 1024
+contourCacheSaveToFile 1075297280
+contourCache  1024
+dimension 2
+shift 0.000000 0.000000
+points 800 220
+assignMultiAxisGuess 0
+assignGuessThreshold 0.000000
+assignRelation 1 4 
+assignRelation 2 4 
+assignRange 1 0.100000
+assignRange 2 0.100000
+assignFormat %a1-%a2
+listTool sortBy label
+listTool nameType assignment
+listTool sortAxis w1
+listTool showFlags frequency volume fit-height data-height note
+integrate.overlapped_sep 15.000000 15.000000
+integrate.methods 4 4 3
+integrate.maxiterations 20000
+integrate.allow_motion 1
+integrate.notify 1
+integrate.estimate_method 0
+peak.pick 100000.000000 1000000.000000 -100000.000000 1000000.000000 0
+noise.sigma 5680.000000
+noise.sigma_threshold 0.900000
+ornament.label.size 5.000000
+ornament.line.size 0.150000
+ornament.peak.size 1.200000
+ornament.grid.size 0.400000
+ornament.peakgroup.size 0.800000
+ornament.selectsize 1.000000
+ornament.pointersize 1.000000
+ornament.lineendsize 0.500000
+<view>
+name example100
+precision 0
+precision_by_units 0 0 0
+viewmode 0
+show 1 grid
+axistype 2
+flags crosshair crosshair2 crosshairx atomaxes
+contour.pos 5 14340 2.000000 0.000000 red
+contour.neg 0 -1000 1.000000 0.000000 green
+<params>
+orientation 1 0
+location 919 64
+size 275 894
+offset 0.000000 -13.388702
+scale 1.000000 1.000000
+zoom 1.118899
+flags 0
+<end params>
+<params>
+orientation 1 0
+location 919 64
+size 275 894
+offset 0.000000 -13.388702
+scale 1.000000 1.000000
+zoom 1.118899
+flags 0
+<end params>
+<params>
+orientation 1 0
+location 919 64
+size 275 894
+offset 0.000000 -13.388702
+scale 1.000000 1.000000
+zoom 1.118899
+flags 0
+<end params>
+<end view>
+<view>
+name example100/1
+precision 0
+precision_by_units 0 0 0
+viewmode 0
+show 1 label peak grid peakgroup
+axistype 2
+flags crosshair crosshair2 crosshairx slices resonance atomaxes
+contour.pos 5 14340 2.000000 0.000000 red
+contour.neg 0 -1000 1.000000 0.000000 green
+<params>
+orientation 1 0
+location 204 135
+size 257 254
+offset 148.182616 74.611880
+scale 1.000000 1.000000
+zoom 3.060171
+flags 0
+<end params>
+<params>
+orientation 1 0
+location 204 135
+size 257 254
+offset 148.182616 74.611880
+scale 1.000000 1.000000
+zoom 3.060171
+flags 0
+<end params>
+<params>
+orientation 1 0
+location 204 135
+size 257 254
+offset 148.182616 74.611880
+scale 1.000000 1.000000
+zoom 3.060171
+flags 0
+<end params>
+<end view>
+<view>
+name example100/2
+precision 0
+precision_by_units 0 0 0
+viewmode 0
+show 1 peak grid peakgroup
+axistype 2
+flags crosshair crosshair2 crosshairx atomaxes
+contour.pos 5 14340 2.000000 0.000000 red
+contour.neg 5 -15000 1.000000 0.000000 green
+<params>
+orientation 1 0
+location 459 443
+size 275 341
+offset 247.118009 -13.388702
+scale 1.000000 1.000000
+zoom 1.118899
+flags 0
+<end params>
+<params>
+orientation 1 0
+location 459 443
+size 275 341
+offset 247.118009 -13.388702
+scale 1.000000 1.000000
+zoom 1.118899
+flags 0
+<end params>
+<params>
+orientation 1 0
+location 459 443
+size 275 341
+offset 247.118009 -13.388702
+scale 1.000000 1.000000
+zoom 1.118899
+flags 0
+<end params>
+<end view>
+<ornament>
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 0
+pos 4.166 8.598
+height 49736.978 49094.996
+linewidth 17.296 11.981 fit
+integral 9.9957e+05 ga -1.80e+308 1.00e+04
+gd 0.253 4.862e+09 140
+rs |Q4|HA| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.166 8.598
+label Q4HA-L5HN
+xy 4.014,8.603 8.701,4.124
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 1
+pos 4.167 8.827
+height 76046.875 76046.875
+integral 1.0705e+06 bx [ 8.848 4.196 8.806 4.140 ][  ]
+rs |Q4|HA| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.167 8.827
+label Q4HA-HN
+xy 4.033,8.825 8.825,4.072
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 2
+pos 4.427 8.824
+height 209139.453 196738.781
+linewidth 20.189 11.816 fit
+integral 4.8386e+06 ga -1.80e+308 1.68e+04
+gd 0.000 5.668e+09 61
+rs |C3|HA| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.427 8.824
+label C3HA-Q4HN
+xy 4.326,8.824 8.848,4.346
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 3
+pos 3.274 8.827
+height 12119.178 12119.178
+integral 3.6618e+05 bx [ 8.843 3.289 8.806 3.240 ][  ]
+rs |C3|HB2| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.274 8.827
+label C3HB2-Q4HN
+xy 3.145,8.825 8.800,3.197
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 4
+pos 2.026 8.824
+height 105504.883 105504.883
+integral 2.8061e+06 bx [ 8.839 2.066 8.806 1.989 ][  ]
+rs |Q4|HB| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.026 8.824
+label Q4HB-HN
+xy 1.909,8.825 8.847,1.952
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 5
+pos 2.363 8.827
+height 11030.860 11030.860
+integral 2.3432e+05 bx [ 8.851 2.387 8.796 2.336 ][  ]
+rs |Q4|HG| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.363 8.827
+label Q4HG-HN
+xy 2.247,8.825 8.724,2.308
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 6
+pos 4.425 8.621
+height 51236.410 52612.242
+linewidth 16.944 15.577 fit
+integral 1.3115e+06 ga -1.80e+308 1.68e+04
+gd 0.969 5.831e+08 31
+rs |C3|HA| |C3|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.425 8.621
+label C3HA-HN
+xy 4.313,8.626 8.693,4.380
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 7
+pos 4.548 8.625
+height 164260.172 164260.172
+integral 3.4596e+06 bx [ 8.643 4.576 8.607 4.517 ][  ]
+rs |H2|HA| |C3|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.548 8.625
+label H2HA-C3HN
+xy 4.445,8.624 8.706,4.622
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 8
+pos 3.159 8.626
+height 52813.582 52813.582
+integral 1.4655e+06 bx [ 8.644 3.192 8.608 3.119 ][  ]
+rs |C3|HB3| |C3|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.159 8.626
+label C3HB3-HN
+xy 3.043,8.626 8.713,3.135
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 9
+pos 3.270 8.622
+height 38583.035 38583.035
+integral 8.5805e+05 bx [ 8.642 3.300 8.597 3.235 ][  ]
+rs |C3|HB2| |C3|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.270 8.622
+label C3HB2-HN
+xy 3.148,8.627 8.476,3.229
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 10
+pos 3.095 8.632
+height 6631.593 6631.593
+integral 3.3505e+05 bx [ 8.666 3.117 8.593 3.061 ][  ]
+rs |H2|HB2| |C3|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.095 8.632
+label H2HB2-C3HN
+xy 2.975,8.627 8.692,2.993
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 11
+pos 4.306 8.600
+height 73149.469 73149.469
+integral 1.5562e+06 bx [ 8.618 4.328 8.581 4.280 ][  ]
+rs |L5|HA| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.306 8.600
+label L5HA-HN
+xy 4.186,8.602 8.695,4.315
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 12
+pos 2.026 8.599
+height 37042.891 37042.891
+integral 1.4959e+06 bx [ 8.621 2.061 8.574 1.995 ][  ]
+rs |Q4|HB| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.026 8.599
+label Q4HB-L5HN
+xy 1.909,8.602 8.602,2.110
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 13
+pos 1.546 8.602
+height 33034.809 33034.809
+integral 6.9666e+05 bx [ 8.618 1.558 8.583 1.517 ][  ]
+rs |L5|HG| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.546 8.602
+label L5HG-HN
+xy 1.427,8.602 8.676,1.469
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 14
+pos 1.579 8.602
+height 34365.734 34365.734
+integral 5.4814e+05 bx [ 8.619 1.594 8.584 1.562 ][  ]
+rs |L5|HB3| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.579 8.602
+label L5HB3-HN
+xy 1.463,8.602 8.693,1.546
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 15
+pos 1.641 8.600
+height 44659.953 44659.953
+integral 1.0520e+06 bx [ 8.616 1.670 8.581 1.619 ][  ]
+rs |L5|HB2| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.641 8.600
+label L5HB2-HN
+xy 1.514,8.602 8.696,1.606
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 16
+pos 4.399 7.922
+height 58259.549 59163.117
+linewidth 17.978 15.158 fit
+integral 1.5397e+06 ga -1.80e+308 1.68e+04
+gd 0.956 9.216e+08 43
+rs |C6|HA| |C6|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.399 7.922
+label C6HA-HN
+xy 4.282,7.921 7.780,4.412
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 17
+pos 4.300 7.920
+height 37477.387 36218.512
+linewidth 19.963 11.180 fit
+integral 8.1120e+05 ga -1.80e+308 8.32e+03
+gd 1.000 9.515e+08 88
+rs |L5|HA| |C6|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.300 7.920
+label L5HA-C6HN
+xy 4.196,7.921 7.786,4.307
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 18
+pos 4.480 7.950
+height 122008.469 122008.469
+integral 2.6929e+06 bx [ 7.968 4.509 7.931 4.449 ][  ]
+rs |F7|HA| |L8|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.480 7.950
+label F7HA-L8HN
+xy 4.362,7.952 7.816,4.502
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 19
+pos 2.894 7.925
+height 21062.990 21062.990
+integral 3.1844e+05 bx [ 7.948 2.914 7.898 2.862 ][  ]
+rs |C6|HB3| |C6|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.894 7.925
+label C6HB3-HN
+xy 2.767,7.921 7.908,2.829
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 20
+pos 3.103 7.924
+height 67550.984 64904.301
+integral 1.7480e+06 bx [ 7.936 3.139 7.905 3.066 ][  ]
+rs |C6|HB2| |C6|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.103 7.924
+label C6HB2-HN
+xy 2.986,7.921 7.794,3.049
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 21
+pos 2.876 8.040
+height 16436.982 16436.982
+integral 2.0855e+05 bx [ 8.060 2.893 8.011 2.846 ][  ]
+rs |C6|HB3| |F7|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.876 8.040
+label C6HB3-F7HN
+xy 2.767,8.041 8.041,2.796
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 22
+pos 2.994 8.036
+height 47725.285 47725.285
+integral 1.3973e+06 bx [ 8.057 3.028 8.011 2.961 ][  ]
+rs |F7|HB3| |F7|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.994 8.036
+label F7HB3-HN
+xy 2.881,8.040 8.038,2.931
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 23
+pos 3.103 8.037
+height 72252.617 72252.617
+integral 2.4319e+06 bx [ 8.055 3.140 8.012 3.062 ][  ]
+rs |F7|HB2| |F7|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.103 8.037
+label F7HB2-HN
+xy 2.979,8.040 8.029,3.185
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 24
+pos 4.399 8.036
+height 90589.711 90589.711
+integral 2.2403e+06 bx [ 8.053 4.431 8.015 4.364 ][  ]
+rs |C6|HA| |F7|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.399 8.036
+label C6HA-F7HN
+xy 4.284,8.041 7.989,4.437
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 25
+pos 4.478 8.039
+height 78834.586 78834.586
+integral 1.5180e+06 bx [ 8.062 4.506 8.016 4.445 ][  ]
+rs |F7|HA| |F7|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.478 8.039
+label F7HA-HN
+xy 4.373,8.040 7.987,4.549
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 26
+pos 4.115 7.951
+height 74558.023 74558.023
+integral 1.3295e+06 bx [ 7.968 4.141 7.931 4.091 ][  ]
+rs |L8|HA| |L8|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.115 7.951
+label L8HA-HN
+xy 4.002,7.952 7.815,4.099
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 27
+pos 3.105 7.952
+height 22433.617 22433.617
+integral 6.9323e+05 bx [ 7.972 3.132 7.938 3.075 ][  ]
+rs |F7|HB2| |L8|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.105 7.952
+label F7HB2-L8HN
+xy 2.978,7.952 7.797,3.179
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 28
+pos 2.995 7.954
+height 18624.635 18624.635
+integral 3.4802e+05 bx [ 7.969 3.019 7.927 2.971 ][  ]
+rs |F7|HB3| |L8|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.995 7.954
+label F7HB3-L8HN
+xy 2.880,7.952 7.825,2.977
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 29
+pos 1.470 7.949
+height 88153.935 86419.672
+linewidth 23.783 11.943 fit
+integral 2.4283e+06 ga -1.80e+308 1.73e+04
+gd 1.000 7.116e+08 50
+rs |L8|HG| |L8|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.470 7.949
+label L8HG-HN
+xy 1.357,7.952 7.854,1.410
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 30
+pos 1.582 7.952
+height 131389.172 85344.477
+rs |L8|HB| |L8|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.582 7.952
+label L8HB-HN
+xy 1.471,7.952 7.850,1.557
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 31
+pos 4.207 8.128
+height 159201.625 159201.625
+integral 3.2798e+06 el [ 8.146 4.233 8.106 4.177 ][  ]
+rs |R9|HA| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.207 8.128
+label R9HA-S10HN
+xy 4.084,8.127 8.036,4.144
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 32
+pos 4.207 8.182
+height 66297.758 66297.758
+integral 1.1367e+06 bx [ 8.195 4.221 8.163 4.185 ][  ]
+rs |R9|HA| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.207 8.182
+label R9HA-HN
+xy 4.100,8.183 8.222,4.226
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 33
+pos 4.116 8.179
+height 167084.875 167084.875
+integral 3.5981e+06 bx [ 8.205 4.143 8.158 4.082 ][  ]
+rs |L8|HA| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.116 8.179
+label L8HA-R9HN
+xy 4.000,8.185 8.164,4.002
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 34
+pos 1.809 8.181
+height 43077.797 43077.797
+integral 8.7438e+05 el [ 8.201 1.840 8.157 1.782 ][  ]
+rs |R9|HB2| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.809 8.181
+label R9HB2-HN
+xy 1.680,8.182 8.063,1.854
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 35
+pos 1.737 8.181
+height 56745.832 56745.832
+integral 1.3835e+06 el [ 8.193 1.767 8.165 1.698 ][  ]
+rs |R9|HB3| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.737 8.181
+label R9HB3-HN
+xy 1.621,8.182 8.100,1.765
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+note "h.o.p"
+id 36
+pos 1.637 8.185
+height 14009.116 14009.116
+integral 4.4678e+05 el [ 8.201 1.650 8.161 1.615 ][  ]
+rs |R9|HG2| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.637 8.185
+label R9HG2-HN
+xy 1.506,8.183 8.087,1.574
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 37
+pos 1.571 8.182
+height 22607.902 22607.902
+integral 4.2241e+05 el [ 8.197 1.579 8.166 1.550 ][  ]
+rs |R9|HG3| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.571 8.182
+label R9HG3-HN
+xy 1.446,8.183 8.234,1.544
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 38
+pos 1.580 8.183
+height 29164.982 29164.982
+integral 3.5642e+05 bx [ 8.195 1.591 8.171 1.573 ][  ]
+rs |L8|HB| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.580 8.183
+label L8HB-R9HN
+xy 1.472,8.182 8.083,1.542
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 39
+pos 1.473 8.184
+height 31141.338 31141.338
+integral 1.0129e+06 bx [ 8.202 1.495 8.158 1.448 ][  ]
+rs |L8|HG| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.473 8.184
+label L8HG-R9HN
+xy 1.355,8.183 8.115,1.397
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 40
+pos 1.798 8.127
+height 18449.572 18449.572
+integral 3.4472e+05 bx [ 8.143 1.818 8.104 1.778 ][  ]
+rs |R9|HB2| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.798 8.127
+label R9HB2-S10HN
+xy 1.680,8.127 8.028,1.789
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 41
+pos 1.738 8.126
+height 19223.846 19223.846
+integral 2.4470e+05 bx [ 8.141 1.746 8.113 1.720 ][  ]
+rs |R9|HB3| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.738 8.126
+label R9HB3-S10HN
+xy 1.616,8.127 8.024,1.731
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 42
+pos 3.813 8.127
+height 55217.859 55217.859
+integral 2.0795e+06 el [ 8.146 3.855 8.103 3.764 ][  ]
+rs |S10|QB| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.813 8.127
+label S10QB-HN
+xy 3.678,8.127 8.222,3.756
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 43
+pos 3.805 8.084
+height 3890.834 3890.834
+integral 2.1328e+05 el [ 8.096 3.826 8.072 3.776 ][  ]
+rs |S10|QB| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.805 8.084
+label S10QB-L11HN
+xy 3.689,8.084 7.994,3.710
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 44
+pos 4.331 8.131
+height 76256.195 76256.195
+integral 1.2280e+06 el [ 8.150 4.359 8.104 4.302 ][  ]
+rs |S10|HA| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.331 8.131
+label S10HA-HN
+xy 4.219,8.128 8.123,4.404
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 45
+pos 4.330 8.081
+height 144440.047 144440.047
+integral 3.0849e+06 el [ 8.101 4.360 8.057 4.300 ][  ]
+rs |S10|HA| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.330 8.081
+label S10HA-L11HN
+xy 4.218,8.084 8.001,4.351
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 46
+pos 4.243 8.080
+height 60202.195 61413.766
+linewidth 18.249 13.010 fit
+integral 1.3862e+06 ga -1.80e+308 2.43e+04
+gd 0.869 3.989e+08 19
+rs |L11|HA| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.243 8.080
+label L11HA-HN
+xy 4.138,8.083 8.022,4.198
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 47
+pos 1.482 8.084
+height 27335.029 27335.029
+integral 6.3901e+05 el [ 8.098 1.498 8.063 1.453 ][  ]
+rs |L11|HG| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.482 8.084
+label L11HG-HN
+xy 1.354,8.083 8.093,1.450
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 48
+pos 1.541 8.081
+height 37190.496 37190.496
+integral 1.3350e+06 el [ 8.105 1.560 8.054 1.510 ][  ]
+rs |L11|HB3| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.541 8.081
+label L11HB3-HN
+xy 1.405,8.084 8.086,1.488
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 49
+pos 1.590 8.083
+height 68595.016 68595.016
+integral 1.1409e+06 bx [ 8.098 1.597 8.064 1.570 ][  ]
+rs |L11|HB2| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.590 8.083
+label L11HB2-HN
+xy 1.455,8.084 8.025,1.636
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 50
+pos 4.248 8.197
+height 88496.664 88496.664
+integral 2.1848e+06 bx [ 8.210 4.270 8.182 4.228 ][  ]
+rs |L11|HA| |G12|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.248 8.197
+label L11HA-G12HN
+xy 4.138,8.199 8.292,4.332
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 51
+pos 3.876 8.198
+height 259450.372 266971.500
+linewidth 15.488 14.502 fit
+integral 5.6516e+06 ga -1.80e+308 2.15e+04
+gd 0.000 3.750e+10 95
+rs |G12|HA| |G12|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.876 8.198
+label G12HA-HN
+xy 3.753,8.199 8.288,3.815
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 52
+pos 3.950 7.926
+height 64730.323 79597.859
+linewidth 19.535 18.711 fit
+integral 2.2946e+06 ga -1.80e+308 2.15e+04
+gd 0.000 5.859e+09 51
+rs |I13|HA| |I13|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.950 7.926
+label I13HA-HN
+xy 3.844,7.927 7.788,3.977
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 53
+pos 3.816 7.934
+height 87517.530 86350.422
+linewidth 31.357 14.578 fit
+integral 3.8797e+06 ga -1.80e+308 2.83e+04
+gd 0.000 7.598e+09 150
+rs |G16|HA| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.816 7.934
+label G16HA-R17HN
+xy 3.816,7.997 7.796,3.775
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 54
+pos 1.651 7.923
+height 95194.555 95194.555
+integral 2.5961e+06 bx [ 7.937 1.671 7.909 1.624 ][  ]
+rs |I13|HB| |I13|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.651 7.923
+label I13HB-HN
+xy 1.539,7.927 7.840,1.667
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 55
+pos 1.335 7.923
+height 31505.293 31505.293
+integral 6.5733e+05 el [ 7.938 1.358 7.906 1.304 ][  ]
+rs |I13|HG2| |I13|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.335 7.923
+label I13HG2-HN
+xy 1.214,7.927 7.831,1.327
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 56
+pos 1.037 7.922
+height 32954.168 32954.168
+integral 6.2057e+05 el [ 7.932 1.062 7.907 1.006 ][  ]
+rs |I13|HG3| |I13|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.037 7.922
+label I13HG3-HN
+xy 0.917,7.921 7.927,0.918
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 57
+pos 0.763 7.926
+height 26778.938 8361.262
+rs |I13|QQG| |I13|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 0.763 7.926
+label I13QQG-HN
+xy 0.644,7.926 7.800,0.700
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 58
+pos 0.591 7.926
+height 22828.586 22828.586
+integral 5.8118e+05 bx [ 7.944 0.610 7.902 0.569 ][  ]
+rs |I13|QQD| |I13|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 0.591 7.926
+label I13QQD-HN
+xy 0.473,7.927 7.826,0.517
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 59
+pos 4.580 8.384
+height 103265.266 106979.906
+linewidth 20.739 13.950 fit
+integral 2.8974e+06 ga -1.80e+308 1.84e+04
+gd 0.000 1.839e+10 103
+rs |D14|HA| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.580 8.384
+label D14HA-HN
+xy 4.457,8.387 8.312,4.641
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 60
+pos 3.952 8.384
+height 310343.191 294580.125
+linewidth 18.496 14.103 fit
+integral 7.8505e+06 ga -1.80e+308 1.73e+04
+gd 0.000 2.773e+10 103
+rs |I13|HA| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.952 8.384
+label I13HA-D14HN
+xy 3.844,8.387 8.526,3.936
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 61
+pos 2.710 8.384
+height 50317.318 48291.758
+linewidth 36.442 14.803 fit
+integral 2.6323e+06 ga -1.80e+308 1.84e+04
+gd 1.000 8.376e+08 55
+rs |D14|HB2| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.710 8.384
+label D14HB2-HN
+xy 2.587,8.387 8.493,2.667
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 62
+pos 2.566 8.386
+height 49103.957 49103.957
+integral 1.9448e+06 el [ 8.406 2.608 8.363 2.523 ][  ]
+rs |D14|HB3| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.566 8.386
+label D14HB3-HN
+xy 2.437,8.387 8.472,2.472
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 63
+pos 1.654 8.387
+height 27443.510 27443.510
+integral 3.2539e+05 bx [ 8.398 1.669 8.372 1.631 ][  ]
+rs |I13|HB| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.654 8.387
+label I13HB-D14HN
+xy 1.538,8.387 8.373,1.498
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 64
+pos 0.599 8.386
+height 34077.340 34077.340
+integral 5.8982e+05 bx [ 8.404 0.613 8.370 0.578 ][  ]
+rs |I13|QQD| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 0.599 8.386
+label I13QQD-D14HN
+xy 0.474,8.387 8.441,0.519
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 65
+pos 4.582 8.179
+height 192625.499 191780.000
+linewidth 21.221 13.596 fit
+integral 5.3899e+06 ga -1.80e+308 1.84e+04
+gd 0.000 1.461e+10 121
+rs |D14|HA| |Y15|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.582 8.179
+label D14HA-Y15HN
+xy 4.456,8.181 8.170,4.690
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 66
+pos 4.321 8.181
+height 96034.266 96034.266
+integral 2.0833e+06 el [ 8.205 4.343 8.152 4.289 ][  ]
+rs |Y15|HA| |Y15|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.321 8.181
+label Y15HA-HN
+xy 4.209,8.181 8.298,4.385
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 67
+pos 3.052 8.180
+height 48410.766 47503.211
+integral 1.0687e+06 el [ 8.193 3.075 8.163 3.023 ][  ]
+rs |Y15|HB2| |Y15|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.052 8.180
+label Y15HB2-HN
+xy 2.925,8.181 8.216,2.982
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 68
+pos 2.884 8.179
+height 85269.398 85269.398
+integral 2.6265e+06 el [ 8.196 2.936 8.156 2.837 ][  ]
+rs |Y15|HB3| |Y15|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.884 8.179
+label Y15HB3-HN
+xy 2.752,8.181 8.244,2.780
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 69
+pos 2.562 8.174
+height 15694.734 15694.734
+integral 3.5106e+05 el [ 8.189 2.587 8.156 2.532 ][  ]
+rs |D14|HB3| |Y15|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.562 8.174
+label D14HB3-Y15HN
+xy 2.436,8.181 8.074,2.477
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 70
+pos 2.889 8.425
+height 13324.564 13324.564
+integral 1.6781e+05 el [ 8.438 2.906 8.406 2.862 ][  ]
+rs |Y15|HB3| |G16|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.889 8.425
+label Y15HB3-G16HN
+xy 2.752,8.421 8.526,2.786
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 71
+pos 3.052 8.424
+height 21272.219 21272.219
+integral 2.5381e+05 el [ 8.436 3.067 8.407 3.025 ][  ]
+rs |Y15|HB2| |G16|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.052 8.424
+label Y15HB2-G16HN
+xy 2.926,8.421 8.405,2.993
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 72
+pos 3.815 8.418
+height 166325.817 193663.266
+linewidth 29.579 15.313 fit
+integral 7.3063e+06 ga -1.80e+308 1.13e+04
+gd 0.000 5.751e+10 325
+rs |G16|HA| |G16|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.815 8.418
+label G16HA-HN
+xy 3.703,8.421 8.462,3.730
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 73
+pos 4.324 8.420
+height 107607.594 107607.594
+integral 2.7874e+06 el [ 8.439 4.352 8.398 4.291 ][  ]
+rs |Y15|HA| |G16|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.324 8.420
+label Y15HA-G16HN
+xy 4.198,8.422 8.503,4.374
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 74
+pos 4.187 7.934
+height 90925.840 87366.367
+linewidth 20.457 12.857 fit
+integral 2.3194e+06 ga -1.80e+308 1.13e+04
+gd 0.000 1.333e+10 115
+rs |R17|HA| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.187 7.934
+label R17HA-HN
+xy 4.067,7.937 7.804,4.173
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 75
+pos 3.876 7.924
+height 244703.910 239669.609
+linewidth 17.223 13.464 fit
+integral 5.5033e+06 ga -1.80e+308 2.83e+04
+gd 0.000 7.598e+09 150
+rs |G12|HA| |C6|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.876 7.924
+label G12HA-C6HN
+xy 3.876,7.987 7.770,3.865
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 76
+pos 1.801 7.937
+height 28272.414 28272.414
+integral 9.8646e+05 el [ 7.955 1.839 7.917 1.761 ][  ]
+rs |R17|HB2| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.801 7.937
+label R17HB2-HN
+xy 1.665,7.935 7.836,1.792
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 77
+pos 1.723 7.936
+height 51848.680 51848.680
+integral 1.9391e+06 el [ 7.956 1.764 7.911 1.686 ][  ]
+rs |R17|HB3| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.723 7.936
+label R17HB3-HN
+xy 1.597,7.937 7.838,1.728
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 78
+pos 1.557 7.941
+height 34354.375 38805.730
+integral 7.0387e+05 el [ 7.954 1.565 7.920 1.531 ][  ]
+rs |R17|HG3| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.557 7.941
+label R17HG3-HN
+xy 1.436,7.937 7.846,1.518
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 79
+pos 1.590 7.937
+height 63888.605 47653.617
+rs |R17|HG2| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.590 7.937
+label R17HG2-HN
+xy 1.473,7.937 7.838,1.618
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 80
+pos 4.195 8.220
+height 515665.438 480997.312
+integral 1.3434e+07 el [ 8.253 4.233 8.191 4.152 ][  ]
+rs |K18,19|HA| |K18,19|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.195 8.220
+label K18,19HA-HN
+xy 4.056,8.221 8.259,4.119
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 81
+pos 1.671 8.221
+height 82837.039 82837.039
+integral 2.9601e+06 el [ 8.240 1.694 8.204 1.631 ][  ]
+rs |K18,19|HB3| |K18,19|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.671 8.221
+label K18,19HB3-HN
+xy 1.523,8.221 8.295,1.614
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 82
+pos 1.744 8.220
+height 64725.293 59800.906
+integral 1.7801e+06 el [ 8.237 1.761 8.200 1.717 ][  ]
+rs |K18,19|HB2| |K18,19|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.744 8.220
+label K18,19HB2-HN
+xy 1.596,8.222 8.114,1.681
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 83
+pos 1.793 8.219
+height 25826.361 25826.361
+integral 4.7670e+05 el [ 8.236 1.813 8.200 1.771 ][  ]
+rs |R17|HB2| |K18,19|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.793 8.219
+label R17HB2-K18,19HN
+xy 1.645,8.222 8.108,1.902
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 84
+pos 1.334 8.226
+height 21546.078 21546.078
+integral 3.5306e+05 el [ 8.237 1.345 8.207 1.312 ][  ]
+rs |K18,19|HG3| |K18,19|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.334 8.226
+label K18,19HG3-HN
+xy 1.183,8.221 8.335,1.300
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 85
+pos 1.403 8.221
+height 33542.875 33542.875
+integral 5.9728e+05 el [ 8.236 1.422 8.204 1.377 ][  ]
+rs |K18,19|HG2| |K18,19|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.403 8.221
+label K18,19HG2-HN
+xy 1.250,8.222 8.337,1.385
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 86
+pos 4.237 8.322
+height 94402.336 94402.336
+integral 2.3044e+06 el [ 8.342 4.261 8.297 4.213 ][  ]
+rs |R20|HA| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.237 8.322
+label R20HA-HN
+xy 4.121,8.322 8.354,4.281
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 87
+pos 1.754 8.322
+height 40401.422 40401.422
+integral 8.8671e+05 el [ 8.332 1.775 8.309 1.726 ][  ]
+rs |R20|HB2| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.754 8.322
+label R20HB2-HN
+xy 1.629,8.322 8.318,1.908
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 88
+pos 1.706 8.319
+height 58309.074 58309.074
+integral 1.1395e+06 el [ 8.338 1.720 8.300 1.683 ][  ]
+rs |R20|HB3| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.706 8.319
+label R20HB3-HN
+xy 1.576,8.322 8.233,1.733
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 89
+pos 1.670 8.319
+height 44464.691 44464.691
+integral 9.4472e+05 el [ 8.332 1.685 8.305 1.638 ][  ]
+rs |K18,19|HB3| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.670 8.319
+label K18,19HB3-R20HN
+xy 1.550,8.322 8.245,1.841
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 90
+pos 1.590 8.322
+height 28687.150 28687.150
+integral 5.3065e+05 el [ 8.340 1.603 8.299 1.562 ][  ]
+rs |R20|HG2| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.590 8.322
+label R20HG2-HN
+xy 1.463,8.322 8.249,1.452
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 91
+pos 4.232 8.443
+height 306954.965 306003.875
+linewidth 20.020 15.138 fit
+integral 9.0219e+06 ga -1.80e+308 2.15e+04
+gd 0.000 1.574e+11 365
+rs |R21|HA| |R21|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.232 8.443
+label R21HA-HN
+xy 4.116,8.445 8.462,4.152
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 92
+pos 1.758 8.444
+height 48593.676 48593.676
+integral 1.1865e+06 el [ 8.458 1.785 8.427 1.725 ][  ]
+rs |R21|HB2| |R21|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.758 8.444
+label R21HB2-HN
+xy 1.629,8.445 8.424,1.851
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 93
+pos 1.707 8.445
+height 49291.594 49291.594
+integral 8.1360e+05 el [ 8.459 1.720 8.429 1.687 ][  ]
+rs |R20|HB3| |R21|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.707 8.445
+label R20HB3-R21HN
+xy 1.586,8.445 8.340,1.770
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 94
+pos 1.684 8.444
+height 51984.410 51984.410
+integral 9.5387e+05 el [ 8.456 1.695 8.427 1.658 ][  ]
+rs |R21|HB3| |R21|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.684 8.444
+label R21HB3-HN
+xy 1.553,8.445 8.314,1.650
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 95
+pos 1.589 8.443
+height 20095.711 20095.711
+integral 2.4613e+05 el [ 8.453 1.600 8.432 1.566 ][  ]
+rs |R20|HG2| |R21|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.589 8.443
+label R20HG2-R21HN
+xy 1.463,8.445 8.468,1.446
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 96
+pos 1.542 8.472
+height 15039.444 22317.779
+linewidth 37.909 6.975 fit
+integral 3.8565e+05 ga -1.80e+308 1.00e+04
+gd 1.000 7.617e+08 109
+rs |R21|HG| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.542 8.472
+label R21HG-R23,24HN
+xy 1.443,8.490 8.654,1.426
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 97
+pos 1.588 8.480
+height 39636.397 44696.039
+linewidth 37.271 13.948 fit
+integral 1.9983e+06 ga -1.80e+308 1.00e+04
+gd 1.000 7.617e+08 109
+rs |R23,24|HG| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.588 8.480
+label R23,24HG-HN
+xy 1.444,8.490 8.505,1.631
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 98
+pos 1.688 8.472
+height 36679.935 35635.660
+linewidth 39.886 10.755 fit
+integral 1.5260e+06 ga -1.80e+308 3.50e+04
+gd 0.943 2.113e+09 85
+rs |R20|HB3| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.688 8.472
+label R20HB3-R23,24HN
+xy 1.576,8.490 8.652,1.689
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 99
+pos 1.715 8.487
+height 52390.152 72132.992
+linewidth 26.753 10.575 fit
+integral 1.4375e+06 ga -1.80e+308 3.50e+04
+gd 0.943 2.113e+09 85
+rs |R23,24|HB3| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.715 8.487
+label R23,24HB3-HN
+xy 1.576,8.491 8.625,1.732
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 100
+pos 1.798 8.496
+height 49791.067 8999.087
+linewidth 35.697 0.748 fit
+integral 1.2888e+05 ga -1.80e+308 3.50e+04
+gd 0.943 2.113e+09 85
+rs |R23,24|HB2| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.798 8.496
+label R23,24HB2-HN
+xy 1.650,8.490 8.619,1.841
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 101
+pos 1.775 8.484
+height 47663.614 55583.656
+linewidth 57.001 12.771 fit
+integral 3.3649e+06 ga -1.80e+308 3.50e+04
+gd 0.943 2.113e+09 85
+rs |R21|HB2| |Q22|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.775 8.484
+label R21HB2-Q22HN
+xy 1.626,8.486 8.625,1.782
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 102
+pos 1.916 8.487
+height 44276.914 44276.914
+integral 1.2535e+06 el [ 8.499 1.943 8.472 1.881 ][  ]
+rs |Q22|HB| |Q22|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.916 8.487
+label Q22HB-HN
+xy 1.787,8.486 8.560,1.885
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 103
+pos 2.009 8.482
+height 35646.383 29494.176
+integral 5.7011e+05 el [ 8.491 2.027 8.469 1.982 ][  ]
+rs |Q22|HB2| |Q22|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.009 8.482
+label Q22HB2-HN
+xy 1.879,8.486 8.354,1.993
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 104
+pos 2.305 8.487
+height 26465.756 26465.756
+integral 3.3527e+05 el [ 8.501 2.317 8.470 2.281 ][  ]
+rs |Q22|HG| |Q22|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.305 8.487
+label Q22HG-HN
+xy 2.171,8.486 8.366,2.247
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 105
+pos 3.152 8.497
+height 9991.935 9991.935
+integral 5.5371e+04 el [ 8.504 3.158 8.486 3.139 ][  ]
+rs |R23,24|HD| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.152 8.497
+label R23,24HD-HN
+xy 3.001,8.490 8.364,3.120
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 106
+pos 4.256 8.482
+height 625860.461 617618.000
+linewidth 25.706 12.185 fit
+integral 1.9012e+07 ga -1.80e+308 2.15e+04
+gd 0.000 1.574e+11 365
+rs |Q22|HA| |Q22|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.256 8.482
+label Q22HA-HN
+xy 4.130,8.486 8.599,4.207
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 107
+pos 4.273 8.493
+height 549567.038 339544.156
+linewidth 17.623 2.268 fit
+integral 2.1304e+06 ga -1.80e+308 2.15e+04
+gd 0.000 1.574e+11 365
+rs |R23,24|HA| |R23,24|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.273 8.493
+label R23,24HA-HN
+xy 4.155,8.490 8.684,4.251
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 108
+pos 4.095 8.113
+height 49338.948 45481.512
+linewidth 12.123 8.777 fit
+integral 5.0915e+05 ga -1.80e+308 1.20e+04
+gd 0.985 1.095e+09 54
+rs |R25|HA| |R25|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.095 8.113
+label R25HA-HN
+xy 3.986,8.116 7.982,4.024
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 109
+pos 4.261 8.113
+height 116708.984 116708.984
+integral 2.6403e+06 el [ 8.129 4.287 8.092 4.228 ][  ]
+rs |R23,24|HA| |R25|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.261 8.113
+label R23,24HA-R25HN
+xy 4.149,8.116 7.908,4.252
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 110
+pos 1.666 8.113
+height 17219.682 17219.682
+integral 2.0968e+05 el [ 8.128 1.679 8.093 1.647 ][  ]
+rs |R25|HB3| |R25|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.666 8.113
+label R25HB3-HN
+xy 1.540,8.115 8.015,1.705
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 111
+pos 4.546 8.575
+height 21214.699 21214.699
+integral 2.4696e+05 bx [ 8.582 4.558 8.564 4.536 ][  ]
+rs |H2|HA| |H2|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.546 8.575
+label H2HA-HN
+xy 4.431,8.576 8.522,4.575
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 112
+pos 4.195 8.320
+height 258086.031 258086.031
+integral 6.5647e+06 el [ 8.346 4.215 8.291 4.153 ][  ]
+rs |K18,19|HA| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.195 8.320
+label K18,19HA-R20HN
+xy 4.054,8.323 8.427,4.084
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 113
+pos 1.913 8.826
+height 14779.962 14779.962
+rs |Q22|HB| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.913 8.826
+label Q22HB-Q4HN
+xy 1.913,8.903 8.848,1.835
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 114
+pos 2.977 8.580
+height 18881.473 18881.473
+rs |Y1|HB3| |H2|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.977 8.580
+label Y1HB3-H2HN
+xy 2.977,8.643 8.574,2.901
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 115
+pos 1.796 8.322
+height 15224.542 15224.542
+rs |R17|HB2| |R20|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 1.796 8.322
+label R17HB2-R20HN
+xy 1.796,8.399 8.322,1.885
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+note "rd"
+id 116
+pos 4.141 8.579
+height 87214.498 88514.258
+linewidth 17.500 13.553 fit
+integral 2.0062e+06 ga -1.80e+308 1.00e+04
+gd 0.253 4.862e+09 140
+rs |Y1|HA| |H2|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.141 8.579
+label Y1HA-H2HN
+xy 4.138,8.642 8.618,4.037
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+note "No vol."
+id 117
+pos 3.156 8.825
+height 9582.266 9582.266
+rs |C3|HB3| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.156 8.825
+label C3HB3-Q4HN
+xy 3.156,8.902 8.803,3.061
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 118
+pos 0.849 8.604
+height 12181.135 12181.135
+integral 1.5093e+05 bx [ 8.614 0.863 8.589 0.830 ][  ]
+rs |L5|QQD3| |L5|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 0.849 8.604
+label L5QQD3-HN
+xy 0.849,8.668 8.626,0.739
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 119
+pos 4.392 8.184
+height 10441.577 10441.577
+integral 3.2960e+04 bx [ 8.193 4.405 8.172 4.380 ][  ]
+rs |C6|HA| |R9|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.392 8.184
+label C6HA-R9HN
+xy 4.393,8.246 8.283,4.477
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 120
+pos 4.491 8.124
+height 17630.016 17630.016
+integral 1.1771e+05 bx [ 8.136 4.510 8.113 4.473 ][  ]
+rs |F7|HA| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.491 8.124
+label F7HA-S10HN
+xy 4.490,8.190 8.059,4.600
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 121
+pos 0.784 8.087
+height 11864.858 11864.858
+integral 5.1285e+04 bx [ 8.099 0.798 8.073 0.769 ][  ]
+rs |L11|QQD2| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 0.784 8.087
+label L11QQD2-HN
+xy 0.784,8.149 8.222,0.774
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 122
+pos 0.732 8.091
+height 16968.631 16968.631
+integral 1.1953e+05 bx [ 8.100 0.747 8.077 0.715 ][  ]
+rs |L11|QQD3| |L11|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 0.732 8.091
+label L11QQD3-HN
+xy 0.731,8.152 8.121,0.642
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 123
+pos 3.875 8.386
+height 22238.648 22238.648
+integral 1.5823e+05 el [ 8.396 3.886 8.373 3.859 ][  ]
+rs |G12|HA| |D14|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 3.875 8.386
+label G12HA-D14HN
+xy 3.875,8.447 8.557,3.871
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 124
+pos 4.585 8.827
+height 26935.637 26935.637
+integral 2.2088e+05 el [ 8.836 4.602 8.815 4.566 ][  ]
+rs |D14|HA| |Q4|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.585 8.827
+label D14HA-Q4HN
+xy 4.581,8.901 8.743,4.525
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 125
+pos 4.581 8.424
+height 14896.309 14896.309
+integral 1.9454e+05 el [ 8.434 4.596 8.411 4.557 ][  ]
+rs |D14|HA| |G16|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.581 8.424
+label D14HA-G16HN
+xy 4.582,8.484 8.517,4.666
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 126
+pos 2.707 8.174
+height 18536.199 18536.199
+integral 3.0113e+05 el [ 8.183 2.729 8.161 2.677 ][  ]
+rs |D14|HB2| |Y15|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 2.707 8.174
+label D14HB2-Y15HN
+xy 2.705,8.237 8.034,2.656
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 127
+pos 4.317 7.936
+height 19933.600 20850.414
+linewidth 16.682 9.351 fit
+integral 3.0156e+05 ga -1.80e+308 8.32e+03
+gd 1.000 9.515e+08 88
+rs |Y15|HA| |R17|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.317 7.936
+label Y15HA-R17HN
+xy 4.318,8.000 7.794,4.353
+]
+type peak
+color 0 2 0 white
+flags 0 0 0 0
+id 128
+pos 4.116 8.130
+height 39350.892 36883.043
+linewidth 15.913 8.364 fit
+integral 5.0795e+05 ga -1.80e+308 1.20e+04
+gd 0.985 1.095e+09 54
+rs |L8|HA| |S10|HN|
+[
+type label
+color 2 0 0 white
+flags 0 0 0 1
+mode 2
+pos 4.116 8.130
+label L8HA-S10HN
+xy 4.115,8.056 7.979,4.081
+]
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.422 8.826
+tr 4.164 8.826
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.422 8.827
+tr 4.422 8.624
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.543 8.628
+tr 4.422 8.628
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.202 8.182
+tr 4.112 8.182
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.480 7.949
+tr 4.107 7.949
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.478 8.042
+tr 4.478 7.948
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.483 8.042
+tr 4.399 8.042
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.399 8.044
+tr 4.399 7.920
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.396 7.923
+tr 4.298 7.923
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.300 8.602
+tr 4.300 7.920
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.297 8.600
+tr 4.162 8.600
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.315 8.423
+tr 3.825 8.423
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 3.874 8.198
+tr 3.874 7.924
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 3.947 7.927
+tr 3.869 7.927
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 3.949 8.387
+tr 3.949 7.928
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.578 8.385
+tr 3.946 8.385
+ends 0
+type line
+color 0 4 0 red
+flags 0 0 0 0
+bl 4.579 8.390
+tr 4.579 8.181
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.584 8.184
+tr 4.318 8.184
+ends 0
+type line
+color 0 1 0 black
+flags 0 0 0 0
+bl 4.318 8.421
+tr 4.318 8.182
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 3.811 8.422
+tr 3.811 7.936
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.181 7.935
+tr 3.808 7.935
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.242 8.202
+tr 3.870 8.202
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.245 8.198
+tr 4.245 8.081
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.324 8.080
+tr 4.243 8.080
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.826 8.829
+tr 8.601 8.829
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.601 8.829
+tr 8.601 8.601
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.603 8.601
+tr 7.918 8.601
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 7.920 8.603
+tr 7.920 7.920
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.039 7.920
+tr 7.918 7.920
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.039 8.040
+tr 8.039 7.920
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.039 8.040
+tr 7.950 8.040
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 7.950 8.040
+tr 7.950 7.953
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.181 7.953
+tr 7.950 7.953
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.181 8.182
+tr 8.181 7.953
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.181 8.186
+tr 8.126 8.186
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.126 8.187
+tr 8.126 8.125
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.126 8.125
+tr 8.081 8.125
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.081 8.127
+tr 8.081 8.084
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.199 8.084
+tr 8.081 8.084
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.199 8.201
+tr 8.199 8.082
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.199 8.201
+tr 7.927 8.201
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 7.927 8.201
+tr 7.927 7.926
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.385 7.926
+tr 7.927 7.926
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.385 8.387
+tr 8.385 7.926
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.384 8.387
+tr 8.181 8.387
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.181 8.387
+tr 8.181 8.179
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.327 8.129
+tr 4.327 8.080
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.324 8.130
+tr 4.207 8.130
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.206 8.183
+tr 4.206 8.133
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.112 8.181
+tr 4.112 7.947
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.161 8.827
+tr 4.161 8.604
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.542 8.627
+tr 4.542 8.577
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.544 8.577
+tr 4.140 8.577
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.181 8.219
+tr 4.181 7.932
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.181 8.321
+tr 4.181 8.219
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.230 8.321
+tr 4.181 8.321
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.230 8.444
+tr 4.230 8.324
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.228 8.483
+tr 4.228 8.444
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.262 8.483
+tr 4.230 8.483
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.262 8.489
+tr 4.262 8.115
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 4.259 8.115
+tr 4.106 8.115
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.420 8.179
+tr 8.179 8.179
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.420 8.422
+tr 8.420 8.181
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.419 8.422
+tr 7.935 8.422
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 7.935 8.422
+tr 7.935 7.938
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.221 7.938
+tr 7.935 7.938
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.221 8.221
+tr 8.221 7.936
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.322 8.221
+tr 8.221 8.221
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.322 8.325
+tr 8.322 8.223
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.437 8.325
+tr 8.320 8.325
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.437 8.447
+tr 8.437 8.326
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.491 8.447
+tr 8.439 8.447
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.491 8.492
+tr 8.491 8.447
+ends 0
+type line
+color 0 2 0 white
+flags 0 0 0 0
+bl 8.484 8.492
+tr 8.122 8.492
+ends 0
+<end ornament>
+<end spectrum>
