@@ -107,19 +107,8 @@ class Snapshot_dialog(tkutil.Dialog):
 
 
     def selection_changed(self):
-        rs = []
-        for pk in model._selected_peaks():
-            rs.extend(pk.resonances())
-        gs, _, gs_info = model.resonance_map(set(rs))
-        if len(gs_info) == 1:
-            k = gs_info.keys()[0]
-            self.group_name.set(k)
-            self.group_name_aatype.set(k)
-            self.res_group_name.set(k)
-            self.set_resonance.remove_all_entries()
-            for x in gs_info[k]['resonances'].keys():
-                self.set_resonance.add_entry(x)
-
+        pass
+    
     def make_snapshot(self):
         self.g.dump(self.message.get())
     

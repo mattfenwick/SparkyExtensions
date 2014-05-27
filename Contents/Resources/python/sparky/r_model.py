@@ -183,6 +183,29 @@ def set_new_group(pks=None):
     set_group(str(n), pks)
 
 
+def reset_peak_label(pk):
+    rids = []
+    gids = set([])
+    if set(pk.resonances()) == set([None]):
+        return
+    for r in pk.resonances():
+        gid, _, _, _ = parse_group(r.group.name)
+        gids.add(gid)
+        rid, _ = parse_resonance(r.atom.name)
+        rids.append(rid)
+    if len(gids) != 1:
+        raise ValueError("cannot reset peak label of peak: multiple GSS assignments (%s, %s)" % (str(pk), gids))
+    my_gid = list(gids)[0]
+    pk.show_label(my_gid + '_' + '-'.join(rids))
+
+
+def reset_peak_labels(pks=None):
+    if pks is None:
+        pks = _selected_peaks()
+    for pk in pks:
+        reset_peak_label(pk)
+
+
 def set_aatype(gid, aatype):
     groups, _, gs_info = resonance_map()
     if not groups.has_key(gid):

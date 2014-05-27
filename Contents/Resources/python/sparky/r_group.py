@@ -89,6 +89,7 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
 class Group_editor(tkutil.Dialog):
     
     def __init__(self, session, gid=None, group_editor=None):
+        self.session = session
         self.gid = gid
         self.group_editor = group_editor
         
@@ -108,6 +109,7 @@ class Group_editor(tkutil.Dialog):
     
         br = tkutil.button_row(self.top,
                     ('Apply', self.update),
+                    ('Merge resonances', self.merge_resonances),
                     ('Close', self.close_cb),
                     )
         br.frame.pack(side = 'top', anchor = 'w')
@@ -139,6 +141,9 @@ class Group_editor(tkutil.Dialog):
         self.set_group_residue()
         self.set_seq_ss()
         self.group_editor.reset()
+    
+    def merge_resonances(self):
+        show_merge_resonance_editor(self.session, self.gid, self.group_editor)
 
 
 
@@ -163,6 +168,7 @@ class Resonance_editor(tkutil.Dialog):
     
     def setup(self, gid, rid, atomtype, group_editor):
         self.gid = gid
+        self.top.title('group %s, resonance %s' % (gid, rid))
         self.rid = rid
         self.atomtype.set(atomtype)
         self.group_editor = group_editor
@@ -173,13 +179,50 @@ class Resonance_editor(tkutil.Dialog):
     def update(self):
         self.set_resonance_atomtype()
         self.group_editor.reset()
+
+
+class Merge_resonance_editor(tkutil.Dialog):
+    
+    def __init__(self, session, gid=None, group_editor=None):
+        self.session = session
+        self.gid = gid
+        self.group_editor = group_editor
+        
+        tkutil.Dialog.__init__(self, session.tk, 'merge resonances -- ???')
+        
+        self.rid1 = m1 = tkutil.option_menu(self.top, 'Resonance 1', [])
+        m1.frame.pack(side='top', anchor='w')
+        
+        self.rid2 = m2 = tkutil.option_menu(self.top, 'Resonance 2', [])
+        m2.frame.pack(side='top', anchor='w')
+    
+        br = tkutil.button_row(self.top,
+                    ('Merge', self.merge_resonances),
+                    ('Close', self.close_cb),
+                    )
+        br.frame.pack(side = 'top', anchor = 'w')
+    
+    def reset(self):
+        _, _, gs_info = model.resonance_map()
+        rids = sorted(gs_info[self.gid]['resonances'].keys())
+        self.rid1.remove_all_entries()
+        self.rid2.remove_all_entries()
+        for rid in rids:
+            self.rid1.add_entry(rid)
+            self.rid2.add_entry(rid)
+    
+    def setup(self, gid, group_editor):
+        self.top.title('merge resonances -- group %s' % gid)
+        self.gid = gid
+        self.group_editor = group_editor
+        self.reset()
     
     def merge_resonances(self):
-        # TODO this is currently non-functional (5/26)
-        # what a hack
-        params = self.merge_resonances_var.get().split(',')
-        gid, rid1, rids = params[0], params[1], params[2:]
-        model.merge_resonances(gid, rid1, rids)
+        rid1, rid2 = self.rid1.variable.get(), self.rid2.variable.get()
+        model.merge_resonances(self.gid, rid1, [rid2])
+        self.reset()
+        self.group_editor.reset()
+        
 
 
 
@@ -191,6 +234,11 @@ def show_group_editor(session, gid, aa, n, r, grp_editor):
 def show_resonance_editor(session, gid, rid, atomtype, grp_editor):
     d = sputil.the_dialog(Resonance_editor, session)
     d.setup(gid, rid, atomtype, grp_editor)
+    d.show_window(1)
+
+def show_merge_resonance_editor(session, gid, group_editor):
+    d = sputil.the_dialog(Merge_resonance_editor, session)
+    d.setup(gid, group_editor)
     d.show_window(1)
 
 def show_group_dialog(session):
