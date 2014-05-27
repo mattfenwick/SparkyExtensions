@@ -8,7 +8,7 @@ import corma
 import pyutil
 import sparky
 import sputil
-import subprocess
+import mysubprocess as subprocess
 import tkutil
 
 # -----------------------------------------------------------------------------
