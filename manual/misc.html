@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+<link rev="made" href="mailto:sparky@cgl.ucsf.edu">
+<TITLE>
+Sparky Manual
+</TITLE>
+</HEAD>
+
+<BODY>
+
+<h1>
+Miscellaneous
+</h1>
+
+<ul>
+<li><a href="#FontSize">Changing Font Size</a>
+<li><a href="#ObsoleteFeatures">Obsolete Sparky (pre-1995) features</a>
+</ul>
+
+<h2>
+<a name="FontSize">Changing Font Size</a>
+</h2>
+
+<p>
+You can change the font size and style used for buttons, labels, menus,
+peak lists, ... by adding some lines to your ~/.Xdefaults file.  The fonts
+you specify override the defaults specifed in the Sparky option database
+/usr/local/sparky/lib/Sparky.  You can look in that file for other options
+you may want to override.  The lines to specify fonts that you add to your
+.Xdefaults files should look like:
+</p>
+
+<pre>
+	sparky.normalFont:	-family lucida -size 12
+	sparky.fixedWidthFont:	-family lucidatypewriter -size 12
+</pre>
+
+<p>
+You should then execute the command "xrdb -merge ~/.Xdefaults" so that
+the X server reloads the .Xdefaults file, and then restart Sparky.  You
+will not need to run the xrdb command in the future.  Every time you
+log in the .Xdefaults files is read.  The font sizes are specified in
+points (1/72 of an inch).  To see what font families and sizes are available
+you can use the xlsfonts command (if it is available on your system).
+The fixedWidthFont line should name a font that has a fixed width per
+character.  It is used in peak lists so that columns line up.  To adjust
+the size of assignment labels on contour plots you use the ornament size
+dialog in Sparky (oz).
+</p>
+
+<h2>
+<a name="ObsoleteFeatures">Obsolete Sparky (pre-1995) features</a>
+</h2>
+
+<p>
+Sparky no longer has:
+</p>
+
+<ul>
+<li>contour cache files
+<li>bitmaps images
+<li>buttons on the spectrum view windows
+</ul>
+
+<p>
+The spectrum window buttons correspond to keyboard accelerators.
+Zoom in is zi, zoom out is zo, zoom previous is zp, toggle resonance
+panels is vR, toggle slice panels is vS.
+</p>
+
+<p>
+The files in the DB directory are no longer used by Sparky.  This means
+that resonance frequencies are calculated by averaging the positions of
+assigned peaks in spectra in your project.  Peaks in spectra which are
+not part of your project no longer effect resonance frequencies.
+</p>
+
+<p>
+The accelerators for ornament copy and paste have changed from ec and ep
+to oc and op.
+</p>
+
+<p>
+There are no longer separate integration methods for isolated and
+overlapped peaks.  You choose a single
+<a href="peaks.html#Integration">integration method</a>
+from the integration dialog (accelerator it).
+</p>
+
+<p>
+The
+<a href="peaks.html#AssignmentDialog">assignment dialog</a>
+is different from pre-1995 Sparky.
+</p>
+
+<p>  
+View synchronization is now done with a
+<a href="views.html#ViewSync">synchronization dialog</a>.
+The accelerators ya, yd, and yt all bring up this dialog.
+You can now synchronize individual axes instead of all corresponding
+axes between two or more spectra.
+</p>
+
+</BODY>
+
+</HTML>

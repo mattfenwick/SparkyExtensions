@@ -1,0 +1,5 @@
+#!/usr/local/src/sparky/platforms/linux-2.6.9/python-2.4.2/bin/python
+
+import pydoc
+if __name__ == '__main__':
+    pydoc.cli()

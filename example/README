@@ -1,0 +1,24 @@
+This directory contains sample NMR spectra and assignment data for
+demonstating the NMR assignment and integration program Sparky.
+Because this data set is distributed over the internet it contains
+only a fraction of the data used to determine the structure of the
+25mer TAT petitide.  Thanks to Anwer Mujeeb at UC San Francisco for
+contributing the data.
+
+	data/example100.ucsf	- part of 100 ms noesy spectrum (UCSF format)
+	data/example250.ucsf	- part of 250 ms noesy spectrum (UCSF format)
+
+	Save/example100.ucsf	- Sparky assignments (Sparky format)
+	Save/example250.ucsf	- Sparky assignments (Sparky format)
+
+	Projects/example.proj	- Sparky project containing 2 spectra
+
+	TATpeptide.pdb		- structure (Protein Data Bank format)
+
+You can view this data by using the Sparky open project command under the
+file menu.  You will need to start Sparky from the directory that contains
+this "example/" directory.  (This is necessary because the files in the
+Save and Projects subdirectories contain file paths like
+"example/data/example100.ucsf" which will not be valid unless the current
+directory contains the example directory.)  See the README file in the
+distribution directory for a crash course on using Sparky.

@@ -1,0 +1,769 @@
+<!DOCTYPE HTML PUBLIC "-//W3O//DTD W3 HTML 3.2//EN">
+
+<HTML>
+<HEAD>
+<link rev="made" href="mailto:sparky@cgl.ucsf.edu">
+<TITLE>
+Sparky Manual
+</TITLE>
+</HEAD>
+
+<BODY>
+
+<h1>
+Peaks and Assignments
+</h1>
+
+<ul>
+<li><a href="#Assignments">Assignments</a>
+ <ul>
+ <li><a href="#AssignmentDialog">Making assignments</a>
+ <li><a href="#AssignmentDelete">Deleting assignments</a>
+ <li><a href="#AssignmentGuessing">Guessing assignments</a>
+ <li><a href="#ResonanceTable">Assignment tables</a>
+ <li><a href="#AssignmentCopy">Copying peaks and assignments</a>
+ <li><a href="#ResonanceList">Listing chemical shifts</a>
+ <li><a href="#RenameResonances">Renaming groups and atoms</a>
+ <li><a href="#PredefinedResonances">Predefined resonances</a>
+ <li><a href="#Midas">Displaying assignments on a structure</a>
+ </ul>
+<li><a href="#Peaks">Peaks</a>
+ <ul>
+ <li><a href="#AliasedPeaks">Aliasing</a>
+ <li><a href="#PeakCentering">Centering</a>
+ <li><a href="#PeakDelete">Deleting</a>
+ <li><a href="#EstimateLinewidth">Estimating linewidths</a>
+ <li><a href="#PeakGroup">Groups</a>
+ <li><a href="#Integration">Integration methods</a>
+ <li><a href="#PeakLabels">Labels</a>
+ <li><a href="#PeakList">Lists</a>
+ <li><a href="#PeakNote">Notes</a>
+ <li><a href="#PeakPick">Picking</a>
+ <li><a href="#PeakSelect">Selecting</a>
+ </ul>
+<li><a href="#GridsLines">Grids and lines</a>
+<li><a href="#Ornaments">Ornament color, size, locking</a>
+</ul>
+
+<h2>
+<a name="Assignments">Assignments</a>
+</h2>
+
+<h3>
+<a name="AssignmentDialog">Making Assignments</a>
+</h3>
+
+<p>
+You assign peaks using the assignment dialog (at).  Select a peak in
+a view.  Bring up the assignment dialog (at) and type in group and
+atom names for each axis and press Apply.  The peak is labeled with
+the assignment.
+</p>
+
+<p>
+The assignment dialog contains a list of
+<a href="intro.html#ResonanceDef">resonances</a>
+for the molecule
+and condition of the selected peak.  If you click on an axis label
+(w1, w2, ...) in the assignment dialog the resonance list will scroll
+to the resonance closest in frequency to the peak position along that axis.
+If you double click on a line in the resonance list it will fill in
+that group and atom name for the selected axis.
+</p>
+
+<p>
+The Resonance Peaks button brings up a list of peaks from all spectra
+with an assignment involving the resonance selected in the resonance list.
+</p>
+
+<h3>
+<a name="AssignmentDelete">Deleting Assignments</a>
+</h3>
+
+<p>
+The assignment delete command (aD) deletes the assignments from all selected
+peaks.
+</p>
+
+<h3>
+<a name="AssignmentGuessing">Guessing Assignments</a>
+</h3>
+
+<p>
+Press the Guessing button in the assignment dialog (at) to set up
+assignment constraints.  You can consider intra-residue (i,i) guesses
+or inter-residue (i-1,i) guesses.  You can request guesses using only
+a specific atom name or set of names separated by '|'.  You specify
+the range of chemical shift values away from the peak position to look
+at.  Press the Apply or Ok button after choosing the constraints.
+Now whenever you show a peak from the same spectrum in the assignment
+dialog Sparky will look at your current set of resonances and find the
+closest assignments satisfying the constraints.
+It puts these in a menu under the "guesses" button in
+the assignment dialog.  Selecting a guess from this menu fills in the
+assignment.  The guessing constraints are also used by the "assignment
+guessing" pointer mode (sh-F2).  When you select peaks in this pointer
+mode they are assigned if they have a unique assignment guess.  This mode
+will not reassign a peak.  Only new assignments are made.
+</p>
+
+<h3>
+<a name="ResonanceTable">Assignment Tables</a>
+</h3>
+
+<p>
+To display a table of chemical shifts where the rows are the different
+groups (ie. residues) and the columns are the different atoms use the
+assignment table command tb.  The chemical shifts shown in the table
+are averages obtained from all peaks in all spectra having the same
+molecule and condition names.  To see the number of assignments contributing
+to each average chemical shift click on the "assignment counts" switch and
+press the "update" button.  You can also have the table entries include
+the standard deviation of the peak positions contributing to each chemical
+shift.  To display the list of the peaks contributing to a resonance click
+on its entry in the table.
+</p>
+
+<h3>
+<a name="AssignmentCopy">Copying peaks and assignments</a>
+</h3>
+
+<p>
+You can copy peaks with their assignments between spectra.  You select
+the peaks, use the ornament copy command (oc), select the spectrum window
+to copy to, and use ornament paste (op).  For copying peaks across the
+diagonal of a homonuclear 2D spectrum select the peaks to be copied and
+use the crossdiagonal ornament copy command oX.
+</p>
+
+<p>
+To copy just assignments, assuming peak markers already exist in the
+destination spectrum, you can use the same
+two step copy and paste method with the "assignment copy" (ac) and
+"assignment paste" (ap) commands.  The assignment copy command remembers
+the currently selected set of selected peaks.  Then you select the window
+for a different spectrum and assignment paste tries to apply the assignments
+to any peaks that are near the positions of the source peaks.
+</p>
+
+<p>
+There is also an assignment copy pointer mode.  In this pointer mode
+you just a rectangle around the peaks you want assignments applied to.
+The source spectrum is specified with the assignment copy dialog (co).
+Peaks in the source spectrum near the selected peaks are found and
+their assignments are copied to the selected peaks.
+</p>
+
+<p>
+When doing an assignment copy the source peak and the destination peak
+must have nearly the same ppm position and there must not be any other
+peak in the source spectrum or destination spectrum that is nearby.
+What constitutes "close" or "nearby" is determined by the ppm shift 
+tolerance set in the assignment copy dialog (co).  Each axis of each
+spectrum has its ppm tolerance.  When determining if there is a nearby
+peak marker in a given spectrum, the tolerances for that spectrum are
+used.
+</p>
+
+<p>
+For copying assignments across the diagonal of a 2 dimensional
+homonuclear spectra (eg. 2D NOESY) there is the command aX.  You
+select the peaks you want assignments applied to and assignments
+are found from symmetrically located peaks across the diagonal.
+</p>
+
+<h3>
+<a name="ResonanceList">Chemical shift list</a>
+</h3>
+
+<p>
+The resonance list command rl shows a list of resonances for a specified
+condition.  Each line shows a group name, atom name, average chemical shift
+from all assigned peaks, standard deviation, and the number of assignments
+made from all spectra.  The list can be saved to a file.  The list is not
+automatically updated when new assignments are made or peaks are moved.
+Press the update button to update the list.  After selecting a new
+molecule / condition from the menu you need to press the update button
+to show the resonances.  The Load button allows you to read a list of
+chemical shifts from a file.  The lines should have the same format
+as the first 4 columns that the resonance list displays:
+</p>
+
+<pre>
+	Group   Atom  Nuc    Shift
+
+	   G15    H1'   1H    6.029
+	   C17    H2"   1H    2.817
+	   A18    H2'   1H    2.688
+</pre>
+
+<p>
+Additional columns are ignored.  If a resonance in the file already
+has peak assignments in your spectra then reading the resonance from
+the file has no effect.  The main purpose of the Load capability is to
+load chemical shifts obtained from other programs so that they can be
+displayed along the edges of contour plots, and used by the assignment
+guessing tools.
+</p>
+
+<h3>
+<a name="RenameResonances">Renaming groups and atoms</a>
+</h3>
+
+<p>
+Use the rename resonances (rr) dialog.  If you want to change a group
+name fill in the old and new group names.  Leave the atom names blank.
+To change an atom name for all groups fill in the old and new atom names
+and leave the group names blank.  To change a specific resonance enter
+old and new atom and group names.  Only resonances for the given molecule
+and condition are changed.  If the condition is left blank then
+resonances for all conditions of the specified molecule are changed.  If
+the condition and molecule is left blank all resonances for all molecules
+are renamed.  In summary, leaving a field blank means apply the rename
+for all values of that field.  You can delete resonances not used in any
+peak assignment by renaming them to nothing.
+</p>
+
+<h3>
+<a name="PredefinedResonances">Predefined resonances</a>
+</h3>
+
+<p>
+You can copy resonances from one
+<a href="views.html#MolCond">molecule / condition</a>
+to another.  Use the "predefined resonances" command (pd).  
+Copied resonances can be used to aid assignment of a new spectrum.
+They can be shown along the edges of views (vR) and appear in the
+list of resonances in the assignment dialog.  And they are used
+when Sparky
+<a href="#AssignmentGuessing">guesses assignments</a>.
+Once a resonance is used in a
+peak assignment its frequency is computed from the average positions
+of the assigned peaks.  To delete resonances that are not used in
+any peak assignment use "delete unused resonances" (dr).  To
+delete only a few unused resonances, use
+<a href="#RenameResonances">resonance rename</a>
+(rr) and rename them to nothing.  If you have a chemical shift produced
+outside of Sparky and would like to read it in to aid in making assignments
+use the Load button on the
+<a href="#ResonanceList">resonance list</a>
+dialog.
+</p>
+
+<h3>
+<a name="Midas">Displaying assignments on a structure using Midas</a>
+</h3>
+
+<p>
+You can show assignments as colored lines between atoms on a structure
+using the molecular display program Midas.  Midas does not come with Sparky
+but is available from the
+<a href="http://www.cgl.ucsf.edu">Computer Graphics Labs</a>.
+If you install Midas in a non-standard location you will need to adjust
+the path in the Sparky startup script.  The mi command shows a dialog
+where you select a spectrum, PDB file, and line color.  Sparky starts Midas
+and displays assignments for the selected peaks.  There is a switch to
+request that all peak assignments be shown.  In this case the assignments
+for selected peaks will be higlighted.  If you select a new peak or peaks
+the lines in the Midas display are automatically updated.  Some assignments
+will not be displayed because the assignment atom name doesn't match
+a pdb file atom name.  Sparky peak lists can
+display the distance between atoms in an assignment and the peak lists
+can be sorted by this distance.  By selecting an entry in the peak list,
+you select the peak and the Midas display will highlight the assignment.
+You can only display assignments from one spectrum at a time.  You can
+change the spectrum, line color, or pdb file in the mi dialog at any
+time and press Apply to change the displayed assignments.
+The lines representing assignments are given a Midas "model number".
+The lines can be displayed or hidden with the Midas
+commands "objdisplay model-number" and "~objdisplay model-number".
+</p>
+
+<h2>
+<a name="Peaks">Peaks</a>
+</h2>
+
+<h3>
+<a name="AliasedPeaks">Aliased peaks</a>
+</h3>
+
+<p>
+You can mark folded peaks with the correct frequency.  This allows
+peak lists to display correct chemical shifts.  It is also needed to compute
+correct average chemical shifts from all assigned peaks.
+To say that a selected peak really belongs off spectrum shifted one
+sweepwidth down field along the w1 axis use a1, or up field use A1.
+For axis w2 use accelerators a2, A2.
+</p>
+
+<p>
+Spectra acquired in TPPI mode can create aliased peaks that are reflected
+about the up field or down field edge of the spectrum.  The u1 command gives
+the selected peak an alias by reflecting the peak w1 position about the
+up field spectrum edge.  Using the u1 command a second time removes the
+alias from the selected peak.  The u2, u3 and u4 commands mark selected
+peaks as aliased in the w2, w3 and w4 dimensions.  The d1, d2, ... commands
+perform the reflection about the down field edge of the spectrum.
+</p>
+
+<h3>
+<a name="PeakCentering">Centering peaks</a>
+</h3>
+
+<p>
+To center a peak at the local maximum use "peak center" (pc).
+This uses quadratic interpolation to position the peak to a
+resolution finer than one data point.  If you want to type in
+the position select a peak and use the ornament properties dialog (ot).
+</p>
+
+<h3>
+<a name="PeakDelete">Deleting peak markers</a>
+</h3>
+
+<p>
+To delete a peak marker select it and press the delete key.
+You can select peaks using the mouse in the Select pointer mode,
+or you can click on lines in a peak list.  If you select multiple
+peaks, they are all deleted when you press the delete key.  If
+you delete some peaks by mistake use the "edit undo" command eu
+to restore them.  The eu command only undoes the effect of the
+most recent peak delete, peak integration or peak repositioning.
+</p>
+
+<h3>
+<a name="EstimateLinewidth">Estimating peak linewidths</a>
+</h3>
+
+<p>
+The most accurate linewidths are obtained by integrating with Gaussian or
+Lorentzian fitting.  This can be inconvenient because fitting sometimes
+fails.  The "estimate linewidth" (pe) command gives full width at half the
+peak height for all selected peaks.  This command first centers the peaks
+at the local maxima.  You can manually set linewidths using the ornament
+properties dialog (ot).  The linewidths can be seen in peak lists.  Instead
+of looking through a peak list you can have the linewidth displayed in a
+status bar at the bottom of the view window when the pointer is over a peak.
+Use
+<a href="views.html#PeakInfo">show peak info</a>
+(vp) to turn this status bar on or off.
+</p>
+
+<h3>
+<a name="PeakGroup">Peak groups</a>
+</h3>
+
+<p>
+You can define a set of selected peaks as a peak group (pg).
+Peak groups have a volume and an average position weighted by
+the peaklet volumes (if integrated).  They are intended to represent
+multiplet peaks.
+</p>
+
+<h3>
+<a name="Integration">Integration</a>
+</h3>
+
+<h4>
+Integration Methods
+</h4>
+
+<p>
+You can do two types of integration.  The preferred method is to fit
+peaks to Gaussian or Lorentzian functions and get the volume from
+the fit height and linewidths.  In cases where this doesn't work you can
+sum up the data heights at each point in a box or ellipse surrounding the
+peak.  You choose the box or ellipse by dragging out the region with the
+mouse while in the "integrate" pointer mode.  For the fitting method you
+can also use the "integrate" pointer mode and drag a region around the
+peaks to integrate or you can select the peaks and use the "peak integrate"
+command (pi).  You set the method of integration using the integration
+dialog (it).  In rare cases you might want to set the peak volume by hand.
+For instance, if you have a doublet peak and one component is overlapped
+you could integrate the unoverlapped part and manually double the volume.
+You type in the volume value by selecting the peak and using the ornament
+properties dialog (ot).
+</p>
+
+<h4>
+Fitting Gaussian or Lorentzian line shapes
+</h4>
+
+<p>
+When you integrate by Gaussian or Lorentzian fitting you need to specify
+the data to use for the fit.  The default is to use data above the
+lowest displayed contour level.  There is a switch in the integration
+settings dialog (it) to use data points within a rectangle drawn with
+the mouse.  This is only possible for 2-D spectra.  You can also select
+data both within a rectangle and above the lowest contour.
+</p>
+
+<p>
+If the lowest contour contains
+more than one selected peak and the "grouping method" in the integration
+dialog is set to "common contour" then all the selected peaks within
+the contour will be fit simultaneously.
+That is the positions, heights and linewidths for
+all peaks are adjusted concurrently to achieve the best fit to the data.
+If you don't want peak positions or linewidths to change, switch off
+"Allow peak motion?" and/or "Adjust linewidths?" in the integration dialog
+(it).
+Even if peaks do not lie within the same
+contour they can be simultaneously fit if they are within a specfied
+distance of one another.  You turn on "Group close peaks?" in the
+integration dialog and specify a maximum distance (in Hz) for each axis.
+Two peaks are grouped if they are within the specified distances along
+all axes.
+</p>
+
+<p>
+If you are fitting a peak that is close to another peak that has already
+been fit you might want to turn on "Subtract fit peaks?".  This subtracts
+the fits of other peaks from the data before fitting the new peak.
+</p>
+
+<p>
+The "Fit baseline?" option adjusts baseline offset and slope parameters
+when doing the fit.  For this to work well you need to use data around
+the base of the peak.  It is convenient to set "Use data within rectangle?"
+on and "Use data above lowest contour?" off when fitting baselines.
+</p>
+
+<p>
+If a peak has been successfully integrated, the peak marker has a circle
+drawn around it.  The fit linewidths and volumes and residual errors
+can be inspected in a <a href="#PeakList">peak list</a>.  This information
+is also output to the main Sparky window when the integration is performed.
+To see the fit and data in 1-D cross-sections turn on
+<a href="views.html#SlicePanels">slice panels</a>.
+The slices do not show the baseline fit (because each fit can have a
+different baseline).  Only the Lorentzian or Gaussian part is shown.
+To judge whether the baseline fit is good you can have the 1-D slices show
+the difference between the spectrum data and the Lorentzian or Gaussian shape
+(sf).  What is left should be a smooth baseline.  You can also have the
+contour plot show the spectrum data with peak fits subtracted (vf).
+</p>
+
+<p>
+The fitting code uses the simplex method to adjust the positions,
+heights, and linewidths of all peaks within a common contour simultaneously.
+It minimizes the sum of squares between the Gaussian or Lorentzian line
+shape and the actual spectrum data at spectrum points lying withing the
+lowest contour or dragged rectangle.  The "fit residual" is reported
+in the main Sparky window as rms as in the following example:
+</p>
+
+<pre>
+  Isolated peak @  4.796  7.797 lw 30.093 20.221 vol 9.244e+06 rms 4.5%
+</pre>
+
+<p>
+It is also available in peak lists (lt) by using the Options... button
+on the peak list dialog and switching on the "fit residual" field.
+</p>
+
+<p>
+The residual for a peak is calculated as follows.  Take the sum of the
+squares of the differences of spectrum values from the Gaussian or
+Lorentzian fit at each spectrum point used in the fit, divided by the
+number of data points and take the square root to get a root mean square
+deviation of the spectrum height from the fit.  Multiply this times the
+number of data points to estimate the volume error and then divide by
+the fit volume to express it as a fraction.  That fraction
+is what is shown as rms or "fit residual".  It is a measure of the volume
+error due to the data not matching the Gaussian or Lorentzian shape.
+</p>
+
+<h4>
+Things that go wrong when fitting peaks
+</h4>
+
+<p>
+Each spectrum has its own set of integration settings.  You can select the
+spectrum at the top of the integration settings dialog.  There is currently
+no way to change the settings for all spectra at once.  Remember that when
+you change a setting you must press the Apply button or the Ok button for
+the change to take effect.
+</p>
+
+<p>
+The fit procedure uses an iterative procedure to minimize the sum of the
+squares of the errors between the fit curve and spectrum data.  The iterative
+procedure can move peaks far away or give them unreasonable linewidths.
+To prevent this you can specify the maximum distance any peak should be moved
+along each axis.  And you can specify upper and lower bounds for linewidths.
+You can also handle this by turning off "Allow peak motion?" and "Adjust 
+linewidths?".  You can copy linewidths and positions from other peaks with
+the same assignment that have already been integrated using the
+<a href="extensions.html#CopyLinewidths">copy linewidths</a> (cl) extension.
+</p>
+
+<p>
+If you try to simultaneously fit the linewidths, positions and heights of
+a group of more than 5 peaks (25 degrees of freedom) be prepared to wait
+a while.  You might hit the cancel button that appears while the fit is being
+calculated, raise the lowest contour level (ct) so that the group separates
+into smaller groups, and retry the integration.
+Or you can integrate by the box or ellipse method.
+</p>
+
+<p>
+If the lowest contour enclosing a peak encompasses a giant region,
+for example, if it includes all the diagonal peaks, then the
+integration will fail with a message about the contour being too big.
+You can raise the contour level to make the region small.  Or you can
+turn on "Use data within rectangle?".  If a peak is below the lowest
+displayed contour (ie. has no contour surrounding it) then it
+will not be integrated if the fit uses only data above the lowest
+contour because in this case there is no data to fit to.  Lower the
+contour levels or turn on "Use data within rectangle?".
+</p>
+
+<h4>
+<a name="Unintegrate">Unintegrating</a>
+</h4>
+
+<p>
+The unintegrate command pU erases the volume and linewidth of a peak.
+You might use this on peaks whose volume seems unreliable because of overlap.
+By unintegrating you can eliminate questionable volumes from peak lists.
+</p>
+
+<h3>
+<a name="PeakLabels">Peak labels</a>
+</h3>
+
+<p>
+You can place labels on peaks that are not assignment labels.
+These labels can contain any text you want.  Select a peak and
+use the peak label command (pl).  Or select the "add label"
+pointer mode and click on peaks to label them.  A dialog will come
+up for you to type in the label.
+</p>
+
+<p>
+To place assignment labels on all selected peaks use the lb command.
+To remove labels from selected use the lB command.
+</p>
+
+<p>
+To automatically have labels in the current view moved so they do not
+overlap one another or peak markers use the unoverlap labels command lu.
+Each visible label is moved by small amounts in the direction (up, down,
+left or right) which minimizes its overlap with other labels and peak
+markers.  This procedure is iterated to unoverlap all labels.
+If you are not satisfied with the results you can immediately move the
+labels back with the undo command eu.  Note that in 3 or 4 dimensional
+spectra arranging the labels to be non-overlapping in one plane usually
+makes them overlap when viewed in other planes (because additional labels
+become visible).  This command does not know to avoid overlapping
+the arrows connecting assignment labels to peaks.
+</p>
+
+<p>
+The right offset labels command lr moves all visible peak labels to the
+right of their peak markers.  The gap between the left edge of the label
+and the center of the peak marker is twice the peak marker size.  Use the
+undo command eu immediately after to move the labels back to their original
+positions if you don't like the results.
+</p>
+
+<h3>
+<a name="PeakList">Peak lists</a>
+</h3>
+
+<p>
+Use the peak list command (lt) to bring up a list of all peaks in
+a spectrum.  If there is already a peak list for the spectrum its
+window will be raised on top of all other windows.  To force a
+second peak list window to be created for a spectrum use the new
+peak list command nl.
+
+Peak lists can display assignments, chemical shifts, volumes,
+linewidths, signal to noise ratios, data height, deviation from
+average resonance frequencies, ....  Press the Options button
+to change the set of fields displayed.  Use the Save button to
+write the list to a file.  You will probably need to produce
+peak lists in a precise format for input to other programs that
+calculate molecular structures.  You can either massage the peak
+list file using your favorite tool (Perl, awk, Tcl, vi) or you can write
+a Sparky extension in the Python language to directly output the
+desired format.
+</p>
+
+<h4>
+Selecting peaks
+</h4>
+
+<p>
+Lines in a peak list are highlighted if the peak is selected.  Clicking
+on a peak list line will select that peak.  Double clicking on a peak list
+line will cause a view to center on that peak.  And selecting a peak in a
+view will cause peak lists to scroll to that peak.
+</p>
+
+<h4>
+<a name="ResonancePeaks">Resonance peak lists</a>
+</h4>
+
+<p>
+You can display a peak list containing peaks from all spectra that are
+assigned with a given resonance.  There are several ways to get this list.
+You can press the Resonance Peaks button in the assignment dialog (at).
+You can use the command r2 which bring up the list with for the w2
+resonance of the currently selected peak.  The commands r1 and r3 do
+the same for axes w1 and w3.  If you click on a chemical shift in an
+assignment table (tb) the list for that resonance is shown.  Or you can
+use the "resonance assignments" command ra and select a condition and
+a resonance using the entry fields and menus.  (The menus pull down from
+the odd V character to the right of the entry field.  Yeah it's weird.)
+</p>
+
+<h4>
+Peak list options
+</h4>
+
+<h5>
+Crossdiagonal peaks
+</h5>
+
+<p>
+There is a peak list option called "Pair crossdiagonal peaks?"  If you
+turn this on, peaks in 2-D homonuclear spectra that are assigned on both
+sides of the diagonal are placed on adjacent lines in the peak list.
+This facilitates comparing volumes or other properties.
+</p>
+
+<h5>
+Mardigras and Dyana formats
+</h5>
+
+<p>
+Sparky peak lists can be output to a file in MARDIGRAS or DYANA format.
+You select "Mardigras format" or "Dyana format" from the peak list options
+dialog.  Turn off the display of all other fields unless you want these
+in the output file.  The DYANA format puts the
+<a href="#PeakNote">peak note</a>
+in the last
+column which is intended to indicate "weak", "medium", or "strong".
+There will be blank lines in the list for unassigned peaks.  These are
+place holders.  Each peak in a spectrum always occupies a line in the
+peak list even if no data is displayed.  Blank lines are filtered out
+when you write a peak list to a file.
+</p>
+
+<h3>
+<a name="PeakNote">Peak Notes</a>
+</h3>
+
+<p>
+You can attach a note to a peak to record unusual features.
+You place a note on the selected peak(s) using the note dialog (nt).
+The Apply or Ok buttons set the note for all selected peaks.
+The notes can be displayed and searched for in
+<a href="#PeakList">peak lists</a>.
+</p>
+
+<h3>
+<a name="PeakPick">Picking Peaks</a>
+</h3>
+
+<p>
+Use the find/add peak pointer mode (F8) to pick peaks.  Clicking on
+a point in a spectrum view will place a peak marker there.  You can
+move the marker to the local maxima with the
+<a href="#PeakCentering">peak center</a>
+command (pc).  Dragging a box will place peak markers at local maxima
+satisfying minimum height, linewidth and drop off requirements.
+You can pick peaks over the whole spectrum using the
+<a href="views.html#RegionDialog">region dialog</a>
+(rt).  The positive and negative height thresholds equal the lowest
+positive and negative contour level.  You can
+<a href="views.html#ContourLevels">adjust the contour levels</a>
+with the contour scale (vC) or the contour dialog (ct).
+The minimum linewidth threshold is set
+with the peak picking dialog (kt).  The default value is zero which has
+the effect of no minimum linewidth.  The linewidth for a prospective
+peak is computed as the full width at half height.  The minimum drop off
+requirement is a way of filtering out overlapped peaks.  If the data height
+does not drop off by a specified amount as you move along each axis from
+the peak marker before starting to rise then that peak is not picked.
+The specified amount is given as a fraction of the total peak height.
+The default value is zero so there is no dropoff requirement by default.
+</p>
+
+<h3>
+<a name="PeakSelect">Selecting Peaks</a>
+</h3>
+
+<p>
+You can select peaks using the "select" pointer mode (F1).
+Select individual peaks by clicking on them with the left button.
+Drag a box around a group of peaks to select all of them.
+Selecting a peak or group of peaks causes all other peaks to
+be unselected.  To avoid unselecting the currently selected
+peaks, hold the shift key while pressing the left mouse button.
+Pressing the shift key and clicking on a selected peak will
+deselect it without deselecting other selected peaks.
+</p>
+
+<p>
+There are commands to select specific groups of peaks in the
+currently selected spectrum.
+</p>
+
+<table>
+<tr><td>All peaks<td>pa
+<tr><td>Fully assigned<td>pF
+<tr><td>Partially assigned<td>pP
+<tr><td>Unassigned<td>pN
+<tr><td>Select peaks by color<td>pC
+<tr><td>Invert peak selection<td>pI
+<tr><td>Aliased peaks<td>pA
+<tr><td>Intra-residue assignments<td>pR
+<tr><td>Sequential assignments<td>pS
+<tr><td>Medium range assignments<td>pM
+<tr><td>Long range assignments<td>pL
+</table>
+
+<p>
+The select peaks by color command finds all peaks of the same color
+as a currently selected peak.  Sequential assignments means i to i+1.
+Medium range assignments are i to i+2, i+3, or i+4.  Long range
+assignments connect atoms 5 or more residues apart.  All of the selection
+commands except select peaks by color unselects all previously selected
+peaks.
+</p>
+
+<h2>
+<a name="GridsLines">Grids and lines</a>
+</h2>
+
+<p>
+You can draw noesy walks using lines.  Select the "add line" pointer
+mode.  Now click on a position to start a line and another position
+to end the line.  Lines are forced to be vertical or horizontal.
+Grids are lines that extend from edge to edge of a spectrum and are
+intended to be used for looking at alignments.  Select the pointer
+mode "add grid horz", "add grid vert", or "add grid both" and then
+click on a point to place a grid.  Lines and grids appear in all views
+of the spectrum on which they are placed.
+</p>
+
+<h2>
+<a name="Ornaments">Ornament color, size, locking</a>
+</h2>
+
+<p>
+"Ornaments" are peaks, labels, lines, grids, peakgroups, ie. spectrum
+annotations.  You can change their color and size using the ornament
+dialog (ot).  You can lock peaks (pk) so that they are not moved 
+accidentally with the mouse, or during integration.  Peak, label, line,
+and grid positions can also be locked with the ornament dialog.  If you
+attempt to move a locked ornament, it will not move and a warning
+will be written in the main Sparky window.
+</p>
+
+</BODY>
+
+</HTML>
