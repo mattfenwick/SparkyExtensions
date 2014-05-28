@@ -91,13 +91,11 @@ class Snapshot_dialog(tkutil.Dialog):
         self.peaktype = m2 = tkutil.option_menu(self.top, 'Assign peaktype', [])
         m2.frame.pack(side='top', anchor='w')
         m2.add_callback(self.assign_peaktype)
-#        m1.add_callback(self.assign_peaktype)
 
-        br9 = tkutil.button_row(self.top, ('Select signal peaks', self.select_signal_peaks))
-        br9.frame.pack(side = 'top', anchor = 'w')
-        e9 = tkutil.entry_field(self.top, 'Spectrum name:', '', 20)
-        e9.frame.pack(side = 'top', anchor = 'w')
-        self.select_signal_peaks_name = e9.variable
+        _spectrum_names = [sp.name for sp in model.spectra()]
+        self.select_signal_peaks_menu = m4 = tkutil.option_menu(self.top, 'Select signal peaks', _spectrum_names)
+        m4.frame.pack(side='top', anchor='w')
+        m4.add_callback(self.select_signal_peaks)
 
         # TODO need a dialog for this ... parameters are too complicated
         br8 = tkutil.button_row(self.top, ('Automatically group peaks into GSS', self.group_peaks_into_gss))
@@ -153,8 +151,7 @@ class Snapshot_dialog(tkutil.Dialog):
         my_pt = [y for (_, y) in sorted(zip(self.dim_order, pt), key=lambda x: x[0])]
         model.assign_peaktype(my_pt)
 
-    def select_signal_peaks(self):
-        name = self.select_signal_peaks_name.get()
+    def select_signal_peaks(self, name):
         model.select_signal_peaks(name)
 
     def group_peaks_into_gss(self):
