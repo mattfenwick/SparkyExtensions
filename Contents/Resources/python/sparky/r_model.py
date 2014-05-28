@@ -401,6 +401,9 @@ def group_peaks_into_gss(dims, spec_from, spec_to):
 
 
 def create_group_for_peak():
+    """
+    for each selected peak, create a new group
+    """
     for pk in _selected_peaks():
         set_new_group([pk])
-    # for each selected peak, create a new group
+

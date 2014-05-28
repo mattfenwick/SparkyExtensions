@@ -70,6 +70,9 @@ class Snapshot_dialog(tkutil.Dialog):
         e2.frame.pack(side = 'top', anchor = 'w')
         self.group = e2.variable
 
+        br4 = tkutil.button_row(self.top, ('Create new group for peak', self.create_new_group))
+        br4.frame.pack(side = 'top', anchor = 'w')
+
         br5 = tkutil.button_row(self.top, ('Set selected peaks to noise', self.set_noise))
         br5.frame.pack(side = 'top', anchor = 'w')
 
@@ -96,6 +99,7 @@ class Snapshot_dialog(tkutil.Dialog):
         e9.frame.pack(side = 'top', anchor = 'w')
         self.select_signal_peaks_name = e9.variable
 
+        # TODO need a dialog for this ... parameters are too complicated
         br8 = tkutil.button_row(self.top, ('Automatically group peaks into GSS', self.group_peaks_into_gss))
         br8.frame.pack(side = 'top', anchor = 'w')
         e8 = tkutil.entry_field(self.top, 'Parameters:', '[[[0, 1, 0.2], [1, 2, 0.05]], "hsqc-ci2", "hncocacb"]', 40)
@@ -110,7 +114,15 @@ class Snapshot_dialog(tkutil.Dialog):
         pass
     
     def make_snapshot(self):
-        self.g.dump(self.message.get())
+        # TODO could track whether the files have been saved or not since the last time a snapshot was taken ... maybe?
+        try:
+            self.g.dump(self.message.get())
+            print 'successfully captured git snapshot'
+        except Exception, e:
+            print 'exception!', e
+        
+    def create_new_group(self):
+        model.create_group_for_peak()
     
     def set_group(self):
         name = self.group.get()
