@@ -286,6 +286,10 @@ def merge_resonances(gid, rid1, rids):
 
     
 def assign_peaktype(atomtypes):
+    """
+    I don't actually want to assign peaktypes -- I want to grab each resonance
+    and assign it
+    """
     pks = _selected_peaks()
     for pk in pks:
         if len(pk.resonances()) != len(atomtypes):
@@ -293,11 +297,18 @@ def assign_peaktype(atomtypes):
         if pk.note in ['artifact', 'noise']:
             raise ValueError('cannot assign peaktype of noise or artifact')
     for pk in pks:
-        for (ix, res_dim) in enumerate(pk.resonances()):
+        gids = set([])
+        rids = []
+        for res_dim in pk.resonances():
+            gid, _, _, _ = parse_group(res_dim.group.name)
+            gids.add(gid)
             rid, _ = parse_resonance(res_dim.atom.name)
-            pk.assign(ix, 
-                      res_dim.group.name,
-                      unparse_resonance(rid, atomtypes[ix]))
+            rids.append(rid)
+        if len(gids) != 1:
+            raise ValueError("cannot assign peaktype of peak: belongs to multiple GSSs")
+        gid = list(gids)[0]
+        for (my_rid, atomtype) in zip(rids, atomtypes):
+            set_atomtype(gid, my_rid, atomtype)
 
 """
 def assign_resonance_atomtypes(atomtypes):
