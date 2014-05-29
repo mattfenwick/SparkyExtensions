@@ -245,6 +245,21 @@ def set_residue(ssname, residue):
                             res_dim.atom.name)
 
 
+def get_resonance_peakdims(res):
+    """
+    Question: does this correctly deal with peaks where 2+ of its dims are
+    assigned to the same resonance?  A: I believe so
+    Does Sparky record the same peak as being in the peaklist twice in such a case?
+    """
+    peakdims = []
+    for peak in res.peak_list():
+        for (i, res_dim) in enumerate(peak.resonances()):
+            if res != res_dim:
+                continue
+            peakdims.append((i, peak))
+    return peakdims
+
+
 def set_atomtype(gid, rid, atomtype):
     groups, _, _ = resonance_map()
     if not groups.has_key(gid):
