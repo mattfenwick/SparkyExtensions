@@ -1,9 +1,6 @@
-import sparky
 import r_model as model
 import tkutil
 import sputil
-import r_peaktypes as peaktypes
-import simplejson as json
 
 
 aatypes = [

@@ -1,4 +1,3 @@
-import sparky
 import r_model as model
 from subprocess import Popen, PIPE
 import os
@@ -43,7 +42,6 @@ class GitRepo(object):
 import tkutil
 import sputil
 import r_peaktypes as peaktypes
-import simplejson as json
 
 
 
