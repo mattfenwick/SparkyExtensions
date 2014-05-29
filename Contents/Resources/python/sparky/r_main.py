@@ -89,7 +89,7 @@ class Peak_grouper_dialog(tkutil.Dialog):
         d1 = [int(self.match1_from.variable.get()), # TODO do I need to use `int` here?
               int(self.match1_to.variable.get()),
               float(self.tol1.variable.get())]
-        d1 = [int(self.match2_from.variable.get()), # TODO do I need to use `int` here?
+        d2 = [int(self.match2_from.variable.get()), # TODO do I need to use `int` here?
               int(self.match2_to.variable.get()),
               float(self.tol2.variable.get())]
         model.group_peaks_into_gss([d1, d2], 

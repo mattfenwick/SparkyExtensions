@@ -81,9 +81,10 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
             for rid in sorted(g['resonances']):
                 r = gs[gid][rid]
                 atomtype = g['resonances'][rid]
-                shift = r.frequency
-                peakdims = [(pk.sparky_id, ix, pk.spectrum.name, pk.frequency[ix]) for (ix, pk) model.get_resonance_peakdims(r)]
-                line = 'Group %s: resonance %s:  atomtype %s, shift %s,  peakdims %s' % (gid, rid, atomtype, shift, peakdims)
+                freq = lambda x: str(x)[:6]
+                shift = freq(r.frequency)
+                peakdims = [(pk.sparky_id, ix, pk.spectrum.name, freq(pk.frequency[ix])) for (ix, pk) in model.get_resonance_peakdims(r)]
+                line = 'r %s:  a %s, s %s, dims %s' % (rid, atomtype, shift, peakdims)
                 self.group_data.append(line, {'type': 'resonance', 'gid': gid, 'rid': rid, 'atomtype': g['resonances'][rid]})
             self.group_data.append('', {'type': 'blank line'})
         self.group_data.listbox.yview_moveto(pos[0])
