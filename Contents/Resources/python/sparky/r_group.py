@@ -75,8 +75,7 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
             g = gs_info[gid]
             text = 'Group %s, residue %s, next GSS %s, GSS type %s' % (gid, g['residue'], g['next'], g['aatype'])
             self.group_data.append(text, {'type': 'group', 'gid': gid, 'residue': g['residue'], 'aatype': g['aatype'], 'next': g['next']})
-            for rid in sorted(g['resonances']):
-                r = gs[gid][rid]
+            for (rid, r) in sorted(gs[gid].items(), key=lambda x: x[1].frequency):
                 atomtype = g['resonances'][rid]
                 freq = lambda x: str(x)[:6]
                 shift = freq(r.frequency)
