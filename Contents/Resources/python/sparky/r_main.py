@@ -60,21 +60,23 @@ class Peak_grouper_dialog(tkutil.Dialog):
         self.spec_to = m2 = tkutil.option_menu(self.top, 'Assign peaks to GSSs in spectrum:', _spectrum_names)
         m2.frame.pack(side='top', anchor='w')
         
+        _d3 = [1, 2, 3] # TODO do those values need to be strings?
+        
         # matching dimension 1
-        self.match1_from = m3 = tkutil.option_menu(self.top, 'Matching dimension 1: from:', [0, 1, 2]) # TODO do those values need to be strings?
+        self.match1_from = m3 = tkutil.option_menu(self.top, 'Matching dimension 1: from:', _d3)
         m3.frame.pack(side='top', anchor='w')
         
-        self.match1_to = m4 = tkutil.option_menu(self.top, 'Matching dimension 1: to:', [0, 1, 2])
+        self.match1_to = m4 = tkutil.option_menu(self.top, 'Matching dimension 1: to:', _d3)
         m4.frame.pack(side='top', anchor='w')
         
         self.tol1 = tkutil.entry_field(self.top, 'Matching dimension 1: tolerance (PPM):', '0.2', 20)
         self.tol1.frame.pack(side = 'top', anchor = 'w')
 
-        # matching dimension 1
-        self.match2_from = tkutil.option_menu(self.top, 'Matching dimension 2: from:', [0, 1, 2]) # TODO do those values need to be strings?
+        # matching dimension 2
+        self.match2_from = tkutil.option_menu(self.top, 'Matching dimension 2: from:', _d3)
         self.match2_from.frame.pack(side='top', anchor='w')
         
-        self.match2_to = tkutil.option_menu(self.top, 'Matching dimension 2: to:', [0, 1, 2])
+        self.match2_to = tkutil.option_menu(self.top, 'Matching dimension 2: to:', _d3)
         self.match2_to.frame.pack(side='top', anchor='w')
         
         self.tol2 = tkutil.entry_field(self.top, 'Matching dimension 2: tolerance (PPM):', '0.2', 20)
@@ -89,12 +91,15 @@ class Peak_grouper_dialog(tkutil.Dialog):
                     )
         br.frame.pack(side = 'top', anchor = 'w')
     
+    
     def execute(self):
-        d1 = [int(self.match1_from.variable.get()), # TODO do I need to use `int` here?
-              int(self.match1_to.variable.get()),
+        def extract_int(widget):
+            return int(widget.variable.get()) - 1
+        d1 = [extract_int(self.match1_from), 
+              extract_int(self.match1_to),
               float(self.tol1.variable.get())]
-        d2 = [int(self.match2_from.variable.get()), # TODO do I need to use `int` here?
-              int(self.match2_to.variable.get()),
+        d2 = [extract_int(self.match2_from),
+              extract_int(self.match2_to),
               float(self.tol2.variable.get())]
         model.group_peaks_into_gss([d1, d2], 
                                    self.spec_from.variable.get(),
