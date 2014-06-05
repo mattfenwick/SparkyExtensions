@@ -1,5 +1,5 @@
 import sparky
-from . import r_model as model
+import r_model as model
 from subprocess import Popen, PIPE
 import os
 
