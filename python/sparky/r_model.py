@@ -136,7 +136,10 @@ def _selected_peaks():
     return session().selected_peaks()
 
 def set_group(gid, my_peaks=None):
-    pks = _selected_peaks() if my_peaks is None else my_peaks
+    if my_peaks is None:
+        pks = _selected_peaks()
+    else:
+        pks = my_peaks
     for my_pk in pks:
         if my_pk.note in ['noise', 'artifact']:
             raise ValueError('cannot assign group of noise or artifact peak')
@@ -178,6 +181,29 @@ def set_new_group(pks=None):
     while groups.has_key(str(n)):
         n = n + 1
     set_group(str(n), pks)
+
+
+def reset_peak_label(pk):
+    rids = []
+    gids = set([])
+    if set(pk.resonances()) == set([None]):
+        return
+    for r in pk.resonances():
+        gid, _, _, _ = parse_group(r.group.name)
+        gids.add(gid)
+        rid, _ = parse_resonance(r.atom.name)
+        rids.append(rid)
+    if len(gids) != 1:
+        raise ValueError("cannot reset peak label of peak: multiple GSS assignments (%s, %s)" % (str(pk), gids))
+    my_gid = list(gids)[0]
+    pk.show_label(my_gid + '_' + '-'.join(rids))
+
+
+def reset_peak_labels(pks=None):
+    if pks is None:
+        pks = _selected_peaks()
+    for pk in pks:
+        reset_peak_label(pk)
 
 
 def set_aatype(gid, aatype):
