@@ -28,6 +28,16 @@ def resonances():
         rs.extend(c.resonance_list())
     return rs
 
+def peaks():
+    """
+    TODO: this code could be used by `_from_peaks`
+    """
+    pks = []
+    for spectrum in project().spectrum_list():
+        for pk in spectrum.peak_list():
+            pks.append(pk)
+    return pks
+
 
 #### group and resonances names from my model
 
@@ -250,6 +260,7 @@ def get_resonance_peakdims(res):
     Question: does this correctly deal with peaks where 2+ of its dims are
     assigned to the same resonance?  A: I believe so
     Does Sparky record the same peak as being in the peaklist twice in such a case?
+    TODO: this code could be used by `set_atomtype`
     """
     peakdims = []
     for peak in res.peak_list():
@@ -258,6 +269,11 @@ def get_resonance_peakdims(res):
                 continue
             peakdims.append((i, peak))
     return peakdims
+
+
+def get_resonance(gid, rid):
+    gs, _, _ = resonance_map()
+    return gs[gid][rid]
 
 
 def set_atomtype(gid, rid, atomtype):
@@ -285,11 +301,12 @@ def merge_resonances(gid, rid1, rids):
         raise ValueError('invalid group name: %s' % gid)
     grp = groups[gid]
     if not rid1 in grp:
-        raise ValueError('invalid resonance name: %s' % rid1)
+        raise ValueError('invalid resonance name: %s in group %s' % (rid1, gid))
     atomtype = gs_info[gid]['resonances'][rid1]
     for rid2 in rids:
         if not rid2 in grp:
-            raise ValueError('invalid resonance name: %s' % rid2)
+            raise ValueError('invalid resonance name: %s in group %s' % (rid2, gid))
+        print 'merging resonances %s and %s in group %s' % (rid1, rid2, gid)
         res = grp[rid2]
         for peak in res.peak_list():
             for (i, res_dim) in enumerate(peak.resonances()):
@@ -324,27 +341,6 @@ def assign_peaktype(atomtypes):
         gid = list(gids)[0]
         for (my_rid, atomtype) in zip(rids, atomtypes):
             set_atomtype(gid, my_rid, atomtype)
-
-"""
-def assign_resonance_atomtypes(atomtypes):
-    pks = _selected_peaks()
-    if len(pks) != 1:
-        raise ValueError('can only assign resonance atomtypes when a single peak is assigned')
-    pk = pks[0]
-    if len(pk.resonances()) != len(atomtypes):
-        raise ValueError('peaktype does not match peak dimensionality')
-    if pk.note in ['artifact', 'noise']:
-        raise ValueError('cannot assign peaktype of noise or artifact')
-    gs, _, _ = resonance_map()
-    # use the peak to find the resonances that I want to deal with, then use those resonances to find the peaks that must be updated
-    for (ix, res_dim) in enumerate(pk.resonances()):
-        gid, aatype, next_, residue = parse_group(res_dim.group.name)
-        rid, _ = parse_resonance(res_dim.atom.name)
-        for my_pk in res_dim.peak_list():
-            my_pk.assign(ix, 
-                         res_dim.group.name,
-                         unparse_resonance(rid, atomtypes[ix]))
-"""
 
 
 def set_noise():
