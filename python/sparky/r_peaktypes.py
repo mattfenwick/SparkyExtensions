@@ -49,9 +49,20 @@ hn_co_cacb = [
     ['H'    , 'N'  , 'CB(i-1)'  ]
 ]
 
+hnco = [
+    ['H', 'N', 'CO(i-1)']
+]
+
+hn_ca_co = [
+    ['H', 'N', 'CO'     ],
+    ['H', 'N', 'CO(i-1)']
+]
+
 
 spectra = {
     'NHSQC'     : nhsqc     ,
     'HNCACB'    : hncacb    ,
-    'HN(CO)CACB': hn_co_cacb
+    'HN(CO)CACB': hn_co_cacb,
+    'HNCO'      : hnco      ,
+    'HN(CA)CO'  : hn_ca_co
 }

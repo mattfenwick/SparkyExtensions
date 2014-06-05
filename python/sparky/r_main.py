@@ -47,6 +47,63 @@ import simplejson as json
 
 
 
+class Peak_grouper_dialog(tkutil.Dialog):
+
+    def __init__(self, session):
+        self.session = session
+        self.title = 'Assign peaks into GSSs'
+        
+        tkutil.Dialog.__init__(self, session.tk, self.title)
+
+        _spectrum_names = [sp.name for sp in model.spectra()]
+        self.spec_from = m1 = tkutil.option_menu(self.top, 'Using selected peaks in spectrum:', _spectrum_names)
+        m1.frame.pack(side='top', anchor='w')
+        
+        self.spec_to = m2 = tkutil.option_menu(self.top, 'Assign peaks to GSSs in spectrum:', _spectrum_names)
+        m2.frame.pack(side='top', anchor='w')
+        
+        # matching dimension 1
+        self.match1_from = m3 = tkutil.option_menu(self.top, 'Matching dimension 1: from:', [0, 1, 2]) # TODO do those values need to be strings?
+        m3.frame.pack(side='top', anchor='w')
+        
+        self.match1_to = m4 = tkutil.option_menu(self.top, 'Matching dimension 1: to:', [0, 1, 2])
+        m4.frame.pack(side='top', anchor='w')
+        
+        self.tol1 = tkutil.entry_field(self.top, 'Matching dimension 1: tolerance (PPM):', '0.2', 20)
+        self.tol1.frame.pack(side = 'top', anchor = 'w')
+
+        # matching dimension 1
+        self.match2_from = tkutil.option_menu(self.top, 'Matching dimension 2: from:', [0, 1, 2]) # TODO do those values need to be strings?
+        self.match2_from.frame.pack(side='top', anchor='w')
+        
+        self.match2_to = tkutil.option_menu(self.top, 'Matching dimension 2: to:', [0, 1, 2])
+        self.match2_to.frame.pack(side='top', anchor='w')
+        
+        self.tol2 = tkutil.entry_field(self.top, 'Matching dimension 2: tolerance (PPM):', '0.2', 20)
+        self.tol2.frame.pack(side = 'top', anchor = 'w')
+
+        # TODO check that the nuclei match
+        # TODO are 2 matching dimensions enough?
+    
+        br = tkutil.button_row(self.top,
+                    ('Assign peaks', self.execute),
+                    ('Close', self.close_cb),
+                    )
+        br.frame.pack(side = 'top', anchor = 'w')
+    
+    def execute(self):
+        d1 = [int(self.match1_from.variable.get()), # TODO do I need to use `int` here?
+              int(self.match1_to.variable.get()),
+              float(self.tol1.variable.get())]
+        d2 = [int(self.match2_from.variable.get()), # TODO do I need to use `int` here?
+              int(self.match2_to.variable.get()),
+              float(self.tol2.variable.get())]
+        model.group_peaks_into_gss([d1, d2], 
+                                   self.spec_from.variable.get(),
+                                   self.spec_to.variable.get())
+    
+
+
 class Snapshot_dialog(tkutil.Dialog):
 
     def __init__(self, session):
@@ -70,6 +127,9 @@ class Snapshot_dialog(tkutil.Dialog):
         e2.frame.pack(side = 'top', anchor = 'w')
         self.group = e2.variable
 
+        br4 = tkutil.button_row(self.top, ('Create new group for peak', self.create_new_group))
+        br4.frame.pack(side = 'top', anchor = 'w')
+
         br5 = tkutil.button_row(self.top, ('Set selected peaks to noise', self.set_noise))
         br5.frame.pack(side = 'top', anchor = 'w')
 
@@ -88,21 +148,19 @@ class Snapshot_dialog(tkutil.Dialog):
         self.peaktype = m2 = tkutil.option_menu(self.top, 'Assign peaktype', [])
         m2.frame.pack(side='top', anchor='w')
         m2.add_callback(self.assign_peaktype)
-#        m1.add_callback(self.assign_peaktype)
 
-        br9 = tkutil.button_row(self.top, ('Select signal peaks', self.select_signal_peaks))
-        br9.frame.pack(side = 'top', anchor = 'w')
-        e9 = tkutil.entry_field(self.top, 'Spectrum name:', '', 20)
-        e9.frame.pack(side = 'top', anchor = 'w')
-        self.select_signal_peaks_name = e9.variable
+        _spectrum_names = [sp.name for sp in model.spectra()]
+        self.select_signal_peaks_menu = m4 = tkutil.option_menu(self.top, 'Select signal peaks', _spectrum_names)
+        m4.frame.pack(side='top', anchor='w')
+        m4.add_callback(self.select_signal_peaks)
 
-        br8 = tkutil.button_row(self.top, ('Automatically group peaks into GSS', self.group_peaks_into_gss))
-        br8.frame.pack(side = 'top', anchor = 'w')
-        e8 = tkutil.entry_field(self.top, 'Parameters:', '[[[0, 1, 0.2], [1, 2, 0.05]], "hsqc-ci2", "hncocacb"]', 40)
-        e8.frame.pack(side = 'top', anchor = 'w')
-        self.group_peaks_parameters = e8.variable
-        
         self.changed_callback = model.session().notify_me('selection changed', self.selection_changed)
+    
+        br = tkutil.button_row(self.top,
+                    ('Open peak-GSS dialog', self.peaks_to_gss),
+                    ('Close', self.close_cb),
+                    )
+        br.frame.pack(side = 'top', anchor = 'w')
 
 
 
@@ -110,7 +168,15 @@ class Snapshot_dialog(tkutil.Dialog):
         pass
     
     def make_snapshot(self):
-        self.g.dump(self.message.get())
+        # TODO could track whether the files have been saved or not since the last time a snapshot was taken ... maybe?
+        try:
+            self.g.dump(self.message.get())
+            print 'successfully captured git snapshot'
+        except Exception, e:
+            print 'exception!', e
+        
+    def create_new_group(self):
+        model.create_group_for_peak()
     
     def set_group(self):
         name = self.group.get()
@@ -141,17 +207,18 @@ class Snapshot_dialog(tkutil.Dialog):
         my_pt = [y for (_, y) in sorted(zip(self.dim_order, pt), key=lambda x: x[0])]
         model.assign_peaktype(my_pt)
 
-    def select_signal_peaks(self):
-        name = self.select_signal_peaks_name.get()
+    def select_signal_peaks(self, name):
         model.select_signal_peaks(name)
-
-    def group_peaks_into_gss(self):
-        # what a hack with JSON here
-        params = json.loads(self.group_peaks_parameters.get())
-        model.group_peaks_into_gss(*params)
+    
+    def peaks_to_gss(self):
+        show_peak_grouper_dialog(self.session)
 
 
 
 def show_snapshot_dialog(session):
     d = sputil.the_dialog(Snapshot_dialog, session)
+    d.show_window(1)
+
+def show_peak_grouper_dialog(session):
+    d = sputil.the_dialog(Peak_grouper_dialog, session)
     d.show_window(1)

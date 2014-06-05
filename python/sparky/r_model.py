@@ -245,6 +245,21 @@ def set_residue(ssname, residue):
                             res_dim.atom.name)
 
 
+def get_resonance_peakdims(res):
+    """
+    Question: does this correctly deal with peaks where 2+ of its dims are
+    assigned to the same resonance?  A: I believe so
+    Does Sparky record the same peak as being in the peaklist twice in such a case?
+    """
+    peakdims = []
+    for peak in res.peak_list():
+        for (i, res_dim) in enumerate(peak.resonances()):
+            if res != res_dim:
+                continue
+            peakdims.append((i, peak))
+    return peakdims
+
+
 def set_atomtype(gid, rid, atomtype):
     groups, _, _ = resonance_map()
     if not groups.has_key(gid):
@@ -286,6 +301,10 @@ def merge_resonances(gid, rid1, rids):
 
     
 def assign_peaktype(atomtypes):
+    """
+    I don't actually want to assign peaktypes -- I want to grab each resonance
+    and assign it
+    """
     pks = _selected_peaks()
     for pk in pks:
         if len(pk.resonances()) != len(atomtypes):
@@ -293,11 +312,18 @@ def assign_peaktype(atomtypes):
         if pk.note in ['artifact', 'noise']:
             raise ValueError('cannot assign peaktype of noise or artifact')
     for pk in pks:
-        for (ix, res_dim) in enumerate(pk.resonances()):
+        gids = set([])
+        rids = []
+        for res_dim in pk.resonances():
+            gid, _, _, _ = parse_group(res_dim.group.name)
+            gids.add(gid)
             rid, _ = parse_resonance(res_dim.atom.name)
-            pk.assign(ix, 
-                      res_dim.group.name,
-                      unparse_resonance(rid, atomtypes[ix]))
+            rids.append(rid)
+        if len(gids) != 1:
+            raise ValueError("cannot assign peaktype of peak: belongs to multiple GSSs")
+        gid = list(gids)[0]
+        for (my_rid, atomtype) in zip(rids, atomtypes):
+            set_atomtype(gid, my_rid, atomtype)
 
 """
 def assign_resonance_atomtypes(atomtypes):
@@ -401,6 +427,9 @@ def group_peaks_into_gss(dims, spec_from, spec_to):
 
 
 def create_group_for_peak():
+    """
+    for each selected peak, create a new group
+    """
     for pk in _selected_peaks():
         set_new_group([pk])
-    # for each selected peak, create a new group
+
