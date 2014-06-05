@@ -130,7 +130,7 @@ def standard_menu_entries():
     ('Spectrum/Fold spectrum',  fold_menu),
     ('View',                    view_menu),
     ('NMRFAM',                  nmrfam_menu),
-    ('Reproduciblity!',         
+    ('Reproduciblity',         
        (
         ('re', 'Snapshot dialog' ,  ('r_main'     , 'show_snapshot_dialog'  )),
         ('rg', 'Group dialog',      ('r_group'    , 'show_group_dialog'     )))))
