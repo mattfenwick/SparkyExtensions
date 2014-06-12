@@ -20,7 +20,7 @@ import pyutil
 import sequence
 import sparky
 import sputil
-import mysubprocess as subprocess
+import subprocess
 import tkutil
 
 # -----------------------------------------------------------------------------
