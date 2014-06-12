@@ -11,7 +11,7 @@ import traceback
 import pdb
 import sparky
 import sputil
-import mysubprocess as subprocess
+import subprocess
 
 midas_path = '/usr/local/midas/bin/midas'
 echo_commands = 0
