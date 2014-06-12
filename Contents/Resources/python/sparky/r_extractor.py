@@ -105,3 +105,4 @@ def traverse(my_object, pred, f):
     out = []
     traverse_help(my_object, (), out)
     return out
+

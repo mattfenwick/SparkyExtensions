@@ -245,3 +245,4 @@ def show_merge_resonance_editor(session, gid, group_editor):
 def show_group_dialog(session):
     d = sputil.the_dialog(Group_dialog, session)
     d.show_window(1)
+
