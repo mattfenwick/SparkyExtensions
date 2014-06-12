@@ -1,47 +1,8 @@
-import r_model as model
-from subprocess import Popen, PIPE
-import os
-
-
-
-class GitRepo(object):
-
-    def __init__(self):
-        self._path = model.project().sparky_directory
-        # self._path = os.path.expanduser("~") + path
-    
-    def check_repo(self):
-        os.chdir(self._path)
-        p = Popen(["git", "status"], stdout=PIPE, stderr=PIPE)
-        p.wait()
-        return p
-    
-    def dump(self, commit_message):
-        p = self.check_repo()
-        if p.returncode != 0:
-            raise ValueError("not a git repo: " + p.stderr.read())
-        os.chdir(self._path)
-        try:
-            add = Popen(["git", "add", "Projects/", "Save/"], stdout=PIPE, stderr=PIPE)
-            add.wait()
-            if add.returncode != 0:
-                raise ValueError("git add failed (" + add.stderr.read() + ")")
-            commit = Popen(["git", "commit", "-m", commit_message], 
-                           stdout=PIPE, 
-                           stderr=PIPE)
-            commit.wait()
-            if commit.returncode != 0:
-                raise ValueError("git commit failed (" + commit.stderr.read() + ", " + commit.stdout.read() + ")")
-        except Exception, e:
-            print 'failure making Sparky/git repository snapshot', e
-            raise
-
-
-
-
 import tkutil
 import sputil
 import r_peaktypes as peaktypes
+import r_model as model
+from r_git import GitRepo
 
 
 
