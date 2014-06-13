@@ -1,5 +1,6 @@
-import r_model as model
 import os
+import simplejson as json
+import r_dump as dump
  
  
 def import_non_local(name):
@@ -31,9 +32,9 @@ PIPE = subprocess.PIPE
 
 class GitRepo(object):
 
-    def __init__(self):
-        self._path = model.project().sparky_directory
-        # self._path = os.path.expanduser("~") + path
+    def __init__(self, path, jsonpath='sparky_data.json'):
+        self._path = path
+        self._jsonpath = jsonpath
     
     def check_repo(self):
         os.chdir(self._path)
@@ -41,13 +42,21 @@ class GitRepo(object):
         p.wait()
         return p
     
+    def save_json_dump(self):
+        try:
+            fileh = open(self._jsonpath, 'w')
+            fileh.write(json.dumps(dump.full_dump(), indent=2, sort_keys=True))
+        finally:
+            fileh.close()
+    
     def dump(self, commit_message):
         p = self.check_repo()
         if p.returncode != 0:
             raise ValueError("not a git repo: " + p.stderr.read())
         os.chdir(self._path)
+        self.save_json_dump()
         try:
-            add = Popen(["git", "add", "Projects/", "Save/"], stdout=PIPE, stderr=PIPE)
+            add = Popen(["git", "add", "."], stdout=PIPE, stderr=PIPE)
             add.wait()
             if add.returncode != 0:
                 raise ValueError("git add failed (" + add.stderr.read() + ")")

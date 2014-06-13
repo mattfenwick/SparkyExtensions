@@ -2,6 +2,7 @@ import tkutil
 import sputil
 import r_peaktypes as peaktypes
 import r_model as model
+import r_dump as dump
 from r_git import GitRepo
 
 
@@ -71,7 +72,7 @@ class Peak_grouper_dialog(tkutil.Dialog):
 class Snapshot_dialog(tkutil.Dialog):
 
     def __init__(self, session):
-        self.g = GitRepo()
+        self.g = GitRepo(model.project().sparky_directory)
         
         self.session = session
         self.title = 'Reproducibility'

@@ -63,6 +63,9 @@ def project(proj):
         'dir'       : proj.sparky_directory,
         'groups'    : groups(),
         'keyvals'   : {}, # TODO
-        'spectra'   : dict([(sp.name, spectrum(sp) for sp in proj.spectrum_list()]))
+        'spectra'   : dict([(sp.name, spectrum(sp)) for sp in proj.spectrum_list()])
     }
 
+
+def full_dump():
+    return project(model.project())
