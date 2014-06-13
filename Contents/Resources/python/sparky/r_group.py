@@ -44,7 +44,7 @@ class Group_dialog(tkutil.Dialog, tkutil.Stoppable):
         #   only assigned to a single group, make that the active group
 
         br = tkutil.button_row(self.top,
-                    ('Reset', self.reset),
+                    ('Refresh', self.reset),
                     ('Close', self.close_cb),
                     )
         br.frame.pack(side = 'top', anchor = 'w')
