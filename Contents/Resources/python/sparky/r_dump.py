@@ -50,11 +50,15 @@ def peak(pk, my_id):
 
 
 def spectrum(spc):
+    extra = spc.saved_value('extra')
+    # why a string for the default value?
+    # because only strings can be used as saved_values in the Sparky model -- so let's be consistent
+    extra = extra if extra is not None else '{}'
     return {
         'type'      : 'spectrum',
         'name'      : spc.name,
         'noise'     : spc.noise,
-        'keyvals'   : {}, # TODO
+        'keyvals'   : extra,
         'dims'      : spc.dimension,
         'sw'        : spc.sweep_width,
         'region'    : spc.region,
@@ -67,12 +71,15 @@ def spectrum(spc):
 
 
 def project(proj):
+    extra = proj.saved_value('extra')
+    # why a string? see `spectrum`
+    extra = extra if extra is not None else '{}'
     return {
         'type'      : 'project',
         'path'      : proj.save_path,
         'dir'       : proj.sparky_directory,
         'groups'    : groups(),
-        'keyvals'   : {}, # TODO
+        'keyvals'   : extra,
         'spectra'   : dict([(sp.name, spectrum(sp)) for sp in proj.spectrum_list()])
     }
 
