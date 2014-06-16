@@ -129,6 +129,17 @@ def spectrum_map():
         specs[sp.name] = sp
     return specs
 
+#### notes
+
+def add_note(note_string):
+    import simplejson as json
+    p = project()
+    if p.saved_value('notes') is None:
+        p.save_value('notes', '[]')
+    my_notes = json.loads(p.saved_value('notes'))
+    my_notes.append(note_string)
+    p.save_value('notes', json.dumps(my_notes))
+
 #### assignment utilities
 
 def _add_into_cluster(cls, val):

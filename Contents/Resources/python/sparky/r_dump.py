@@ -1,4 +1,5 @@
 import r_model as model
+import simplejson as json
 # module purpose:
 #   convert Sparky data model to JSON-compatible objects
 #   for serializing as text in a file
@@ -51,9 +52,7 @@ def peak(pk, my_id):
 
 def spectrum(spc):
     extra = spc.saved_value('extra')
-    # why a string for the default value?
-    # because only strings can be used as saved_values in the Sparky model -- so let's be consistent
-    extra = extra if extra is not None else '{}'
+    extra = json.loads(extra) if extra is not None else {}
     return {
         'type'      : 'spectrum',
         'name'      : spc.name,
@@ -71,15 +70,18 @@ def spectrum(spc):
 
 
 def project(proj):
+    # ugh ... so ugly to have to use JSON here, but the saved_value has to be a string
     extra = proj.saved_value('extra')
-    # why a string? see `spectrum`
-    extra = extra if extra is not None else '{}'
+    extra = json.loads(extra) if extra is not None else {}
+    notes = proj.saved_value('notes')
+    notes = json.loads(notes) if notes is not None else []
     return {
         'type'      : 'project',
         'path'      : proj.save_path,
         'dir'       : proj.sparky_directory,
         'groups'    : groups(),
         'keyvals'   : extra,
+        'notes'     : notes,
         'spectra'   : dict([(sp.name, spectrum(sp)) for sp in proj.spectrum_list()])
     }
 
