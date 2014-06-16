@@ -56,6 +56,8 @@ class GitRepo(object):
         os.chdir(self._path)
         self.save_json_dump()
         try:
+            # git add the entire directory
+            # therefore, it's the user's responsibility to exclude files and directories using .gitignore
             add = Popen(["git", "add", "."], stdout=PIPE, stderr=PIPE)
             add.wait()
             if add.returncode != 0:

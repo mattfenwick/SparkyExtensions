@@ -65,7 +65,7 @@ def spectrum(spc):
         'data_size' : spc.data_size,
         'nuclei'    : spc.nuclei,
         'peaks'     : map(lambda (ix, pk): peak(pk, ix + 1),
-                          enumerate(spc.peak_list()))
+                          enumerate(spc.peak_list())) # this is intended to match the Sparky numbering
     }
 
 
