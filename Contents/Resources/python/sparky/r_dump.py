@@ -1,10 +1,26 @@
-import sparky
 import r_model as model
+# module purpose:
+#   convert Sparky data model to JSON-compatible objects
+#   for serializing as text in a file
+
 
 
 def groups():
-    gs_info, _, _ = model.resonance_map()
-    return gs_info
+    """
+    convert resonance_map output into pure JSON-compatible data structure (i.e. no Sparky objects)
+    """
+    gs_info, _, gs = model.resonance_map()
+    my_groups = {}
+    for (gid, g) in gs_info.items():
+        my_g = gs[gid]
+        my_groups[gid] = {
+            'residue': my_g['residue'],
+            'aatype': my_g['aatype'],
+            'next': my_g['next'],
+            'resonances': dict([(rid, {'atomtype': atomtype, 'shift': g[rid].frequency, 'deviation': g[rid].deviation}) 
+                                for (rid, atomtype) in my_g['resonances'].items()])
+        }
+    return my_groups
     
 
 def _parse_assignment(res):
@@ -13,18 +29,12 @@ def _parse_assignment(res):
     """
     if res is None:
         return None
-    gid, _, _, _ = model.parse_group(res.group.name)
-    rid, _       = model.parse_resonance(res.atom.name)
+    gid, _, _, _ = model.parse_group(res.group.name) # other 3 fields are accessed through group
+    rid, _       = model.parse_resonance(res.atom.name) # other 1 field accessed through resonance
     return (gid, rid)
 
 
 def peak(pk, my_id):
-    # sanity check
-    if pk.assignment != '?-?':
-        a, b = pk.assignment, '-'.join([r.name for r in pk.resonances()])
-        if a != b:
-            print "oops -- assignment doesn't match resonances -- (%s, %s)" % (a, b)
-    # here's the real deal
     return {
         'type'          : 'peak',
         'note'          : pk.note,
@@ -47,7 +57,7 @@ def spectrum(spc):
         'keyvals'   : {}, # TODO
         'dims'      : spc.dimension,
         'sw'        : spc.sweep_width,
-        'region'    : spc.regiono,
+        'region'    : spc.region,
         'hz_per_ppm': spc.hz_per_ppm,
         'data_size' : spc.data_size,
         'nuclei'    : spc.nuclei,
