@@ -3,6 +3,7 @@
 '''
 import sparky
 import re
+import simplejson as json
 
 
 ########## access objects from Sparky model
@@ -131,14 +132,19 @@ def spectrum_map():
 
 #### notes
 
-def add_note(note_string):
-    import simplejson as json
+def get_notes():
     p = project()
     if p.saved_value('notes') is None:
         p.save_value('notes', '[]')
     my_notes = json.loads(p.saved_value('notes'))
+    return my_notes
+
+def add_note(note_string):
+    p = project()
+    my_notes = get_notes()
     my_notes.append(note_string)
     p.save_value('notes', json.dumps(my_notes))
+    
 
 #### assignment utilities
 
