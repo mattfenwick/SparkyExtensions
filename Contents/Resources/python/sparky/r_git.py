@@ -43,9 +43,12 @@ class GitRepo(object):
         return p
     
     def save_json_dump(self):
+        message = 'in dir %s, writing file %s' % (os.path.abspath('.'), self._jsonpath)
+        print message
         try:
             fileh = open(self._jsonpath, 'w')
             fileh.write(json.dumps(dump.full_dump(), indent=2, sort_keys=True))
+            print 'success: ', message
         finally:
             fileh.close()
     
@@ -58,6 +61,7 @@ class GitRepo(object):
         try:
             # git add the entire directory
             # therefore, it's the user's responsibility to exclude files and directories using .gitignore
+            print 'running `git add .` in %s' % os.path.abspath('.')
             add = Popen(["git", "add", "."], stdout=PIPE, stderr=PIPE)
             add.wait()
             if add.returncode != 0:
