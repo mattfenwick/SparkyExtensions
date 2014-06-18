@@ -82,7 +82,7 @@ def project(proj):
         'groups'    : groups(),
         'keyvals'   : extra,
         'notes'     : notes,
-        'spectra'   : dict([(sp.name, spectrum(sp)) for sp in proj.spectrum_list()])
+        'spectra'   : dict([(sp.name, spectrum(sp)) for sp in proj.spectrum_list()]) # TODO what about spectrum id?
     }
 
 
