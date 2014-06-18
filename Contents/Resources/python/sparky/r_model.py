@@ -400,6 +400,23 @@ def select_signal_peaks(specname):
     if count == 0:
         raise ValueError('no spectrum named %s' % specname)
 
+def select_positive_peaks(specname):
+    count = 0
+    sp = spectrum_map()[specname]
+    for pk in sp.peak_list():
+        if pk.note not in ['artifact', 'noise'] and pk.data_height > 0: # TODO is data_height the right field?
+            pk.selected = 1
+            count += 1
+    print '% positive peaks selected' % count
+
+def select_negative_peaks(specname):
+    count = 0
+    sp = spectrum_map()[specname]
+    for pk in sp.peak_list():
+        if pk.note not in ['artifact', 'noise'] and pk.data_height < 0: # TODO ???
+            pk.selected = 1
+            count += 1
+    print '% negative peaks selected' % count
 
 def _signal_peaks(spectrum):
     return [pk for pk in spectrum.peak_list() if pk.note not in ['artifact', 'noise']]
