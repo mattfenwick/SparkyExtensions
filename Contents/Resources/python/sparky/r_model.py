@@ -148,19 +148,22 @@ def add_note(note_string):
 
 #### assignment utilities
 
+def _selected_peaks():
+    return session().selected_peaks()
+
 def _add_into_cluster(cls, val):
     n = 0
     for c in cls:
         v = c[0]
-        diff = abs((v - val) / (1.0 * val))
-        if diff < 0.002:
+        diff = abs(v - val)
+        allowed = 0.02 if v < 12 else 0.2 # 0.02 PPM tolerance for protons, 0.2 PPM for C and N
+        if diff < allowed:
             return c[1]
+#        if diff < 0.002:
+#            return c[1]
         n = c[1]
     cls.append((val, n + 1))
     return n + 1
-
-def _selected_peaks():
-    return session().selected_peaks()
 
 def set_group(gid, my_peaks=None):
     if my_peaks is None:
@@ -463,3 +466,9 @@ def create_group_for_peak():
     for pk in _selected_peaks():
         set_new_group([pk])
 
+def select_unassigned_signal_peaks(specname):
+    for p in spectrum_map()[specname].peak_list():
+        if p.note in ['artifact', 'noise']:
+            continue
+        if set(p.resonances()) == set([None]):
+            p.selected = 1

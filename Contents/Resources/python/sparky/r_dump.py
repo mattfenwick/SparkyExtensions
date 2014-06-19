@@ -50,7 +50,7 @@ def peak(pk, my_id):
     }
 
 
-def spectrum(spc):
+def spectrum(spc, view):
     extra = spc.saved_value('extra')
     extra = json.loads(extra) if extra is not None else {}
     return {
@@ -65,12 +65,15 @@ def spectrum(spc):
         'data_size' : spc.data_size,
         'nuclei'    : spc.nuclei,
         'peaks'     : map(lambda (ix, pk): peak(pk, ix + 1),
-                          enumerate(spc.peak_list())) # this is intended to match the Sparky numbering
+                          enumerate(spc.peak_list())), # this is intended to match the Sparky numbering
+        'contours'  : {'low': view.negative_levels.lowest, 'high': view.positive_levels.lowest}
     }
 
 
 def project(proj):
     # ugh ... so ugly to have to use JSON here, but the saved_value has to be a string
+    views = proj.view_list()
+    view_map = dict([(v.spectrum.name, v) for v in views])
     extra = proj.saved_value('extra')
     extra = json.loads(extra) if extra is not None else {}
     notes = proj.saved_value('notes')
@@ -82,7 +85,7 @@ def project(proj):
         'groups'    : groups(),
         'keyvals'   : extra,
         'notes'     : notes,
-        'spectra'   : dict([(sp.name, spectrum(sp)) for sp in proj.spectrum_list()]) # TODO what about spectrum id?
+        'spectra'   : dict([(sp.name, spectrum(sp, view_map[sp.name])) for sp in proj.spectrum_list()]) # TODO what about spectrum id?
     }
 
 
