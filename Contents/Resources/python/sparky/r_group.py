@@ -4,11 +4,13 @@ import sputil
 
 
 aatypes = [
-    '?',
+    '?', # unknown
     'b', # ambiguous backbone
+    's', # ambiguous sidechain
     'R', 'H', 'K', 'D', 'E', 'S', 'T', 'N', 'Q', 'W', 
     'C', 'G', 'P', 'A', 'V', 'I', 'L', 'M', 'F', 'Y', 
-    'S/T', 'sN', 'sQ', 'sN/Q', 'sR', 'sW', 'sK'
+    'sN', 'sQ', 'sR', 'sW', 'sK',
+    'S/T', 'sN/sQ' # can combine any into an ambiguous one using /
 ]
 
 
