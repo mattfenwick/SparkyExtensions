@@ -1,30 +1,60 @@
-# GSS matching
-# an example GSS:
-#   {'gid': ..., 'aatype': ...,
-#    'resonances': {'1': {'shift': 30.38, 'atomtype': 'CB(i-1)},
-#                   '2': {'shift': 36.49, 'atomtype': 'CB'}}}
+# this works with data in the format of the r_dump module
+# it allows multiple resonances with the same atomptype assignment
 
-# questions about GSSs:
-#   multiple resonances with the same atomtype (either accidentally or on purpose)?
-#     yes, I think I basically have to assume that might be the case
-#   
-
-def atomtype_warning(gss):
+def atomtype_warning(gid, gss):
     """
-    1. > 1 resonance for a given atomtype
-    2. if there are multiple resonances for an atomtype, do they have *different* shifts?
+    checks if > 1 resonance for a given atomtype
     """
-    ws = []
-    ats = {}
-    for (rid, res) in gss['resonances'].items():
+    ats = {'gid': gid}
+    for (_, res) in gss['resonances'].items():
         at_ = res['atomtype']
+        if at_ == '?':
+            continue
         if at_ not in ats:
             ats[at_] = []
-        ats[at_].push(res['shift'])
-    for (atomtype, shifts) in ats.items():
-        if len(shifts) > 1:
-            ws.push({'atomtype': atomtype, 'shifts': shifts})
-    return ws
+        ats[at_].append(res['shift'])
+    multiple = dict([(a,s) for (a,s) in ats.items() if len(s) > 1])
+    # TODO hope this isn't whacking an atomtype named 'gid' !!
+    multiple['gid'] = gid
+    return multiple
+
+
+def atomtype_report(gs):
+    """
+    just a little printed report of GSSs with multiple resonances assigned to the same atomtype
+    """
+    reports = map(lambda x: atomtype_warning(*x), gs.items())
+    print 'atomtype reports'
+    for r in sorted(reports, key=lambda x: int(x['gid'])):
+        if len(r) > 1:
+            print r
+
+
+def shift_warning(gid, gss):
+    """
+    returns the gid if there's two resonances with very close chemical shifts; None otherwise
+    """
+    shifts = sorted([r['shift'] for r in gss['resonances'].values()])
+    for (ix, sh) in enumerate(shifts[:-1]): # leave off the last b/c there's nothing following it
+        sh1 = shifts[ix + 1]
+        if sh < 12:
+            allowed = 0.02
+        else:
+            allowed = 0.2
+        if abs(sh1 - sh) < allowed:
+            return gid
+    return None
+
+
+def shift_report(gs):
+    """
+    just a little printed report of shift warnings
+    """
+    reports = map(lambda x: shift_warning(*x), gs.items())
+    print 'shift report'
+    for r in sorted(reports):
+        if r is not None:
+            print r
 
 
 default_atomtypes = set([
@@ -96,6 +126,9 @@ def all_good(gs):
 
 
 def multiple_good(gs):
+    """
+    matches where there's more than 1 pair of resonances within tolerances
+    """
     matches = all_good(gs)
     first, second = {}, {}
     for (gid1, gid2, _) in matches:
@@ -105,12 +138,28 @@ def multiple_good(gs):
             second[gid2] = []
         first[gid1].append(gid2)
         second[gid2].append(gid1)
-    def my_filter(my_dict):
-        return dict([(k,v) for (k,v) in my_dict.items() if len(v) > 1])
-    return map(my_filter, (first, second))
+    def split(my_dict):
+        unamb, amb = {}, {}
+        for (k,v) in my_dict.items():
+            if len(v) > 1:
+                amb[k] = v
+            else:
+                unamb[k] = v
+        return {'unamb': unamb, 'amb': amb}
+    return {'next': split(first), 'prev': split(second)}
         
 
-def report(gs):
+def matching_report(gs):
+    """
+    just a little sorted print-out of the all-good matches
+    """
     matches = all_good(gs)
     for (x,y,_) in sorted(matches, key=lambda x: (int(x[0]), int(x[1]))):
         print x,y, len(_), _
+
+
+def build_chains(gs):
+    matches = all_good(gs)
+    seq = {}
+    for (gid1, gid2, _) in matches:
+        pass # TODO finish!
