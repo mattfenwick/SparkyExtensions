@@ -27,59 +27,90 @@ def atomtype_warning(gss):
     return ws
 
 
-def match(matches, rs1, rs2):
-    """
-    how do we match GSSs sequentially?
-      1. Ga CA/CB match Gb CA(i-1)/CB(i-1)
-      2. Ga CA matches Gb CA(i-1), CB or CB(i-1) missing
-      3. same but swap CA for CB and vice versa
-      4. Ga CA(i/i-1) matches Gb CA(i/i-1) or CA(i-1)
-    """
-    not_found, satisfied, unsatisfied = [], [], []
-    for (at1, at2, tol) in matches:
-        if at1 in rs1 and at2 in rs2:
-            if abs(rs1[at1] - rs2[at2]) <= tol: # TODO but wait -- multiple resonances possible for each atomtype, right?
-                satisfied.push((at1, at2))
-            else:
-                unsatisfied.push((at1, at2))
-        else:
-            not_found.push((at1, at2))
-    return (not_found, satisfied, unsatisfied)
-
+default_atomtypes = set([
+    'CA', 'CB', 'CA(i-1)', 'CB(i-1)', 'CA(i/i-1)', 'CB(i/i-1)'
+])
 
 default_matches = [
-    ('CA'           , 'CA(i-1)'     , 0.2),
-    ('CA(i/i-1)'    , 'CA(i-1)'     , 0.2),
-    ('CA'           , 'CA(i/i-1)'   , 0.2),
-    ('CA(i/i-1)'    , 'CA(i/i-1)'   , 0.2),
-    ('CB'           , 'CB(i-1)'     , 0.2),
-    ('CB(i/i-1)'    , 'CB(i-1)'     , 0.2),
-    ('CB'           , 'CB(i/i-1)'   , 0.2),
-    ('CB(i/i-1)'    , 'CB(i/i-1)'   , 0.2),
-    ('?'            , '?'           , 0.2) # TODO but they have to have the same sign
+    (set(['CA(i/i-1)', 'CA']), set(['CA(i-1)', 'CA(i/i-1)'])),
+    (set(['CB(i/i-1)', 'CB']), set(['CB(i-1)', 'CB(i/i-1)'])),
+#    (set(['?']), set(['?'])) # TODO but they have to have the same sign in the HNCACB
 ]
 
-# is it possible to take control of the Sparky strip plot, and make strips appear?
 
-def match_gss(g1, g2):
-    not_found, sat, unsat = match(default_matches, g1, g2)
-    return len(unsat) == 0
+def match(rs1, rs2, stuff, matches=default_matches, tolerance=0.2):
+    """
+    determine how well two GSSs match
+    """
+    results = {'yes': [], 'no': []}
+    for (rid1, r1) in rs1.iteritems():
+        at1 = r1['atomtype']
+        if at1 not in default_atomtypes:
+            continue
+        for (rid2, r2) in rs2.iteritems():
+            at2 = r2['atomtype']
+            if at2 not in default_atomtypes:
+                continue
+            for (m1, m2) in default_matches:
+                if at1 not in m1 or at2 not in m2:
+                    continue # not_found.append((a1, a2))
+                s1, s2 = r1['shift'], r2['shift']
+                diff = abs(s1 - s2)
+                datum = (rid1, rid2, at1, at2, diff)
+                # print stuff, datum, s1, s2, abs(s1 - s2)
+                if diff <= tolerance:
+                    results['yes'].append(datum)
+                else:
+                    results['no'].append(datum)
+    return results
+
+
+# is it possible to take control of the Sparky strip plot, and make strips appear?
 
 def match_all(gs):
     """
     naive, stupid approach: match all against all
     """
-    found = dict([(gid, []) for (gid, g) in gs])
-    for g1 in gs:
-        for g2 in gs:
-            if match_gss(g1, g2):
-                found[g1['id']).push(g2)
-                found[g2['id']).push(g1)
+    found = {}
+    for (gid1, g1) in sorted(gs.iteritems(), key=lambda x: int(x[0])):
+        found[gid1] = {}
+        for (gid2, g2) in sorted(gs.iteritems(), key=lambda x: int(x[0])):
+            if gid1 == gid2:
+                continue
+            result = match(g1['resonances'], g2['resonances'], [gid1, gid2])
+            found[gid1][gid2] = result
     return found
 
 
-# BIG TODO -- have played very fast and loose with:
-#   1. structure of the data
-#   2. semantics of the data
-# through this file -- need to figure it out and make it consistent before even trying to run the code
+def all_good(gs):
+    """
+    find matches in which all of the 'present' pairs are within the tolerances
+    """
+    matches = match_all(gs)
+    unamb = []
+    for (gid1, rs) in matches.items():
+        for (gid2, yn) in rs.items():
+            if len(yn['no']) == 0 and len(yn['yes']) > 1:
+                unamb.append((gid1, gid2, yn))
+    return unamb
 
+
+def multiple_good(gs):
+    matches = all_good(gs)
+    first, second = {}, {}
+    for (gid1, gid2, _) in matches:
+        if gid1 not in first:
+            first[gid1] = []
+        if gid2 not in second:
+            second[gid2] = []
+        first[gid1].append(gid2)
+        second[gid2].append(gid1)
+    def my_filter(my_dict):
+        return dict([(k,v) for (k,v) in my_dict.items() if len(v) > 1])
+    return map(my_filter, (first, second))
+        
+
+def report(gs):
+    matches = all_good(gs)
+    for (x,y,_) in sorted(matches, key=lambda x: (int(x[0]), int(x[1]))):
+        print x,y, len(_), _
