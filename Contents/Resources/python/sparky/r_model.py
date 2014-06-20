@@ -156,7 +156,11 @@ def _add_into_cluster(cls, val):
     for c in cls:
         v = c[0]
         diff = abs(v - val)
-        allowed = 0.02 if v < 12 else 0.2 # 0.02 PPM tolerance for protons, 0.2 PPM for C and N
+        # 0.02 PPM tolerance for protons, 0.2 PPM for C and N
+        if v < 12:
+            allowed = 0.02
+        else:
+            allowed = 0.2
         if diff < allowed:
             return c[1]
 #        if diff < 0.002:

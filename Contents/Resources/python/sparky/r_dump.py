@@ -52,7 +52,10 @@ def peak(pk, my_id):
 
 def spectrum(spc, view):
     extra = spc.saved_value('extra')
-    extra = json.loads(extra) if extra is not None else {}
+    if extra is not None:
+        extra = json.loads(extra)
+    else:
+        extra = {}
     return {
         'type'      : 'spectrum',
         'name'      : spc.name,
@@ -75,9 +78,15 @@ def project(proj):
     views = proj.view_list()
     view_map = dict([(v.spectrum.name, v) for v in views])
     extra = proj.saved_value('extra')
-    extra = json.loads(extra) if extra is not None else {}
+    if extra is not None:
+        extra = json.loads(extra)
+    else:
+        extra = {}
     notes = proj.saved_value('notes')
-    notes = json.loads(notes) if notes is not None else []
+    if notes is not None:
+        notes = json.loads(notes)
+    else:
+        notes = {}
     return {
         'type'      : 'project',
         'path'      : proj.save_path,
