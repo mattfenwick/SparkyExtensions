@@ -160,6 +160,93 @@ def matching_report(gs):
 
 def build_chains(gs):
     matches = all_good(gs)
-    seq = {}
+    seqs = {}
+    seqs_r = {}
     for (gid1, gid2, _) in matches:
-        pass # TODO finish!
+        if gid1 not in seqs:
+            seqs[gid1] = []
+        seqs[gid1].append(gid2)
+        if gid2 not in seqs_r:
+            seqs_r[gid2] = []
+        seqs_r[gid2].append(gid1)
+    return (seqs, seqs_r)
+"""    chains = {}
+    for (gid1, gids2) in seqs.iteritems():
+        if len(gids2) == 1: # unambiguous -- continue chain
+            gid2 = gids2[0]
+            if gid2 in chains:
+                chains[gid1] = [gid2]
+                chains[gid1].extend(chains[gid2])
+                del seqs[gid2]
+    seqs = dict([(gid1, gid2) for (gid1, gid2, _) in matches])
+    chains = {}
+    for (gid1, gid2, _) in matches:
+        pass # TODO finish! """
+
+
+def chain_report(gs):
+    forward, backward = build_chains(gs)
+    for (a, b) in sorted(forward.items(), key=lambda x: int(x[0])):
+        print a, b
+    print '\n'
+    for (a, b) in sorted(backward.items(), key=lambda x: int(x[0])):
+        print a, b
+
+
+def find_agst(gs):
+    for (gid, gss) in sorted(gs.items(), key=lambda x: int(x[0])):
+        for (rid, r) in gss['resonances'].items():
+            atomtype = r['atomtype']
+            shift = r['shift']
+            if atomtype in ['CB', 'CB(i-1)', 'CB(i/i-1)']:
+                if shift < 25:
+                    print 'possible Alanine: %s %s %s' % (gid, shift, atomtype)
+                elif shift > 50:
+                    print 'possible S/T: %s %s %s' % (gid, shift, atomtype)
+                else:
+                    pass
+            if atomtype in ['CA', 'CA(i-1)', 'CA(i/i-1)']:
+                if shift < 50:
+                    print 'possible Glycine: %s %s %s' % (gid, shift, atomtype)
+
+
+def seq_report(gs):
+    for (gid, g) in gs.items():
+       if g['next'] != '?':
+           print gid, g['next'], g['aatype'], gs[g['next']]['aatype']
+
+
+def residue_to_gss(gs, sequence):
+    r2g = dict([(ix + 1, []) for (ix,_) in enumerate(sequence)])
+    for (gid, g) in gs.items():
+        res = g['residue']
+        if res != '?':
+            r2g[int(res)].append(gid)
+    return r2g
+
+
+def residue_report(gs, sequence):
+    r2g = residue_to_gss(gs, sequence)
+    for (resid, gids) in sorted(r2g.items(), key=lambda x: x[0]):
+        aa = sequence[resid - 1]
+        spaces = (4 - len(str(resid))) * ' '
+        if len(gids) == 0:
+            print aa, '  ', resid, spaces, '--'
+        else:
+            print aa, '  ', resid, spaces, ','.join(gids)
+
+
+def gss_assignments(gs):
+    return dict([(gid, (g['next'], g['residue'])) for (gid, g) in gs.items()])
+
+
+def gss_report(gs):
+    assns = gss_assignments(gs)
+    for (gid, (n, r)) in sorted(assns.items(), key=lambda x: int(x[0])):
+        print gid, '  ', n, '  ', r
+
+
+def assn_report(gs, sequence):
+    gss_report(gs)
+    print '\n'
+    residue_report(gs, sequence)

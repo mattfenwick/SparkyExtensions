@@ -39,6 +39,9 @@ def peaks():
             pks.append(pk)
     return pks
 
+def sequence():
+    return project().molecule_list()[0].sequence.one_letter_codes
+
 
 #### group and resonances names from my model
 
@@ -476,3 +479,19 @@ def select_unassigned_signal_peaks(specname):
             continue
         if set(p.resonances()) == set([None]):
             p.selected = 1
+
+def search(expr):
+    """
+    in: sequence, out: list of (0-based index of start, matched text)
+    String -> [(Int, String)]
+    """
+    regex = re.compile('(' + expr + ')') # make it capturing so I can extract the text later
+    residues = sequence()
+    positions = []
+    i = 0
+    while i < len(residues):
+        match = regex.match(residues[i:])
+        if match:
+            positions.append((i, str(match.groups()[0])))
+        i += 1
+    return positions
