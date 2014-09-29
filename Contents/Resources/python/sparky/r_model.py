@@ -40,6 +40,11 @@ def peaks():
     return pks
 
 def sequence():
+    """
+    For some reason, even if you've already loaded the sequence, 
+    this might not work until you click "Extensions/Molecule/Molecule sequence/Okay"
+    You don't have to change anything, just do the clicks.
+    """
     return project().molecule_list()[0].sequence.one_letter_codes
 
 
